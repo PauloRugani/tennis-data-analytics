@@ -5,6 +5,10 @@ on:
       - cron: '0 17 * * *'
   workflow_dispatch:
 
+# Dá permissão para a Action conseguir enviar o commit/push para o repositório
+permissions:
+  contents: write
+
 jobs:
   run-python:
     runs-on: ubuntu-latest
@@ -21,7 +25,21 @@ jobs:
         run: pip install playwright==1.61.0
 
       - name: Install playwright dependencies
-        run: playwright install
+        run: playwright install --with-deps
 
       - name: Exec script
         run: python bot/main.py
+
+      - name: Commit and push collected data
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add data/raw/
+          
+          if git status --porcelain | grep -q .; then
+            git commit -m "data: data from raw pipeline [bot]"
+            git push
+          else
+            echo "no file to save."
+          fi
