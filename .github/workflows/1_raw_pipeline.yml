@@ -2,7 +2,7 @@ name: 1 - Raw Pipeline - Extracts data from the source
 
 on:
   schedule:
-      - cron: '0 19 * * *'
+      - cron: '0 21 * * *'
   workflow_dispatch:
 
 # Dá permissão para a Action conseguir enviar o commit/push para o repositório
