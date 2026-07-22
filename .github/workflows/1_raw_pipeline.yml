@@ -1,0 +1,27 @@
+name: 1 - Raw Pipeline - Extracts data from the source
+
+on:
+  schedule:
+      - cron: '0 17 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-python:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code from repo
+        uses: actions/checkout@v4
+
+      - name: Python config
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install python dependencies
+        run: pip install playwright==1.61.0
+
+      - name: Install playwright dependencies
+        run: playwright install
+
+      - name: Exec script
+        run: python bot/main.py
