@@ -30,7 +30,7 @@ def run(playwright: Playwright) -> None:
         if not os.path.exists(atp_filepath):
             download_file(page, f"Download {year}.csv", f"raw_separated/{atp_filename}")
         if os.path.exists(atp_filepath):
-            ongoing_file = f"ongoing_tourneys_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
+            ongoing_file = "tb_ongoing_tourneys.csv"
             download_file(page, "Download ongoing_tourneys.csv", ongoing_file)
 
     except Exception as e:
