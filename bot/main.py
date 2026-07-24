@@ -25,10 +25,10 @@ def run(playwright: Playwright) -> None:
 
         year = datetime.now().year
         atp_filename = f"atp_matches_{year}.csv"
-        atp_filepath = os.path.join(RAW_DATA_DIR, atp_filename)
+        atp_filepath = os.path.join(RAW_DATA_DIR, "raw_separated", atp_filename)
 
         if not os.path.exists(atp_filepath):
-            download_file(page, f"Download {year}.csv", atp_filename)
+            download_file(page, f"Download {year}.csv", f"raw_separated/{atp_filename}")
         if os.path.exists(atp_filepath):
             ongoing_file = f"ongoing_tourneys_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
             download_file(page, "Download ongoing_tourneys.csv", ongoing_file)
