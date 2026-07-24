@@ -4,10 +4,12 @@ from playwright.sync_api import Playwright, sync_playwright
 
 RAW_DATA_DIR = os.path.join("data", "raw")
 
-def download_file(page, role_name: str, file_path: str) -> None:
-    final_path = os.path.join(RAW_DATA_DIR, file_path)
+def download_file(page, role_name: str, relative_path: str) -> None:
+    final_path = os.path.join(RAW_DATA_DIR, relative_path)
     
-    with page.expect_download(timeout=60000) as download_info:  # Timeout de 60s
+    os.makedirs(os.path.dirname(final_path), exist_ok=True)
+    
+    with page.expect_download(timeout=60000) as download_info:
         page.get_by_role("link", name=role_name).click()
     
     download = download_info.value
@@ -24,14 +26,17 @@ def run(playwright: Playwright) -> None:
         page.goto("https://stats.tennismylife.org/tennis-match-database", wait_until="networkidle")
 
         year = datetime.now().year
-        atp_filename = f"atp_matches_{year}.csv"
-        atp_filepath = os.path.join(RAW_DATA_DIR, atp_filename)
+        
+        file_current_year = f"atp_matches_{year}.csv"
+        file_last_year = f"atp_matches_{year - 1}.csv"
+        
+        path_current_year = os.path.join(RAW_DATA_DIR, "raw_separated", file_current_year)
 
-        if not os.path.exists(atp_filepath):
-            download_file(page, f"Download {year}.csv", atp_filename)
-        if os.path.exists(atp_filepath):
-            ongoing_file = f"ongoing_tourneys_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
-            download_file(page, "Download ongoing_tourneys.csv", ongoing_file)
+        if not os.path.exists(path_current_year):
+            download_file(page, f"Download {year - 1}.csv", f"raw_separated/{file_last_year}")
+            
+        download_file(page, f"Download {year}.csv", f"raw_separated/{file_current_year}")
+        download_file(page, "Download ongoing_tourneys.csv", "tb_ongoing_tourneys.csv")
 
     except Exception as e:
         raise e
@@ -39,5 +44,6 @@ def run(playwright: Playwright) -> None:
         context.close()
         browser.close()
 
-with sync_playwright() as playwright:
-    run(playwright)
+if __name__ == "__main__":
+    with sync_playwright() as playwright:
+        run(playwright)
