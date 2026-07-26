@@ -30,13 +30,13 @@ def run(playwright: Playwright) -> None:
         file_current_year = f"atp_matches_{year}.csv"
         file_last_year = f"atp_matches_{year - 1}.csv"
         
-        path_current_year = os.path.join(RAW_DATA_DIR, "raw_separated", file_current_year)
+        path_current_year = os.path.join(RAW_DATA_DIR, "historical", file_current_year)
 
         if not os.path.exists(path_current_year):
-            download_file(page, f"Download {year - 1}.csv", f"raw_separated/{file_last_year}")
+            download_file(page, f"Download {year - 1}.csv", f"historical/{file_last_year}")
             
-        download_file(page, f"Download {year}.csv", f"raw_separated/{file_current_year}")
-        download_file(page, "Download ongoing_tourneys.csv", "tb_ongoing_tourneys.csv")
+        download_file(page, f"Download {year}.csv", f"historical/{file_current_year}")
+        download_file(page, "Download ongoing_tourneys.csv", "daily/tb_ongoing_tourneys.csv")
 
     except Exception as e:
         raise e
