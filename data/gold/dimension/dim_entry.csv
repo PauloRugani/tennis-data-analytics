@@ -2,12 +2,10 @@ SK_ENTRY_TYPE,ENTRY_TYPE_ID,ENTRY_TYPE_NAME
 1,WC,Wild Card
 2,Q,Qualifier
 3,LL,Lucky Loser
-4,ITF,ITF Entry
-5,UP,Next Gen / Unranked Performance
-6,ALT,Direct Acceptance / Regular
-7,W,Wild Card
-8,SE,Special Exempt
-9,PR,Protected Ranking
-10,S,Exempt Special / Special
-11,NG,Next Gen Accelerator
-12,,Direct Acceptance / Regular
+4,ALT,Direct Acceptance / Regular
+5,W,Wild Card
+6,SE,Special Exempt
+7,PR,Protected Ranking
+8,S,Exempt Special / Special
+9,NG,Next Gen Accelerator
+10,,Direct Acceptance / Regular
