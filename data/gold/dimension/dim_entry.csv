@@ -1,11 +1,11 @@
-SK_ENTRY_TYPE,ENTRY_TYPE_ID,ENTRY_TYPE_NAME
-1,WC,Wild Card
-2,Q,Qualifier
-3,LL,Lucky Loser
-4,ALT,Direct Acceptance / Regular
-5,W,Wild Card
-6,SE,Special Exempt
-7,PR,Protected Ranking
-8,S,Exempt Special / Special
-9,NG,Next Gen Accelerator
-10,,Direct Acceptance / Regular
+ENTRY_TYPE_ID,ENTRY_TYPE_NAME,SK_ENTRY_TYPE
+ALT,Direct Acceptance / Regular,1
+LL,Lucky Loser,2
+PR,Protected Ranking,3
+Q,Qualifier,4
+SE,Special Exempt,5
+W,Wild Card,6
+WC,Wild Card,7
+NG,Next Gen Accelerator,8
+S,Exempt Special / Special,9
+,Direct Acceptance / Regular,10
