@@ -1,0 +1,89 @@
+table dim_players
+	lineageTag: bf02b725-007c-4591-8735-afe1c93f4b5b
+
+	column PLAYER_ID
+		dataType: string
+		lineageTag: 5a701a09-a6ef-4399-97d6-5c1488542af4
+		summarizeBy: none
+		sourceColumn: PLAYER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_NAME
+		dataType: string
+		lineageTag: 0b6f0c62-dcc6-480c-8448-e6e87861f7fb
+		summarizeBy: none
+		sourceColumn: PLAYER_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_HAND
+		dataType: string
+		lineageTag: 27e8767c-2234-4e3c-8e11-5daf9cfaa259
+		summarizeBy: none
+		sourceColumn: PLAYER_HAND
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_HEIGHT
+		dataType: int64
+		formatString: 0
+		lineageTag: 754ca673-7714-424a-a4a4-4b633096ec2a
+		summarizeBy: sum
+		sourceColumn: PLAYER_HEIGHT
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_COUNTRY
+		dataType: string
+		lineageTag: 3c45248e-51a2-46c0-92a2-ced419f0f1c1
+		summarizeBy: none
+		sourceColumn: PLAYER_COUNTRY
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_COUNTRY_ISO2
+		dataType: string
+		lineageTag: b0b25126-2fe6-4dc5-bfd5-eb1845b8dd91
+		summarizeBy: none
+		sourceColumn: PLAYER_COUNTRY_ISO2
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_BIRTH_DATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3d665222-50c8-453f-9e61-56aed8467583
+		summarizeBy: none
+		sourceColumn: PLAYER_BIRTH_DATE
+
+		variation Variation
+			isDefault
+			relationship: d5a83dd3-6de7-49cc-a71a-bbfe161573e3
+			defaultHierarchy: LocalDateTable_93c1c75b-38de-4742-8f0d-89757942d7e8.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column SK_PLAYER
+		dataType: int64
+		formatString: 0
+		lineageTag: fca39e06-cb3d-4bd0-af01-716f393a9383
+		summarizeBy: none
+		sourceColumn: SK_PLAYER
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_players = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\phrug\OneDrive\Documentos\Repositórios\tennis-data-analytics\data\gold\dimension\dim_players.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"PLAYER_ID", type text}, {"PLAYER_NAME", type text}, {"PLAYER_HAND", type text}, {"PLAYER_HEIGHT", Int64.Type}, {"PLAYER_COUNTRY", type text}, {"PLAYER_COUNTRY_ISO2", type text}, {"PLAYER_BIRTH_DATE", type date}, {"SK_PLAYER", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,40 @@
+table dim_entry
+	lineageTag: 300ad8c1-705a-4c56-9adc-13b053c86d24
+
+	column ENTRY_TYPE_ID
+		dataType: string
+		lineageTag: 438d6706-54bd-41c7-91ee-cef130fffa1e
+		summarizeBy: none
+		sourceColumn: ENTRY_TYPE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ENTRY_TYPE_NAME
+		dataType: string
+		lineageTag: 2c2bd67c-1324-4943-9adf-0282c4f69ece
+		summarizeBy: none
+		sourceColumn: ENTRY_TYPE_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_ENTRY_TYPE
+		dataType: int64
+		formatString: 0
+		lineageTag: 226aabe6-ac0b-4a76-9786-aa06873e4383
+		summarizeBy: none
+		sourceColumn: SK_ENTRY_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_entry = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\phrug\OneDrive\Documentos\Repositórios\tennis-data-analytics\data\gold\dimension\dim_entry.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"ENTRY_TYPE_ID", type text}, {"ENTRY_TYPE_NAME", type text}, {"SK_ENTRY_TYPE", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

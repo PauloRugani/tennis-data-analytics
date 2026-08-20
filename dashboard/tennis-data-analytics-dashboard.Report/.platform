@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "tennis-data-analytics-dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "81e3d013-0d6b-45d3-bc22-95edfea3454c"
+  }
+}

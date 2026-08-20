@@ -1,0 +1,38 @@
+relationship d5a83dd3-6de7-49cc-a71a-bbfe161573e3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_players.PLAYER_BIRTH_DATE
+	toColumn: LocalDateTable_93c1c75b-38de-4742-8f0d-89757942d7e8.Date
+
+relationship e414f4e9-9e1a-44f3-af77-cf713eac0a77
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_tournaments.TOURNEY_START_DATE
+	toColumn: LocalDateTable_5c470835-ee6d-4a5b-adc5-94f477a1b9c6.Date
+
+relationship AutoDetected_ea6656fd-0daa-49e4-849a-a280b9e94dd8
+	fromColumn: fact_player_head_to_head.SK_PLAYER
+	toColumn: dim_players.SK_PLAYER
+
+relationship AutoDetected_f69f8d74-2d9d-4c5c-a8bd-881006dfc106
+	fromColumn: fact_player_match_stats.SK_PLAYER
+	toColumn: dim_players.SK_PLAYER
+
+relationship AutoDetected_11169550-13be-4471-93f4-eb684a5b2031
+	fromColumn: fact_player_match_stats.SK_TOURNEY
+	toColumn: dim_tournaments.SK_TOURNEY
+
+relationship AutoDetected_2f3a509e-d785-4951-bfc1-54e257e13244
+	fromColumn: fact_player_season.SK_PLAYER
+	toColumn: dim_players.SK_PLAYER
+
+relationship AutoDetected_87dd78d5-d70d-4d6b-999d-3b52d64e4082
+	fromColumn: fact_player_tournament_stats.SK_ENTRY_TYPE
+	toColumn: dim_entry.SK_ENTRY_TYPE
+
+relationship AutoDetected_6d777880-58a5-4baf-8a59-1d1d87f5db81
+	fromColumn: fact_player_tournament_stats.SK_PLAYER
+	toColumn: dim_players.SK_PLAYER
+
+relationship AutoDetected_dcf2fb16-9aee-488a-89c0-bd9f4a1707d9
+	fromColumn: fact_player_tournament_stats.SK_TOURNEY
+	toColumn: dim_tournaments.SK_TOURNEY
+

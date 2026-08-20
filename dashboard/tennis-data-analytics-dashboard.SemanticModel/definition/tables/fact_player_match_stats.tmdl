@@ -1,0 +1,192 @@
+table fact_player_match_stats
+	lineageTag: 46b77b2a-89e1-4095-a6e6-7d77b28eac59
+
+	column MATCH_ID
+		dataType: string
+		lineageTag: 87d4bc22-0651-4c45-964b-ca97cfbf826f
+		summarizeBy: none
+		sourceColumn: MATCH_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_PLAYER
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d09eb16-25a4-4cb9-9e59-84c5f0889b66
+		summarizeBy: none
+		sourceColumn: SK_PLAYER
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_PLAYER_OPPONENT
+		dataType: int64
+		formatString: 0
+		lineageTag: b845d4e0-2358-40c6-a02a-a50b0bc921b7
+		summarizeBy: sum
+		sourceColumn: SK_PLAYER_OPPONENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_TOURNEY
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d341ed1-cf7c-41eb-b376-efa04a343316
+		summarizeBy: none
+		sourceColumn: SK_TOURNEY
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_IS_WINNER
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f61f5137-4d04-4a66-9485-2b7f82818387
+		summarizeBy: none
+		sourceColumn: PLAYER_IS_WINNER
+
+		annotation SummarizationSetBy = Automatic
+
+	column MATCH_DATE
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ddc6b66-bb9c-40aa-b157-0892085b2930
+		summarizeBy: sum
+		sourceColumn: MATCH_DATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column MATCH_NUM
+		dataType: int64
+		formatString: 0
+		lineageTag: f40fd712-2bd4-406e-bc74-0c3d2e25a0b7
+		summarizeBy: sum
+		sourceColumn: MATCH_NUM
+
+		annotation SummarizationSetBy = Automatic
+
+	column MATCH_SCORE
+		dataType: string
+		lineageTag: 7ee78728-fd77-4987-beca-ecb1337fa3c2
+		summarizeBy: none
+		sourceColumn: MATCH_SCORE
+
+		annotation SummarizationSetBy = Automatic
+
+	column MATCH_BEST_OF
+		dataType: int64
+		formatString: 0
+		lineageTag: 351676ba-5c90-4253-8e76-01a60a68ec32
+		summarizeBy: sum
+		sourceColumn: MATCH_BEST_OF
+
+		annotation SummarizationSetBy = Automatic
+
+	column MATCH_ROUND
+		dataType: string
+		lineageTag: a128b111-2431-416a-b130-84049196bc46
+		summarizeBy: none
+		sourceColumn: MATCH_ROUND
+
+		annotation SummarizationSetBy = Automatic
+
+	column MATCH_DURATION_M
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ab7032d-e00f-4937-9dbd-ee32e43c10fc
+		summarizeBy: sum
+		sourceColumn: MATCH_DURATION_M
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_ACES
+		dataType: int64
+		formatString: 0
+		lineageTag: d42215c5-cd69-4af0-b079-944454705b1d
+		summarizeBy: sum
+		sourceColumn: PLAYER_ACES
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_DB_FAULTS
+		dataType: int64
+		formatString: 0
+		lineageTag: a1e142d4-84ff-4af7-8f0b-e023ff353739
+		summarizeBy: sum
+		sourceColumn: PLAYER_DB_FAULTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_SERVE_PTS
+		dataType: int64
+		formatString: 0
+		lineageTag: 11296b0b-e902-4228-b559-d7282753614a
+		summarizeBy: sum
+		sourceColumn: PLAYER_SERVE_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_1ST_SERVES_IN
+		dataType: int64
+		formatString: 0
+		lineageTag: 6eede71b-e378-495d-88fa-c12665bb2621
+		summarizeBy: sum
+		sourceColumn: PLAYER_1ST_SERVES_IN
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_1ST_SERVE_PTS_WON
+		dataType: int64
+		formatString: 0
+		lineageTag: bda796db-e305-45b4-97ae-732558850a3a
+		summarizeBy: sum
+		sourceColumn: PLAYER_1ST_SERVE_PTS_WON
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_2ND_SERVE_PTS_WON
+		dataType: int64
+		formatString: 0
+		lineageTag: d3c09279-3d8d-4bd5-ba8f-465070f50c8b
+		summarizeBy: sum
+		sourceColumn: PLAYER_2ND_SERVE_PTS_WON
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_SERVE_GAMES
+		dataType: int64
+		formatString: 0
+		lineageTag: 0efe9c85-832f-4d98-92f1-cf08099d0418
+		summarizeBy: sum
+		sourceColumn: PLAYER_SERVE_GAMES
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_BP_SAVED
+		dataType: int64
+		formatString: 0
+		lineageTag: 3cc635b9-95ad-4afc-888d-9b34b12366d6
+		summarizeBy: sum
+		sourceColumn: PLAYER_BP_SAVED
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAYER_BP_FACED
+		dataType: int64
+		formatString: 0
+		lineageTag: 243c20f4-f9d7-4867-b72c-2f46cd5e848c
+		summarizeBy: sum
+		sourceColumn: PLAYER_BP_FACED
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_player_match_stats = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\phrug\OneDrive\Documentos\Repositórios\tennis-data-analytics\data\gold\fact\fact_player_match_stats.csv"),[Delimiter=",", Columns=20, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"MATCH_ID", type text}, {"SK_PLAYER", Int64.Type}, {"SK_PLAYER_OPPONENT", Int64.Type}, {"SK_TOURNEY", Int64.Type}, {"PLAYER_IS_WINNER", type logical}, {"MATCH_DATE", Int64.Type}, {"MATCH_NUM", Int64.Type}, {"MATCH_SCORE", type text}, {"MATCH_BEST_OF", Int64.Type}, {"MATCH_ROUND", type text}, {"MATCH_DURATION_M", Int64.Type}, {"PLAYER_ACES", Int64.Type}, {"PLAYER_DB_FAULTS", Int64.Type}, {"PLAYER_SERVE_PTS", Int64.Type}, {"PLAYER_1ST_SERVES_IN", Int64.Type}, {"PLAYER_1ST_SERVE_PTS_WON", Int64.Type}, {"PLAYER_2ND_SERVE_PTS_WON", Int64.Type}, {"PLAYER_SERVE_GAMES", Int64.Type}, {"PLAYER_BP_SAVED", Int64.Type}, {"PLAYER_BP_FACED", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

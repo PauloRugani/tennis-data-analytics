@@ -1,0 +1,113 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 74
+          },
+          "nodeIndex": "dim_entry",
+          "nodeLineageTag": "300ad8c1-705a-4c56-9adc-13b053c86d24",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 284,
+            "y": 14
+          },
+          "nodeIndex": "dim_players",
+          "nodeLineageTag": "bf02b725-007c-4591-8735-afe1c93f4b5b",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 568,
+            "y": 0
+          },
+          "nodeIndex": "dim_tournaments",
+          "nodeLineageTag": "aade0e63-3601-443b-a3b7-6e173a8169a6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 852,
+            "y": 50
+          },
+          "nodeIndex": "fact_player_head_to_head",
+          "nodeLineageTag": "ba9e3e62-6b00-4bc4-bd5f-ad22c031519d",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 0
+          },
+          "nodeIndex": "fact_player_match_stats",
+          "nodeLineageTag": "46b77b2a-89e1-4095-a6e6-7d77b28eac59",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1420,
+            "y": 0
+          },
+          "nodeIndex": "fact_player_season",
+          "nodeLineageTag": "d05c079c-a5d4-4d3a-9a54-195e2b659f14",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1704,
+            "y": 0
+          },
+          "nodeIndex": "fact_player_tournament_stats",
+          "nodeLineageTag": "d95affcc-2dc0-407d-b626-fee0845bb5ac",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}
