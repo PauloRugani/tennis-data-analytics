@@ -1,11 +1,11 @@
-ENTRY_TYPE_ID,ENTRY_TYPE_NAME,SK_ENTRY_TYPE
-ALT,Direct Acceptance / Regular,1
-LL,Lucky Loser,2
-PR,Protected Ranking,3
-Q,Qualifier,4
-SE,Special Exempt,5
-W,Wild Card,6
-WC,Wild Card,7
-NG,Next Gen Accelerator,8
-S,Exempt Special / Special,9
-,Direct Acceptance / Regular,10
+PLAYER_ENTRY,ENTRY_TYPE,SK_ENTRY_TYPE,DATE_INGESTION
+ALT,Direct Acceptance / Regular,1,2026-08-22
+LL,Lucky Loser,2,2026-08-22
+SE,Special Exempt,3,2026-08-22
+WC,Wild Card,4,2026-08-22
+W,Wild Card,5,2026-08-22
+PR,Protected Ranking,6,2026-08-22
+Q,Qualifier,7,2026-08-22
+NG,Next Gen Accelerator,8,2026-08-22
+S,Exempt Special / Special,9,2026-08-22
+,Direct Acceptance / Regular,10,2026-08-22
