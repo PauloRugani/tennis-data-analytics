@@ -1,0 +1,172 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "fb59d2ed29a3697eac77",
+  "position": {
+    "x": 406.66666666666669,
+    "y": 0,
+    "z": 0,
+    "height": 166.66666666666669,
+    "width": 220,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_tournaments"
+                    }
+                  },
+                  "Property": "TOURNEY_NAME"
+                }
+              },
+              "queryRef": "dim_tournaments.TOURNEY_NAME",
+              "nativeQueryRef": "Tourney Name",
+              "displayName": "Tourney Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_tournaments"
+                    }
+                  },
+                  "Property": "TOURNEY_SURFACE"
+                }
+              },
+              "queryRef": "dim_tournaments.TOURNEY_SURFACE",
+              "nativeQueryRef": "Surface",
+              "displayName": "Surface"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_tournaments"
+                    }
+                  },
+                  "Property": "TOURNEY_IS_INDOOR"
+                }
+              },
+              "queryRef": "dim_tournaments.TOURNEY_IS_INDOOR",
+              "nativeQueryRef": "Indoor",
+              "displayName": "Indoor"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "130f1c8ebb7e4b4c17c9",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_tournaments"
+              }
+            },
+            "Property": "TOURNEY_NAME"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "87f3e5cba020cbd39786",
+        "ordinal": 1,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_tournaments"
+              }
+            },
+            "Property": "TOURNEY_STATUS"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "dim_tournaments",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "TOURNEY_STATUS"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'In Progress'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "122075a9d6540652aa5e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_tournaments"
+              }
+            },
+            "Property": "TOURNEY_SURFACE"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c0de584981b1ed050233",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_tournaments"
+              }
+            },
+            "Property": "TOURNEY_IS_INDOOR"
+          }
+        },
+        "type": "Categorical"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

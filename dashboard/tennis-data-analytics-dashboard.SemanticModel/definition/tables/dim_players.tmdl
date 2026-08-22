@@ -29,10 +29,10 @@ table dim_players
 		dataType: int64
 		formatString: 0
 		lineageTag: 754ca673-7714-424a-a4a4-4b633096ec2a
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: PLAYER_HEIGHT
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column PLAYER_COUNTRY
 		dataType: string
