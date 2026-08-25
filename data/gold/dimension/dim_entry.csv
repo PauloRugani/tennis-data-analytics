@@ -1,11 +1,11 @@
-PLAYER_ENTRY,ENTRY_TYPE,SK_ENTRY_TYPE,DATE_INGESTION
-ALT,Direct Acceptance / Regular,1,2026-08-22
-LL,Lucky Loser,2,2026-08-22
-SE,Special Exempt,3,2026-08-22
-WC,Wild Card,4,2026-08-22
-W,Wild Card,5,2026-08-22
-PR,Protected Ranking,6,2026-08-22
-Q,Qualifier,7,2026-08-22
-NG,Next Gen Accelerator,8,2026-08-22
-S,Exempt Special / Special,9,2026-08-22
-,Direct Acceptance / Regular,10,2026-08-22
+SK_ENTRY_TYPE,COD_PLAYER_ENTRY,DES_ENTRY_TYPE,DATE_INGESTION
+1,ALT,Direct Acceptance / Regular,2026-08-22
+2,LL,Lucky Loser,2026-08-22
+3,SE,Special Exempt,2026-08-22
+4,WC,Wild Card,2026-08-22
+5,W,Wild Card,2026-08-22
+6,PR,Protected Ranking,2026-08-22
+7,Q,Qualifier,2026-08-22
+8,NG,Next Gen Accelerator,2026-08-22
+9,S,Exempt Special / Special,2026-08-22
+10,,Direct Acceptance / Regular,2026-08-22
