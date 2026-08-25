@@ -1,4 +1,4 @@
-name: 1 - Raw Pipeline - Extracts data from the source
+name: 1 - Raw Pipeline - Extracts match data from the source
 
 on:
   schedule:
@@ -28,7 +28,7 @@ jobs:
         run: playwright install --with-deps
 
       - name: Exec script
-        run: python bot/main.py
+        run: python bot/match_extractor.py
 
       - name: Commit and push collected data
         run: |
