@@ -1,5 +1,6 @@
 import csv
 import os
+from datetime import datetime, timedelta
 from playwright.sync_api import Playwright, sync_playwright
 
 RAW_DATA_DIR = os.path.join("data", "raw", "incremental")
@@ -17,6 +18,11 @@ def run(playwright: Playwright) -> None:
         if cookie_btn.is_visible(timeout=5000):
             cookie_btn.click()
 
+        # Calcula a data da segunda-feira da semana atual (YYYY-MM-DD)
+        today = datetime.now()
+        current_monday = today - timedelta(days=today.weekday())
+        week_str = current_monday.strftime("%Y-%m-%d")
+
         ranking = []
         raning_table = page.locator("xpath=/html/body/div[3]/div/div[2]/div[2]/div[1]/div/table[2]/tbody")
         raning_table.locator(".lower_row, .lower-row").first.wait_for(state="attached", timeout=15000)
@@ -28,6 +34,7 @@ def run(playwright: Playwright) -> None:
                 clean_player = cells[1].split("\n")[-1].strip()
 
                 contenct = {
+                    "date_week": week_str,
                     "rank": cells[0],
                     "player": clean_player,
                     "age": cells[2],
