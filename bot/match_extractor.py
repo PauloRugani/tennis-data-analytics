@@ -36,7 +36,7 @@ def run(playwright: Playwright) -> None:
             download_file(page, f"Download {year - 1}.csv", f"historical/{file_last_year}")
             
         download_file(page, f"Download {year}.csv", f"historical/{file_current_year}")
-        download_file(page, "Download ongoing_tourneys.csv", "daily/tb_ongoing_tourneys.csv")
+        download_file(page, "Download ongoing_tourneys.csv", "incremental/tb_ongoing_tourneys.csv")
 
     except Exception as e:
         raise e
