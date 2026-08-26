@@ -35,7 +35,7 @@ def run(playwright: Playwright) -> None:
         if not os.path.exists(path_current_year):
             download_file(page, f"Download {year - 1}.csv", f"historical/{file_last_year}")
             
-        download_file(page, f"Download {year}.csv", f"historical/{file_current_year}")
+        download_file(page, f"Download {year}.csv", f"historical/matches/{file_current_year}")
         download_file(page, "Download ongoing_tourneys.csv", "incremental/tb_ongoing_tourneys.csv")
 
     except Exception as e:
