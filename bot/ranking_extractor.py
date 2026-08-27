@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from playwright.sync_api import Playwright, sync_playwright
 
 RAW_DATA_DIR = os.path.join("data", "raw", "incremental")
-HISTORICAL_DIR = os.path.join("data", "raw", "historical", "rankings")
+HISTORICAL_DIR = os.path.join("data", "raw", "historical", "ranking")
 
 
 def previous_year_process(current_year: int) -> None:
