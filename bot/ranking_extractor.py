@@ -67,7 +67,7 @@ def run(playwright: Playwright) -> None:
                 clean_player = cells[1].split("\n")[-1].strip()
 
                 ranking.append({
-                    "date": week_str,
+                    "date": str(week_str).replace("-", ""),
                     "rank": cells[0],
                     "name": clean_player,
                     "age": cells[2],
