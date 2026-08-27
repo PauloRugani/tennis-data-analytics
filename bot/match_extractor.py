@@ -33,7 +33,7 @@ def run(playwright: Playwright) -> None:
         path_current_year = os.path.join(RAW_DATA_DIR, "historical", file_current_year)
 
         if not os.path.exists(path_current_year):
-            download_file(page, f"Download {year - 1}.csv", f"historical/{file_last_year}")
+            download_file(page, f"Download {year - 1}.csv", f"historical/matches/{file_last_year}")
             
         download_file(page, f"Download {year}.csv", f"historical/matches/{file_current_year}")
         download_file(page, "Download ongoing_tourneys.csv", "incremental/tb_ongoing_tourneys.csv")
