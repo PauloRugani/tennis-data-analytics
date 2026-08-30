@@ -28,56 +28,56 @@ spark.conf.set("spark.sql.repl.eagerEval.maxNumRows", 200)
 spark.conf.set("spark.sql.repl.eagerEval.truncate", 50)
 
 
-# # silver
-# tb_player_match = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "silver.tb_atp_tournaments")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-#     )
+# silver
+tb_player_match = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "silver.tb_atp_player_match")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+    )
 
-# # gold
-# tb_tournaments = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "gold.dim_tournaments")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-#     )
+# gold
+tb_tournaments = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "gold.dim_tournaments")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+    )
 
-# tb_date = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "gold.dim_date")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-#     )
+tb_date = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "gold.dim_date")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+    )
 
-# tb_players = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "gold.dim_players")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-#     )
+tb_players = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "gold.dim_players")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+    )
 
-tb_player_match = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_player_match/")
-tb_tournaments = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_tournaments/")
-tb_date = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_date/")
-tb_players = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_players/")
+# tb_player_match = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_player_match/")
+# tb_tournaments = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_tournaments/")
+# tb_date = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_date/")
+# tb_players = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_players/")
 
 
 df = (

@@ -28,45 +28,45 @@ spark.conf.set("spark.sql.repl.eagerEval.maxNumRows", 200)
 spark.conf.set("spark.sql.repl.eagerEval.truncate", 50)
 
 
-# # silver
-# tb_atp_rankings = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "silver.tb_atp_rankings")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-#     )
+# silver
+tb_atp_rankings = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "silver.tb_atp_rankings")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+    )
 
-# # gold
-# tb_date = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "gold.dim_date")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-#     )
+# gold
+tb_date = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "gold.dim_date")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+    )
 
-# tb_players = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "gold.dim_players")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-#     )
+tb_players = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "gold.dim_players")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+    )
 
-tb_atp_rankings = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_rankings/")
-tb_date = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_date/")
-tb_players = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_players/")
-tb_atp_rankings_2 = spark.read.format("parquet").load(r"../../../data/bronze/tb_atp_rankings/")
+# tb_atp_rankings = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_rankings/")
+# tb_date = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_date/")
+# tb_players = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_players/")
+# tb_atp_rankings_2 = spark.read.format("parquet").load(r"../../../data/bronze/tb_atp_rankings/")
 
 
 df = (

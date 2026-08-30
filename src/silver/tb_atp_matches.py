@@ -29,18 +29,18 @@ spark.conf.set("spark.sql.repl.eagerEval.maxNumRows", 200)
 spark.conf.set("spark.sql.repl.eagerEval.truncate", 50)
 
 
-# tb_atp_matches = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "bronze.tb_atp_matches")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-#     )
+tb_atp_matches = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "bronze.tb_atp_matches")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+    )
 
-tb_atp_matches = spark.read.format("parquet").load(r"../../data/bronze/tb_atp_matches/")
+# tb_atp_matches = spark.read.format("parquet").load(r"../../data/bronze/tb_atp_matches/")
 
 
 from pyspark.sql import functions as f

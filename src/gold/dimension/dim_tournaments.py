@@ -28,30 +28,30 @@ spark.conf.set("spark.sql.repl.eagerEval.maxNumRows", 200)
 spark.conf.set("spark.sql.repl.eagerEval.truncate", 50)
 
 
-# atp_tournaments = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "silver.tb_atp_tournaments")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-#     )
+atp_tournaments = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "silver.tb_atp_tournaments")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+    )
 
-# atp_matches = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "silver.tb_atp_matches")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-# )
+atp_matches = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "silver.tb_atp_matches")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+)
 
-atp_tournaments = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_tournaments/")
-atp_matches = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_matches/")
+# atp_tournaments = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_tournaments/")
+# atp_matches = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_matches/")
 
 
 from datetime import datetime

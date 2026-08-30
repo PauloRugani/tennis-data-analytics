@@ -28,18 +28,18 @@ spark.conf.set("spark.sql.repl.eagerEval.maxNumRows", 200)
 spark.conf.set("spark.sql.repl.eagerEval.truncate", 50)
 
 
-# tb_player_match = (
-#     spark.read
-#     .format("jdbc")
-#     .option("url", os.getenv("JDBC_URL"))
-#     .option("dbtable", "silver.tb_atp_player_match")
-#     .option("user", os.getenv("DB_USER"))
-#     .option("password", os.getenv("DB_PASSWORD"))
-#     .option("driver", "org.postgresql.Driver")
-#     .load()
-# )
+tb_player_match = (
+    spark.read
+    .format("jdbc")
+    .option("url", os.getenv("JDBC_URL"))
+    .option("dbtable", "silver.tb_atp_player_match")
+    .option("user", os.getenv("DB_USER"))
+    .option("password", os.getenv("DB_PASSWORD"))
+    .option("driver", "org.postgresql.Driver")
+    .load()
+)
 
-tb_player_match = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_player_match/")
+# tb_player_match = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_player_match/")
 
 
 start_date = '1960-01-01'

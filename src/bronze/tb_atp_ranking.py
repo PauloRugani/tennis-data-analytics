@@ -23,7 +23,16 @@ except Exception as e:
 
 
 try:
-    tb_atp_rankings = spark.read.format("parquet").load(r"../../data/bronze/tb_atp_rankings/")
+    tb_atp_rankings = (
+        spark.read
+        .format("jdbc")
+        .option("url", os.getenv("JDBC_URL"))
+        .option("dbtable", "bronze.tb_atp_rankings")
+        .option("user", os.getenv("DB_USER"))
+        .option("password", os.getenv("DB_PASSWORD"))
+        .option("driver", "org.postgresql.Driver")
+        .load()
+    )
     table_exists = True
     save_mode = "append"
 except:
