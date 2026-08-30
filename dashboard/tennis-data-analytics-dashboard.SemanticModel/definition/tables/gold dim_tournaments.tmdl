@@ -1,0 +1,102 @@
+table 'gold dim_tournaments'
+	lineageTag: 8df4f494-9657-43f2-b0fb-f55abeafc93b
+
+	column COD_TOURNEY_ID
+		dataType: string
+		lineageTag: e9fa9b29-68f5-4b34-9240-1322f41de4e1
+		summarizeBy: none
+		sourceColumn: COD_TOURNEY_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_TOURNEY_NAME
+		dataType: string
+		lineageTag: 40edcf6c-bc69-4910-bc5c-9020766b98c8
+		summarizeBy: none
+		sourceColumn: DES_TOURNEY_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_TOURNEY_LEVEL
+		dataType: string
+		lineageTag: 148231d4-afc4-431f-8135-c6aa8fa27873
+		summarizeBy: none
+		sourceColumn: DES_TOURNEY_LEVEL
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOURNEY_DRAW_SIZE
+		dataType: int64
+		formatString: 0
+		lineageTag: c0a72f88-8414-46b9-b5fd-3ec205e95cc0
+		summarizeBy: sum
+		sourceColumn: NUM_TOURNEY_DRAW_SIZE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_TOURNEY_SURFACE
+		dataType: string
+		lineageTag: 63d6e622-c5b5-4b02-aa8c-f9c802552536
+		summarizeBy: none
+		sourceColumn: DES_TOURNEY_SURFACE
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLAG_TOURNEY_IS_INDOOR
+		dataType: string
+		lineageTag: 4c141e4a-4dce-4ca0-8929-6f3b41cad94e
+		summarizeBy: none
+		sourceColumn: FLAG_TOURNEY_IS_INDOOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_TOURNEY_STATUS
+		dataType: string
+		lineageTag: e78bea1f-77fa-4dc6-b34d-f3c42a2dde64
+		summarizeBy: none
+		sourceColumn: DES_TOURNEY_STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_TOURNEY_START
+		dataType: string
+		lineageTag: b841df98-63d5-4f64-bf02-d84a28668ff9
+		summarizeBy: none
+		sourceColumn: DATE_TOURNEY_START
+
+		annotation SummarizationSetBy = Automatic
+
+	column REF_YEAR
+		dataType: string
+		lineageTag: c9602362-0c54-46d7-92c9-1b5509f3e4dc
+		summarizeBy: none
+		sourceColumn: REF_YEAR
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_INGESTION
+		dataType: string
+		lineageTag: 903f0a7b-fb95-4c8d-a40d-8b2c0b8155c1
+		summarizeBy: none
+		sourceColumn: DATE_INGESTION
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_TOURNEY
+		dataType: int64
+		formatString: 0
+		lineageTag: bf14a4e9-713a-4ef8-b8fb-3cb8225bde50
+		summarizeBy: none
+		sourceColumn: SK_TOURNEY
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'gold dim_tournaments' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    gold_dim_tournaments = Fonte{[Schema="gold",Item="dim_tournaments"]}[Data]
+				in
+				    gold_dim_tournaments
+

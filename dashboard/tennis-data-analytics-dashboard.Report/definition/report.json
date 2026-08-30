@@ -24,6 +24,19 @@
           }
         }
       }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
     ]
   },
   "resourcePackages": [
@@ -35,6 +48,37 @@
           "name": "CY26SU07",
           "path": "BaseThemes/CY26SU07.json",
           "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "ATP_LOGO6876929338095237.png",
+          "path": "ATP_LOGO6876929338095237.png",
+          "type": "Image"
+        },
+        {
+          "name": "filter_alt_43dp_FFFFFF_FILL0_w06352370850817557.svg",
+          "path": "filter_alt_43dp_FFFFFF_FILL0_w06352370850817557.svg",
+          "type": "Image"
+        },
+        {
+          "name": "filter_alt_43dp_FFFFFF_FILL0_w8116495027873719.svg",
+          "path": "filter_alt_43dp_FFFFFF_FILL0_w8116495027873719.svg",
+          "type": "Image"
+        },
+        {
+          "name": "menu_sidebar3781214848655877.svg",
+          "path": "menu_sidebar3781214848655877.svg",
+          "type": "Image"
+        },
+        {
+          "name": "overview_43dp_FFFFFF_FILL0_wgh511464174463245.svg",
+          "path": "overview_43dp_FFFFFF_FILL0_wgh511464174463245.svg",
+          "type": "Image"
         }
       ]
     }

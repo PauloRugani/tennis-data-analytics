@@ -1,0 +1,90 @@
+table 'gold dim_date'
+	lineageTag: a61aef7c-0061-4bbc-9b7a-7f3aa58fb74f
+
+	column DATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: feb4a8cc-01b8-4d6f-8978-81b8fa143799
+		summarizeBy: none
+		sourceColumn: DATE
+
+		variation Variation
+			isDefault
+			relationship: e54e9910-9448-4c33-8ea7-ae8d4fe36b2f
+			defaultHierarchy: LocalDateTable_1d123767-f4c3-42a2-8590-d08ac8be2da5.'Hierarquia de datas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column SK_DATE
+		dataType: int64
+		formatString: 0
+		lineageTag: 67acbc07-7ada-4258-8452-9a6573c663f9
+		summarizeBy: none
+		sourceColumn: SK_DATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_YEAR
+		dataType: int64
+		formatString: 0
+		lineageTag: 0999e205-5f37-4388-bcf3-55d24311ea37
+		summarizeBy: sum
+		sourceColumn: NUM_YEAR
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_MONTH
+		dataType: int64
+		formatString: 0
+		lineageTag: e1253aa8-7d2d-4294-b814-15d7b0579609
+		summarizeBy: sum
+		sourceColumn: NUM_MONTH
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_MONTH
+		dataType: string
+		lineageTag: f461bbcf-2b6d-4343-90e0-28c04f5707bf
+		summarizeBy: none
+		sourceColumn: DES_MONTH
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_MONTH_SHORT
+		dataType: string
+		lineageTag: 5ad2b749-40c3-4d17-b6ee-38bc221f1c51
+		summarizeBy: none
+		sourceColumn: DES_MONTH_SHORT
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_DAY
+		dataType: int64
+		formatString: 0
+		lineageTag: 052ba449-62f4-45e2-9240-f27aec4fe85e
+		summarizeBy: sum
+		sourceColumn: NUM_DAY
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_DAY
+		dataType: string
+		lineageTag: 22079718-a585-47cf-9f43-2d130dd446d4
+		summarizeBy: none
+		sourceColumn: DES_DAY
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'gold dim_date' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    gold_dim_date = Fonte{[Schema="gold",Item="dim_date"]}[Data]
+				in
+				    gold_dim_date
+

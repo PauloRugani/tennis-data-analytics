@@ -1,0 +1,45 @@
+table 'gold dim_entry'
+	lineageTag: 267b48f0-e665-4c21-a2b7-676cb8a2c926
+
+	column SK_ENTRY_TYPE
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ce56a93-52b8-4944-bfae-e57d8ffd2f7f
+		summarizeBy: none
+		sourceColumn: SK_ENTRY_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PLAYER_ENTRY
+		dataType: string
+		lineageTag: 35b9cb3e-6384-4e12-b90c-e810038266ba
+		summarizeBy: none
+		sourceColumn: COD_PLAYER_ENTRY
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_ENTRY_TYPE
+		dataType: string
+		lineageTag: a524e1cb-7d14-4833-986f-72e207d0efe4
+		summarizeBy: none
+		sourceColumn: DES_ENTRY_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_INGESTION
+		dataType: string
+		lineageTag: 6667f9bf-a817-4036-86f1-1af317c02778
+		summarizeBy: none
+		sourceColumn: DATE_INGESTION
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'gold dim_entry' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    gold_dim_entry = Fonte{[Schema="gold",Item="dim_entry"]}[Data]
+				in
+				    gold_dim_entry
+

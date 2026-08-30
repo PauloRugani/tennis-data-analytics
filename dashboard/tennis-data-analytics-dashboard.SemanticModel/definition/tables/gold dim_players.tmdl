@@ -1,0 +1,93 @@
+table 'gold dim_players'
+	lineageTag: 8fc2487f-3966-4de4-895d-48de00a64c99
+
+	column DES_PLAYER_NAME
+		dataType: string
+		lineageTag: d21f7f9e-8595-4ce8-ada0-14b4141ad5b2
+		summarizeBy: none
+		sourceColumn: DES_PLAYER_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PLAYER_ID
+		dataType: string
+		lineageTag: 7a7a1a3f-16f7-4b27-bf60-601da4f62705
+		summarizeBy: none
+		sourceColumn: COD_PLAYER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PLAYER_ID_OLD
+		dataType: string
+		lineageTag: 47865234-84ac-4843-a095-ec13fd2b5a0a
+		summarizeBy: none
+		sourceColumn: COD_PLAYER_ID_OLD
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_PLAYER_HAND
+		dataType: string
+		lineageTag: 876b592c-f638-4bdd-8ae6-e83b9fe56fd0
+		summarizeBy: none
+		sourceColumn: DES_PLAYER_HAND
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_HEIGHT
+		dataType: string
+		lineageTag: 99f2e02a-0531-4e97-8b81-c4c50085c62c
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_HEIGHT
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_PLAYER_COUNTRY
+		dataType: string
+		lineageTag: e2eda479-ad74-4bd1-a0dd-bebedbc5bf74
+		summarizeBy: none
+		sourceColumn: DES_PLAYER_COUNTRY
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_PLAYER_COUNTRY_ISO2
+		dataType: string
+		lineageTag: 69da95b1-fdd4-4980-b232-c604db3603d7
+		summarizeBy: none
+		sourceColumn: DES_PLAYER_COUNTRY_ISO2
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_PLAYER_BIRTH
+		dataType: string
+		lineageTag: 13a5fc52-2e9a-4f64-a31e-7e76eb0f5bf7
+		summarizeBy: none
+		sourceColumn: DATE_PLAYER_BIRTH
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_INGESTION
+		dataType: string
+		lineageTag: ed516af8-09c3-4ec5-bcbb-211f2e042d9a
+		summarizeBy: none
+		sourceColumn: DATE_INGESTION
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_PLAYER
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e56256f-c618-4ac3-b861-02eabfb6ab40
+		summarizeBy: none
+		sourceColumn: SK_PLAYER
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'gold dim_players' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    gold_dim_players = Fonte{[Schema="gold",Item="dim_players"]}[Data]
+				in
+				    gold_dim_players
+

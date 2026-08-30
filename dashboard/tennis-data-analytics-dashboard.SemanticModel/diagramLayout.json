@@ -4,104 +4,117 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 388.80000305175781,
+        "x": 0,
         "y": 0
       },
       "nodes": [
         {
           "location": {
-            "x": 0,
-            "y": 74
+            "x": 1555.8612539719938,
+            "y": 46.137037990948613
           },
-          "nodeIndex": "dim_entry",
-          "nodeLineageTag": "300ad8c1-705a-4c56-9adc-13b053c86d24",
+          "nodeIndex": "gold dim_date",
+          "nodeLineageTag": "a61aef7c-0061-4bbc-9b7a-7f3aa58fb74f",
           "size": {
-            "height": 152,
-            "width": 234
-          },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 284,
-            "y": 14
-          },
-          "nodeIndex": "dim_players",
-          "nodeLineageTag": "bf02b725-007c-4591-8735-afe1c93f4b5b",
-          "size": {
-            "height": 272,
-            "width": 234
-          },
-          "zIndex": 5
-        },
-        {
-          "location": {
-            "x": 568,
-            "y": 0
-          },
-          "nodeIndex": "dim_tournaments",
-          "nodeLineageTag": "aade0e63-3601-443b-a3b7-6e173a8169a6",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 7
-        },
-        {
-          "location": {
-            "x": 852,
-            "y": 50
-          },
-          "nodeIndex": "fact_player_head_to_head",
-          "nodeLineageTag": "ba9e3e62-6b00-4bc4-bd5f-ad22c031519d",
-          "size": {
-            "height": 200,
+            "height": 311.80782027393241,
             "width": 234
           },
           "zIndex": 6
         },
         {
           "location": {
-            "x": 1136,
-            "y": 0
+            "x": 1828.6642716886734,
+            "y": 82.940055707628034
           },
-          "nodeIndex": "fact_player_match_stats",
-          "nodeLineageTag": "46b77b2a-89e1-4095-a6e6-7d77b28eac59",
+          "nodeIndex": "gold dim_entry",
+          "nodeLineageTag": "267b48f0-e665-4c21-a2b7-676cb8a2c926",
           "size": {
-            "height": 300,
+            "height": 215.80782027393241,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 2076.2740792678819,
+            "y": 26.538546849288249
+          },
+          "nodeIndex": "gold dim_players",
+          "nodeLineageTag": "8fc2487f-3966-4de4-895d-48de00a64c99",
+          "size": {
+            "height": 339.80782027393241,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 2360.2740792678819,
+            "y": 26.538546849288249
+          },
+          "nodeIndex": "gold dim_tournaments",
+          "nodeLineageTag": "8df4f494-9657-43f2-b0fb-f55abeafc93b",
+          "size": {
+            "height": 339.80782027393241,
             "width": 234
           },
           "zIndex": 2
         },
         {
           "location": {
-            "x": 1420,
-            "y": 0
+            "x": 3468.9233086255008,
+            "y": 339.65680833614329
           },
-          "nodeIndex": "fact_player_season",
-          "nodeLineageTag": "d05c079c-a5d4-4d3a-9a54-195e2b659f14",
+          "nodeIndex": "gold fact_player_match_stats",
+          "nodeLineageTag": "3f27a76c-4a90-4703-92e4-7787a5df7e62",
           "size": {
-            "height": 300,
+            "height": 339.80782027393241,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1333.8881320388264,
+            "y": 857.46458989343319
+          },
+          "nodeIndex": "gold fact_player_ranking",
+          "nodeLineageTag": "06129b4c-e393-4e7c-8f53-bb6ac05d06ab",
+          "size": {
+            "height": 311.80782027393241,
             "width": 234
           },
           "zIndex": 3
         },
         {
           "location": {
-            "x": 1704,
-            "y": 0
+            "x": 2774.0624084494252,
+            "y": 839.9225264464211
           },
-          "nodeIndex": "fact_player_tournament_stats",
-          "nodeLineageTag": "d95affcc-2dc0-407d-b626-fee0845bb5ac",
+          "nodeIndex": "gold fact_player_season",
+          "nodeLineageTag": "21da3120-1248-4fcd-8d3d-3f0f1f6b21ea",
           "size": {
-            "height": 300,
+            "height": 339.80782027393241,
             "width": 234
           },
           "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 781.43241739295877,
+            "y": 382.21240061194442
+          },
+          "nodeIndex": "gold fact_player_tournament_stats",
+          "nodeLineageTag": "d716c198-fe88-4f46-8311-e409361da393",
+          "size": {
+            "height": 339.80782027393241,
+            "width": 234
+          },
+          "zIndex": 8
         }
       ],
       "name": "Todas as tabelas",
-      "zoomValue": 100,
+      "zoomValue": 22.608622974248938,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

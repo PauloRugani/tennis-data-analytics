@@ -1,0 +1,79 @@
+table 'gold fact_player_ranking'
+	lineageTag: 06129b4c-e393-4e7c-8f53-bb6ac05d06ab
+
+	column SK_DATE
+		dataType: string
+		lineageTag: 7ad076cf-30f5-4bf8-822c-18ee139b8543
+		summarizeBy: none
+		sourceColumn: SK_DATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_PLAYER
+		dataType: string
+		lineageTag: 165855ea-7413-4a75-bf3a-2748191ee0af
+		summarizeBy: none
+		sourceColumn: SK_PLAYER
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_RANK
+		dataType: int64
+		lineageTag: 65fbd8b7-fe6c-4c3d-b212-45127d4ebfcd
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_RANK
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NUM_PLAYER_RANK_PTS
+		dataType: int64
+		formatString: 0
+		lineageTag: deda269e-a9e0-4d61-a141-99b2c55b33c1
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_RANK_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_LE_PTS
+		dataType: string
+		lineageTag: f25e8ba9-e523-4e45-95f6-8f2ad2dc8410
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_LE_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_DROP_PTS
+		dataType: string
+		lineageTag: a3353f34-b0d1-47d5-aa53-65626c2a39e8
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_DROP_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_NEXT_BEST
+		dataType: string
+		lineageTag: 907ce04b-d192-436b-b489-04ffb8605175
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_NEXT_BEST
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_INGESTION
+		dataType: string
+		lineageTag: 5d720019-0edb-41af-86b0-94a250a019de
+		summarizeBy: none
+		sourceColumn: DATE_INGESTION
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'gold fact_player_ranking' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    gold_fact_player_ranking = Fonte{[Schema="gold",Item="fact_player_ranking"]}[Data]
+				in
+				    gold_fact_player_ranking
+

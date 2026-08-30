@@ -1,0 +1,180 @@
+table 'gold fact_player_match_stats'
+	lineageTag: 3f27a76c-4a90-4703-92e4-7787a5df7e62
+
+	column COD_MATCH_ID
+		dataType: string
+		lineageTag: 93ac4ea6-5844-42ce-b6c3-154881c7d1ea
+		summarizeBy: none
+		sourceColumn: COD_MATCH_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_PLAYER
+		dataType: string
+		lineageTag: a73a6f6b-df84-4b1b-bdf3-9f65a270ec1a
+		summarizeBy: none
+		sourceColumn: SK_PLAYER
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_PLAYER_OPPONENT
+		dataType: string
+		lineageTag: 21aaae3a-937d-429c-902b-28c1306779ad
+		summarizeBy: none
+		sourceColumn: SK_PLAYER_OPPONENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_TOURNEY
+		dataType: string
+		lineageTag: 9fc53247-714a-436b-8628-33a814c1eb52
+		summarizeBy: none
+		sourceColumn: SK_TOURNEY
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_DATE
+		dataType: string
+		lineageTag: ee25d0e2-d297-48ba-b81b-f618b57f221f
+		summarizeBy: none
+		sourceColumn: SK_DATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLAG_PLAYER_IS_WINNER
+		dataType: string
+		lineageTag: a4abf1a3-9a02-4b6e-957b-5e88a7b141d2
+		summarizeBy: none
+		sourceColumn: FLAG_PLAYER_IS_WINNER
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_MATCH
+		dataType: string
+		lineageTag: 070195a5-f50f-428e-8c0f-3ba6fb334ded
+		summarizeBy: none
+		sourceColumn: NUM_MATCH
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_MATCH_SCORE
+		dataType: string
+		lineageTag: 3d37cd6f-4c22-4fb1-b979-a60f8d440b82
+		summarizeBy: none
+		sourceColumn: DES_MATCH_SCORE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_MATCH_BEST_OF
+		dataType: string
+		lineageTag: d1baa546-e956-4ea3-af42-ac87b1735e13
+		summarizeBy: none
+		sourceColumn: NUM_MATCH_BEST_OF
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_MATCH_ROUND
+		dataType: string
+		lineageTag: 5a1d7b36-79d3-4b5a-9363-fbb70ffa8e7a
+		summarizeBy: none
+		sourceColumn: DES_MATCH_ROUND
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_MATCH_DURATION_M
+		dataType: string
+		lineageTag: 45216a31-0d11-4277-a48e-bafbe069244f
+		summarizeBy: none
+		sourceColumn: NUM_MATCH_DURATION_M
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_ACES
+		dataType: string
+		lineageTag: 83a6eb70-969f-4cf3-9320-09a20492e96a
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_ACES
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_DB_FAULTS
+		dataType: string
+		lineageTag: 0102ef95-a88e-4dec-a3ba-5487be5d426f
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_DB_FAULTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_SERVE_PTS
+		dataType: string
+		lineageTag: 99e3dfda-22e6-4ce2-8181-9d762ce9037d
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_SERVE_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_1ST_SERVES_IN
+		dataType: string
+		lineageTag: 8ae0097a-7d80-4408-9925-716a8500740b
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_1ST_SERVES_IN
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_1ST_SERVE_PTS_WON
+		dataType: string
+		lineageTag: 41b3804b-6a79-4659-b711-c3d3301360a0
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_1ST_SERVE_PTS_WON
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_2ND_SERVE_PTS_WON
+		dataType: string
+		lineageTag: f54224ef-7008-4f1c-883b-803bcc862a51
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_2ND_SERVE_PTS_WON
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_SERVE_GAMES
+		dataType: string
+		lineageTag: cc6a657f-4e70-4a1f-b0fa-9ab5be47cfb1
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_SERVE_GAMES
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_BP_SAVED
+		dataType: string
+		lineageTag: 525ed586-a165-4ece-a125-035a68614bd0
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_BP_SAVED
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_BP_FACED
+		dataType: string
+		lineageTag: 98985dd0-877b-4cf0-8296-a7143e690f01
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_BP_FACED
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_INGESTION
+		dataType: string
+		lineageTag: 1c3ac8a5-00ef-4cab-9e20-a64cdaec669a
+		summarizeBy: none
+		sourceColumn: DATE_INGESTION
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'gold fact_player_match_stats' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    gold_fact_player_match_stats = Fonte{[Schema="gold",Item="fact_player_match_stats"]}[Data]
+				in
+				    gold_fact_player_match_stats
+

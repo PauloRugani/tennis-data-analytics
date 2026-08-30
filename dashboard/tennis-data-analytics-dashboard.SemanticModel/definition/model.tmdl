@@ -9,20 +9,20 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["dim_entry","dim_players","dim_tournaments","fact_player_head_to_head","fact_player_match_stats","fact_player_season","fact_player_tournament_stats"]
+annotation PBI_QueryOrder = ["gold dim_date","gold dim_entry","gold dim_players","gold dim_tournaments","gold fact_player_match_stats","gold fact_player_ranking","gold fact_player_season","gold fact_player_tournament_stats"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
-ref table dim_entry
-ref table dim_players
-ref table DateTableTemplate_06ca912d-897c-47a4-8e7d-3b322816c21b
-ref table LocalDateTable_93c1c75b-38de-4742-8f0d-89757942d7e8
-ref table dim_tournaments
-ref table LocalDateTable_5c470835-ee6d-4a5b-adc5-94f477a1b9c6
-ref table fact_player_head_to_head
-ref table fact_player_match_stats
-ref table fact_player_season
-ref table fact_player_tournament_stats
+ref table 'gold dim_date'
+ref table 'gold dim_entry'
+ref table 'gold dim_players'
+ref table 'gold dim_tournaments'
+ref table 'gold fact_player_match_stats'
+ref table 'gold fact_player_ranking'
+ref table 'gold fact_player_season'
+ref table 'gold fact_player_tournament_stats'
+ref table DateTableTemplate_dcca6f1b-639d-4eca-8bfb-4b15ccb1d5a4
+ref table LocalDateTable_1d123767-f4c3-42a2-8590-d08ac8be2da5
 
 ref cultureInfo pt-BR
 
