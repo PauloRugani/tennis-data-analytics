@@ -17,6 +17,8 @@ try:
         .config("spark.executor.memory", "3500m")
         .config("spark.sql.shuffle.partitions", "8")
         .config("spark.default.parallelism", "8")
+        .config("spark.jars.packages", "org.postgresql:postgresql:42.7.3")
+        .config("spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2")
         .getOrCreate()
     )
 except Exception as e:

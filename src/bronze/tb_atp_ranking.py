@@ -15,10 +15,8 @@ try:
         SparkSession.builder.appName("atp_ranking")
         .config("spark.driver.memory", "4g")
         .config("spark.executor.memory", "4g")
+        .config("spark.jars.packages", "org.postgresql:postgresql:42.7.3")
         .config("spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2")
-        .config(
-            "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2"
-        )
         .getOrCreate()
     )
 except Exception as e:
