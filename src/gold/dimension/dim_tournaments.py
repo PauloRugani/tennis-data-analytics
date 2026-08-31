@@ -50,8 +50,8 @@ atp_matches = (
     .load()
 )
 
-# atp_tournaments = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_tournaments/")
-# atp_matches = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_matches/")
+# atp_tournaments = spark.read.format("parquet").load(r"data/silver/tb_atp_tournaments/")
+# atp_matches = spark.read.format("parquet").load(r"data/silver/tb_atp_matches/")
 
 
 from datetime import datetime
@@ -125,7 +125,7 @@ df = (
     df.write
     .mode("overwrite")
     .option("compression", "snappy")
-    .parquet(r"../../../data/gold/dimension/dim_tournaments")
+    .parquet(r"data/gold/dimension/dim_tournaments")
 )
 
 

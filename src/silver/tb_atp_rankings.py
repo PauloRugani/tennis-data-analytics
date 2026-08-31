@@ -17,9 +17,6 @@ try:
         .config("spark.executor.memory", "3500m")
         .config("spark.sql.shuffle.partitions", "8")
         .config("spark.default.parallelism", "8")
-        .config(
-            "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2"
-        )
         .getOrCreate()
     )
 except Exception as e:
@@ -43,7 +40,7 @@ tb_atp_rankings = (
     .load()
     )
 
-# tb_atp_rankings = spark.read.format("parquet").load(r"../../data/bronze/tb_atp_rankings/")
+# tb_atp_rankings = spark.read.format("parquet").load(r"data/bronze/tb_atp_rankings/")
 
 
 df = (
@@ -70,7 +67,7 @@ df = (
     df.coalesce(4).write
     .mode("overwrite")
     .option("compression", "snappy")
-    .parquet(r"../../data/silver/tb_atp_rankings")
+    .parquet(r"data/silver/tb_atp_rankings")
 )
 
 

@@ -74,10 +74,10 @@ tb_players = (
     .load()
     )
 
-# tb_player_match = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_player_match/")
-# tb_tournaments = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_tournaments/")
-# tb_date = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_date/")
-# tb_players = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_players/")
+# tb_player_match = spark.read.format("parquet").load(r"data/silver/tb_atp_player_match/")
+# tb_tournaments = spark.read.format("parquet").load(r"data/gold/dimension/dim_tournaments/")
+# tb_date = spark.read.format("parquet").load(r"data/gold/dimension/dim_date/")
+# tb_players = spark.read.format("parquet").load(r"data/gold/dimension/dim_players/")
 
 
 df = (
@@ -146,7 +146,7 @@ else:
     df.write
     .mode("overwrite")
     .option("compression", "snappy")
-    .parquet(r"../../../data/gold/fact/fact_player_match_stats")
+    .parquet(r"data/gold/fact/fact_player_match_stats")
 )
 
 

@@ -66,10 +66,12 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin main --rebase
+          
           git add data/
+          
           if git status --porcelain | grep -q .; then
             git commit -m "action(bronze): matches incremental update"
+            git pull --rebase origin main
             git push origin main
           else
             echo "No bronze changes to commit."

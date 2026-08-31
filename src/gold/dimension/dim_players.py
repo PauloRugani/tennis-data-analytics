@@ -39,7 +39,7 @@ tb_players = (
     .load()
     )
 
-# tb_players = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_players/")
+# tb_players = spark.read.format("parquet").load(r"data/silver/tb_atp_players/")
 
 
 country_mapping = {
@@ -120,7 +120,7 @@ df = (
     df.write
     .mode("overwrite")
     .option("compression", "snappy")
-    .parquet(r"../../../data/gold/dimension/dim_players")
+    .parquet(r"data/gold/dimension/dim_players")
 )
 
 

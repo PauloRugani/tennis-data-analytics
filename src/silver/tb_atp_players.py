@@ -40,7 +40,7 @@ tb_atp_matches = (
     )
 
 
-# tb_atp_matches = spark.read.format("parquet").load(r"../../data/bronze/tb_atp_matches/")
+# tb_atp_matches = spark.read.format("parquet").load(r"data/bronze/tb_atp_matches/")
 
 
 final_tb_atp_matches = (
@@ -132,7 +132,7 @@ df = (
     df.write
     .mode("overwrite")
     .option("compression", "snappy")
-    .parquet(r"../../data/silver/tb_atp_players")
+    .parquet(r"data/silver/tb_atp_players")
 )
 
 

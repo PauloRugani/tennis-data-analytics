@@ -63,9 +63,9 @@ tb_players = (
     .load()
     )
 
-# tb_player_match = spark.read.format("parquet").load(r"../../../data/silver/tb_atp_player_match/")
-# tb_tournaments = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_tournaments/")
-# tb_players = spark.read.format("parquet").load(r"../../../data/gold/dimension/dim_players/")
+# tb_player_match = spark.read.format("parquet").load(r"data/silver/tb_atp_player_match/")
+# tb_tournaments = spark.read.format("parquet").load(r"data/gold/dimension/dim_tournaments/")
+# tb_players = spark.read.format("parquet").load(r"data/gold/dimension/dim_players/")
 
 
 round_order = (
@@ -147,7 +147,7 @@ df = (
     df.write
     .mode("overwrite")
     .option("compression", "snappy")
-    .parquet(r"../../../data/gold/fact/fact_player_season")
+    .parquet(r"data/gold/fact/fact_player_season")
 )
 
 

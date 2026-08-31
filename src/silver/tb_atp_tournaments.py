@@ -41,7 +41,7 @@ tb_atp_matches = (
     )
 
 
-# tb_atp_matches = spark.read.format("parquet").load(r"../../data/bronze/tb_atp_matches/")
+# tb_atp_matches = spark.read.format("parquet").load(r"data/bronze/tb_atp_matches/")
 
 
 df = (

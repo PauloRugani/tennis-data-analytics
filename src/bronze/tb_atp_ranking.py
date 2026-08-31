@@ -16,6 +16,9 @@ try:
         .config("spark.driver.memory", "4g")
         .config("spark.executor.memory", "4g")
         .config("spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2")
+        .config(
+            "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2"
+        )
         .getOrCreate()
     )
 except Exception as e:
@@ -45,11 +48,11 @@ tb_incremental_rankings = (
     spark.read
     .format("csv")
     .option("header", "true")
-    .load(fr"../../data/raw/incremental/tb_incremental_ranking_{datetime.now().year}.csv")
+    .load(fr"data/raw/incremental/tb_incremental_ranking_{datetime.now().year}.csv")
 )
 
 
-historical_matches = r"../../data/raw/historical/ranking"
+historical_matches = r"data/raw/historical/ranking"
 
 
 if table_exists:
@@ -92,7 +95,7 @@ if df_final.count() > 0:
         df_final.write
         .mode(save_mode)
         .option("compression", "snappy")
-        .parquet(r"../../data/bronze/tb_atp_rankings")
+        .parquet(r"data/bronze/tb_atp_rankings")
     )
 
     (

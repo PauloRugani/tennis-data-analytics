@@ -40,7 +40,7 @@ jobs:
           git add data/
           
           if git status --porcelain | grep -q .; then
-            git commit -m "data(raw): incremental match extraction [skip ci]"
+            git commit -m "data(raw): incremental match extraction"
             git pull --rebase origin main
             git push origin main
           else
