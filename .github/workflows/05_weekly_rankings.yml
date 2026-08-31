@@ -35,9 +35,9 @@ jobs:
           pip install playwright==1.61.0 pyspark==3.5.0 pandas pyarrow python-dotenv
           playwright install --with-deps
 
-      # 1. Extractor Playwright
+      # 1. Extractor Playwright (com Display Virtual para headless=False)
       - name: Run Rankings Extractor
-        run: python bot/ranking_extractor.py
+        run: xvfb-run --auto-servernum python bot/ranking_extractor.py
 
       - name: Commit and Push Raw Rankings Data
         run: |
@@ -53,7 +53,6 @@ jobs:
           else
             echo "No raw changes to commit."
           fi
-
 
       # 2. Bronze Ranking
       - name: Run Bronze Ranking (Retry up to 5 times)
