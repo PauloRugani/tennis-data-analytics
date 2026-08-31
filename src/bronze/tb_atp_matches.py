@@ -22,13 +22,13 @@ except Exception as e:
     print(e)
 
 
-tb_atp_matches = spark.read.format("parquet").load(r"../../data/bronze/tb_atp_matches/")
+tb_atp_matches = spark.read.format("parquet").load(r"data/bronze/tb_atp_matches/")
 
 
-tb_ongoing_tourneys = spark.read.format("csv").option("header", "true").load(r"../../data/raw/incremental/tb_ongoing_tourneys.csv")
+tb_ongoing_tourneys = spark.read.format("csv").option("header", "true").load(r"data/raw/incremental/tb_ongoing_tourneys.csv")
 
 
-historical_matches = r"../../data/raw/historical/matches"
+historical_matches = r"data/raw/historical/matches"
 
 
 for index, file_name in enumerate(os.listdir(historical_matches)):
@@ -79,7 +79,7 @@ if df_final.count() > 0:
         df_final.write
         .mode("overwrite")
         .option("compression", "snappy")
-        .parquet(r"../../data/bronze/tb_atp_matches")
+        .parquet(r"data/bronze/tb_atp_matches")
     )
 
     (
