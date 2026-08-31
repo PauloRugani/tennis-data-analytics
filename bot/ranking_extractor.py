@@ -10,7 +10,9 @@ HISTORICAL_DIR = os.path.join("data", "raw", "historical", "ranking")
 
 def previous_year_process(current_year: int) -> None:
     prev_year = current_year - 1
-    old_file = os.path.join(RAW_DATA_DIR, f"tb_incremental_ranking_{prev_year}.csv")
+    old_file = os.path.join(
+        RAW_DATA_DIR, f"tb_incremental_ranking_{prev_year}.csv"
+    )
 
     if os.path.exists(old_file):
         os.makedirs(HISTORICAL_DIR, exist_ok=True)
@@ -39,26 +41,68 @@ def run(playwright: Playwright) -> None:
     previous_year_process(current_year)
 
     os.makedirs(RAW_DATA_DIR, exist_ok=True)
-    csv_path = os.path.join(RAW_DATA_DIR, f"tb_incremental_ranking_{current_year}.csv")
+    csv_path = os.path.join(
+        RAW_DATA_DIR, f"tb_incremental_ranking_{current_year}.csv"
+    )
 
-    if is_date_already_processed(csv_path, week_str):
+    if is_date_already_processed(csv_path, week_str.replace("-", "")):
         print(f"Data from {week_str} was already processed.")
         return
 
-    browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context()
+    # 1. Configuração anti-detecção com headless=True
+    browser = playwright.chromium.launch(
+        headless=True,
+        args=[
+            "--disable-blink-features=AutomationControlled",
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-infobars",
+            "--window-size=1920,1080",
+        ],
+    )
+
+    # 2. Emulação de navegador desktop real
+    context = browser.new_context(
+        user_agent=(
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            " (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        ),
+        viewport={"width": 1920, "height": 1080},
+        locale="en-US",
+        timezone_id="America/Sao_Paulo",
+    )
+
+    # 3. Oculta o sinal interno navigator.webdriver
+    context.add_init_script("""
+        Object.defineProperty(navigator, 'webdriver', {
+            get: () => undefined
+        });
+    """)
+
     page = context.new_page()
 
     try:
-        page.goto("https://www.atptour.com/en/rankings/singles?rankRange=0-5000")
+        page.goto(
+            "https://www.atptour.com/en/rankings/singles?rankRange=0-5000",
+            wait_until="domcontentloaded",
+            timeout=60000,
+        )
 
-        cookie_btn = page.get_by_role("button", name="Accept All Cookies")
-        if cookie_btn.is_visible(timeout=5000):
-            cookie_btn.click()
+        try:
+            cookie_btn = page.get_by_role("button", name="Accept All Cookies")
+            if cookie_btn.is_visible(timeout=5000):
+                cookie_btn.click()
+        except Exception:
+            pass
 
         ranking = []
-        raning_table = page.locator("xpath=/html/body/div[3]/div/div[2]/div[2]/div[1]/div/table[2]/tbody")
-        raning_table.locator(".lower_row, .lower-row").first.wait_for(state="attached", timeout=15000)
+        raning_table = page.locator(
+            "xpath=/html/body/div[3]/div/div[2]/div[2]/div[1]/div/table[2]/tbody"
+        )
+        raning_table.locator(".lower_row, .lower-row").first.wait_for(
+            state="attached", timeout=20000
+        )
         ranking_lines = raning_table.locator(".lower_row, .lower-row").all()
 
         for line in ranking_lines:
@@ -82,10 +126,14 @@ def run(playwright: Playwright) -> None:
 
         if ranking:
             with open(csv_path, mode="a", newline="", encoding="utf-8") as f:
-                writer = csv.DictWriter(f, fieldnames=ranking[0].keys(), delimiter=",")
+                writer = csv.DictWriter(
+                    f, fieldnames=ranking[0].keys(), delimiter=","
+                )
                 if not file_exists:
                     writer.writeheader()
                 writer.writerows(ranking)
+        else:
+            print("No data.")
 
     except Exception as e:
         raise e
