@@ -10,9 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  # -------------------------------------------------------------
-  # 1. GOLD DIMENSIONS STAGE
-  # -------------------------------------------------------------
+  # Gold dimension
   process-gold-dimensions:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     name: Gold - Dimensions
@@ -76,15 +74,13 @@ jobs:
           git pull origin main --rebase
           git add data/
           if git status --porcelain | grep -q .; then
-            git commit -m "data(gold): dimensions update [skip ci]"
+            git commit -m "action(gold): dimensions update"
             git push origin main
           else
             echo "No dimension changes to commit."
           fi
 
-  # -------------------------------------------------------------
-  # 2. GOLD FACTS STAGE
-  # -------------------------------------------------------------
+  # Gold fact
   process-gold-facts:
     name: Gold - Facts
     needs: process-gold-dimensions
