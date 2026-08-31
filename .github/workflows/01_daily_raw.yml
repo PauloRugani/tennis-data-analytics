@@ -1,0 +1,46 @@
+name: 01 - Daily Raw Matches Extraction
+
+on:
+  schedule:
+    # 18:00 BRT (UTC-3) -> 21:00 UTC
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  raw-matches-extraction:
+    name: Raw - Playwright Match Extractor
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install playwright==1.61.0 python-dotenv
+          playwright install --with-deps
+
+      - name: Run Match Extractor
+        run: python bot/match_extractor.py
+
+      - name: Commit and Push Raw Matches Data
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin main --rebase
+          git add data/
+          if git status --porcelain | grep -q .; then
+            git commit -m "action(raw): incremental match extraction"
+            git push origin main
+          else
+            echo "No raw changes to commit."
+          fi
