@@ -13,9 +13,12 @@ load_dotenv()
 try:
     spark = (
         SparkSession.builder.appName("bronze")
-        .config("spark.driver.memory", "4g")
-        .config("spark.executor.memory", "4g")
-        .config("spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2")
+        .config("spark.driver.memory", "3500m")
+        .config("spark.executor.memory", "3500m")
+        .config("spark.jars.packages", "org.postgresql:postgresql:42.7.3")
+        .config(
+            "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2"
+        )
         .getOrCreate()
     )
 except Exception as e:
