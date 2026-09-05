@@ -1,4 +1,4 @@
-name: Deploy to Airflow
+name: Deploy Airflow
 
 on:
   workflow_dispatch:
@@ -25,16 +25,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.VM_HOST }}
           REMOTE_USER: ${{ secrets.VM_USER }}
           SOURCE: "."
-          TARGET: "/home/opc/airflow/"
-          ARGS: "-rlgoDzvc -i"
-          EXCLUDE: |
-            /.git/
-            /.github/
-            /.venv/
-            /__pycache__/
-            /data/
-            /dashboard/
-            /notebooks/
-            *.csv
-            *.parquet
-            *.log
+          TARGET: "/home/opc/airflow"
+          EXCLUDE: "/.git/, /.github/, /.venv/, /__pycache__/, /data/, /dashboard/, /notebooks/, *.csv, *.parquet, *.log"
+
+# run sudo dnf install -y rsync || sudo yum install -y rsync at VM terminal
