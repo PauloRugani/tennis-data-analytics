@@ -18,14 +18,34 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Deploy DAGs and Modules to VM
+      - name: Sync dags/
         uses: easingthemes/ssh-deploy@v5.0.3
         with:
           SSH_PRIVATE_KEY: ${{ secrets.VM_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.VM_HOST }}
           REMOTE_USER: ${{ secrets.VM_USER }}
-          SOURCE: "."
-          TARGET: "/home/opc/airflow"
-          EXCLUDE: "/.git/, /.github/, /.venv/, /__pycache__/, /data/, /dashboard/, /notebooks/, *.csv, *.parquet, *.log"
+          SOURCE: "dags/"
+          TARGET: "/home/opc/airflow/dags/"
+          EXCLUDE: "/__pycache__/"
+
+      - name: Sync bot/
+        uses: easingthemes/ssh-deploy@v5.0.3
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.VM_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.VM_HOST }}
+          REMOTE_USER: ${{ secrets.VM_USER }}
+          SOURCE: "bot/"
+          TARGET: "/home/opc/airflow/bot/"
+          EXCLUDE: "/__pycache__/"
+
+      - name: Sync src/
+        uses: easingthemes/ssh-deploy@v5.0.3
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.VM_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.VM_HOST }}
+          REMOTE_USER: ${{ secrets.VM_USER }}
+          SOURCE: "src/"
+          TARGET: "/home/opc/airflow/src/"
+          EXCLUDE: "/__pycache__/"
 
 # run sudo dnf install -y rsync || sudo yum install -y rsync at VM terminal
