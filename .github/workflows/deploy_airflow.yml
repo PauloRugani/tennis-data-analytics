@@ -1,0 +1,39 @@
+name: Deploy to Airflow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'dags/**'
+      - 'bot/**'
+      - 'src/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy DAGs and Modules to VM
+        uses: easingthemes/ssh-deploy@v5.0.3
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.VM_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.VM_HOST }}
+          REMOTE_USER: ${{ secrets.VM_USER }}
+          SOURCE: "."
+          TARGET: "/home/opc/airflow/"
+          ARGS: "-rlgoDzvc -i"
+          EXCLUDE: |
+            /.git/
+            /.github/
+            /.venv/
+            /__pycache__/
+            /data/
+            /dashboard/
+            /notebooks/
+            *.csv
+            *.parquet
+            *.log
