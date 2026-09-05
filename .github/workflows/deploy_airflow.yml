@@ -1,6 +1,7 @@
 name: Deploy to Airflow
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
