@@ -2,13 +2,22 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
   "themeCollection": {
     "baseTheme": {
-      "name": "CY26SU07",
+      "name": "CY26SU08",
       "reportVersionAtImport": {
-        "visual": "2.11.0",
+        "visual": "2.12.0",
         "report": "3.4.0",
         "page": "2.3.1"
       },
       "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Custom9075079017551273.json",
+      "reportVersionAtImport": {
+        "visual": "2.12.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
     }
   },
   "objects": {
@@ -45,8 +54,8 @@
       "type": "SharedResources",
       "items": [
         {
-          "name": "CY26SU07",
-          "path": "BaseThemes/CY26SU07.json",
+          "name": "CY26SU08",
+          "path": "BaseThemes/CY26SU08.json",
           "type": "BaseTheme"
         }
       ]
@@ -61,23 +70,13 @@
           "type": "Image"
         },
         {
-          "name": "filter_alt_43dp_FFFFFF_FILL0_w06352370850817557.svg",
-          "path": "filter_alt_43dp_FFFFFF_FILL0_w06352370850817557.svg",
-          "type": "Image"
+          "name": "Custom9075079017551273.json",
+          "path": "Custom9075079017551273.json",
+          "type": "CustomTheme"
         },
         {
           "name": "filter_alt_43dp_FFFFFF_FILL0_w8116495027873719.svg",
           "path": "filter_alt_43dp_FFFFFF_FILL0_w8116495027873719.svg",
-          "type": "Image"
-        },
-        {
-          "name": "menu_sidebar3781214848655877.svg",
-          "path": "menu_sidebar3781214848655877.svg",
-          "type": "Image"
-        },
-        {
-          "name": "overview_43dp_FFFFFF_FILL0_wgh511464174463245.svg",
-          "path": "overview_43dp_FFFFFF_FILL0_wgh511464174463245.svg",
           "type": "Image"
         }
       ]

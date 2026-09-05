@@ -1,17 +1,19 @@
 table 'gold fact_player_ranking'
-	lineageTag: 06129b4c-e393-4e7c-8f53-bb6ac05d06ab
+	lineageTag: 475053ca-49c8-4315-990a-80b5f168d39c
 
 	column SK_DATE
-		dataType: string
-		lineageTag: 7ad076cf-30f5-4bf8-822c-18ee139b8543
+		dataType: int64
+		formatString: 0
+		lineageTag: 97dfe9cb-1deb-4529-8804-c53fc6784da2
 		summarizeBy: none
 		sourceColumn: SK_DATE
 
 		annotation SummarizationSetBy = Automatic
 
 	column SK_PLAYER
-		dataType: string
-		lineageTag: 165855ea-7413-4a75-bf3a-2748191ee0af
+		dataType: int64
+		formatString: 0
+		lineageTag: fc881acf-58a2-42c3-a3c1-34360fb626cf
 		summarizeBy: none
 		sourceColumn: SK_PLAYER
 
@@ -19,18 +21,17 @@ table 'gold fact_player_ranking'
 
 	column NUM_PLAYER_RANK
 		dataType: int64
-		lineageTag: 65fbd8b7-fe6c-4c3d-b212-45127d4ebfcd
+		formatString: 0
+		lineageTag: 00b4cd27-0a58-4962-9359-455fba9ad124
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_RANK
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column NUM_PLAYER_RANK_PTS
 		dataType: int64
 		formatString: 0
-		lineageTag: deda269e-a9e0-4d61-a141-99b2c55b33c1
+		lineageTag: a7417b88-0855-4fe3-afc9-ae3485ac8892
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_RANK_PTS
 
@@ -38,41 +39,51 @@ table 'gold fact_player_ranking'
 
 	column NUM_PLAYER_LE_PTS
 		dataType: string
-		lineageTag: f25e8ba9-e523-4e45-95f6-8f2ad2dc8410
+		lineageTag: f7f9085b-85a5-4e0e-abbc-15b8d6d47033
 		summarizeBy: none
 		sourceColumn: NUM_PLAYER_LE_PTS
 
 		annotation SummarizationSetBy = Automatic
 
 	column NUM_PLAYER_DROP_PTS
-		dataType: string
-		lineageTag: a3353f34-b0d1-47d5-aa53-65626c2a39e8
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: 976fbd04-25a9-4a99-9bae-9c8601136347
+		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_DROP_PTS
 
 		annotation SummarizationSetBy = Automatic
 
 	column NUM_PLAYER_NEXT_BEST
-		dataType: string
-		lineageTag: 907ce04b-d192-436b-b489-04ffb8605175
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c05fa64-0b48-4bec-a349-0685e95bfb61
+		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_NEXT_BEST
 
 		annotation SummarizationSetBy = Automatic
 
-	column DATE_INGESTION
-		dataType: string
-		lineageTag: 5d720019-0edb-41af-86b0-94a250a019de
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: aab24091-6ef2-4c6b-89e6-0004ca7a50df
 		summarizeBy: none
-		sourceColumn: DATE_INGESTION
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: 8b344e6e-c984-4798-b0d9-81361c8b5e87
+			defaultHierarchy: LocalDateTable_3ad2619a-4836-4dae-b696-c70e0def7f58.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition 'gold fact_player_ranking' = m
 		mode: import
 		source =
 				let
-				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
 				    gold_fact_player_ranking = Fonte{[Schema="gold",Item="fact_player_ranking"]}[Data]
 				in
 				    gold_fact_player_ranking

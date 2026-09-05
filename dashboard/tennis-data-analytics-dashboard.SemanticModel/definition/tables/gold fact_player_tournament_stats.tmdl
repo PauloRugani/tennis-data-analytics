@@ -1,25 +1,28 @@
 table 'gold fact_player_tournament_stats'
-	lineageTag: d716c198-fe88-4f46-8311-e409361da393
+	lineageTag: 2e953df4-2d91-4586-b905-7eee4b938c34
 
 	column SK_PLAYER
-		dataType: string
-		lineageTag: 7e77d442-dde6-40dd-8438-c457c5a4bdb7
+		dataType: int64
+		formatString: 0
+		lineageTag: d7a0e3bc-8fb8-4785-a525-2a16411c9ad3
 		summarizeBy: none
 		sourceColumn: SK_PLAYER
 
 		annotation SummarizationSetBy = Automatic
 
 	column SK_TOURNEY
-		dataType: string
-		lineageTag: 8d7c2848-9dbf-4e05-9255-0a470f6555e5
+		dataType: int64
+		formatString: 0
+		lineageTag: 92dc0c00-f08b-4166-8475-c7776eacf89c
 		summarizeBy: none
 		sourceColumn: SK_TOURNEY
 
 		annotation SummarizationSetBy = Automatic
 
 	column SK_ENTRY_TYPE
-		dataType: string
-		lineageTag: ccda0f7f-1160-41ca-90b6-7d82f274f9ef
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a1222e6-488f-4481-8e56-d3b29930fcf0
 		summarizeBy: none
 		sourceColumn: SK_ENTRY_TYPE
 
@@ -27,7 +30,7 @@ table 'gold fact_player_tournament_stats'
 
 	column SK_DATE
 		dataType: string
-		lineageTag: d4cf5cd6-340f-4e55-88a3-063b2b88acf0
+		lineageTag: f83a1cde-25a3-4c82-8ae0-bede75fe269b
 		summarizeBy: none
 		sourceColumn: SK_DATE
 
@@ -36,7 +39,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_PLAYER_SEED
 		dataType: int64
 		formatString: 0
-		lineageTag: 3cdf3d7e-6428-4a72-bace-2c7a1b16bb8e
+		lineageTag: c07a145a-69d3-494e-95d2-d4558b6273c6
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_SEED
 
@@ -45,7 +48,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_PLAYER_RANK_PTS
 		dataType: int64
 		formatString: 0
-		lineageTag: 2da58215-f2ea-468f-982e-4149eac0e6da
+		lineageTag: 71d04b7a-279b-47b5-a168-15d4b51b697a
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_RANK_PTS
 
@@ -54,7 +57,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_PLAYER_RANK
 		dataType: int64
 		formatString: 0
-		lineageTag: 36f3368e-bc84-474e-9f44-85ec8aa14803
+		lineageTag: e60c3666-b9e8-4f7a-bfdd-05d14cb7bd72
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_RANK
 
@@ -63,7 +66,7 @@ table 'gold fact_player_tournament_stats'
 	column FLAG_IS_CHAMPION
 		dataType: int64
 		formatString: 0
-		lineageTag: d086f78c-5a77-4b19-9ba6-1a7acca8e0bc
+		lineageTag: aed63807-8bee-4609-b586-f3434f919684
 		summarizeBy: sum
 		sourceColumn: FLAG_IS_CHAMPION
 
@@ -71,7 +74,7 @@ table 'gold fact_player_tournament_stats'
 
 	column DES_LAST_ROUND_PLAYED
 		dataType: string
-		lineageTag: af5565b7-2354-4408-87ff-b96ac14e7b58
+		lineageTag: 4e8d3a3c-3661-44e7-8916-1b4d6ddacf89
 		summarizeBy: none
 		sourceColumn: DES_LAST_ROUND_PLAYED
 
@@ -80,7 +83,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_MATCHES
 		dataType: int64
 		formatString: 0
-		lineageTag: 86aad53c-e6a2-4f10-86d4-b599329c6b92
+		lineageTag: e6d5dc79-addb-4ac7-9e07-e0de232f7d57
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_MATCHES
 
@@ -89,7 +92,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_MIN_IN_GAME
 		dataType: int64
 		formatString: 0
-		lineageTag: 0b75526d-2447-4ef3-8c61-a6e24182563c
+		lineageTag: eebdd16e-6707-4542-8ee6-b165a87772cf
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_MIN_IN_GAME
 
@@ -98,7 +101,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_LONGEST_MATCH
 		dataType: int64
 		formatString: 0
-		lineageTag: 338483b2-3ff8-4f98-a52d-88fb03bee396
+		lineageTag: b7200e62-d0c9-4d97-9214-8a861a9c9404
 		summarizeBy: sum
 		sourceColumn: NUM_LONGEST_MATCH
 
@@ -107,7 +110,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_ACES
 		dataType: int64
 		formatString: 0
-		lineageTag: 081b2ee1-7671-47a3-8e82-d3ff0afc8c85
+		lineageTag: 856eef7a-91cf-4097-8a43-5a5de2d9c87d
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_ACES
 
@@ -116,7 +119,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_DB_FAULTS
 		dataType: int64
 		formatString: 0
-		lineageTag: 3604e108-93c9-4871-9e42-8787fcb53cab
+		lineageTag: ebe3338f-0286-4e39-a51c-c94f3570375d
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_DB_FAULTS
 
@@ -125,7 +128,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_SERVE_PTS
 		dataType: int64
 		formatString: 0
-		lineageTag: 80b51358-0786-4905-8ac3-a2c9f784e140
+		lineageTag: 3c8a495d-cb77-48f1-bf6c-c17e5875159a
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_SERVE_PTS
 
@@ -134,7 +137,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_1ST_SERVES_IN
 		dataType: int64
 		formatString: 0
-		lineageTag: 59529192-1da6-443c-814a-51cad4cb687c
+		lineageTag: 2e15c22f-b0ff-4d83-b715-f1f5eb0c165f
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_1ST_SERVES_IN
 
@@ -143,7 +146,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_1ST_SERVE_PTS_WON
 		dataType: int64
 		formatString: 0
-		lineageTag: 7581a786-c604-4af5-8428-e2b6a6f06660
+		lineageTag: c4b962b1-8f12-4b12-8384-57b3c9c09d7b
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_1ST_SERVE_PTS_WON
 
@@ -152,7 +155,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_2ND_SERVE_PTS_WON
 		dataType: int64
 		formatString: 0
-		lineageTag: 00ec382f-a622-496f-8791-62cba4055ecf
+		lineageTag: bd14b25d-8cdc-494d-924b-ac08a50ee0a4
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_2ND_SERVE_PTS_WON
 
@@ -161,7 +164,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_SERVE_GAMES
 		dataType: int64
 		formatString: 0
-		lineageTag: 13889461-e619-467a-97da-4f17bdf4442a
+		lineageTag: 018f929a-4b7d-478e-881e-e25e784a119f
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_SERVE_GAMES
 
@@ -170,7 +173,7 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_BP_SAVED
 		dataType: int64
 		formatString: 0
-		lineageTag: aa508bd2-06fe-47ae-a276-f244067c296c
+		lineageTag: 425e2bc1-a2e8-4ff4-9911-f5ac002e064d
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_BP_SAVED
 
@@ -179,25 +182,33 @@ table 'gold fact_player_tournament_stats'
 	column NUM_TOTAL_BP_FACED
 		dataType: int64
 		formatString: 0
-		lineageTag: 2efbfcc5-b4ba-4541-a86a-3b3f13372294
+		lineageTag: 501afcdf-2f87-4b74-a73c-7b5981587072
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_BP_FACED
 
 		annotation SummarizationSetBy = Automatic
 
-	column DATE_INGESTION
-		dataType: string
-		lineageTag: 803c4e7f-2dd8-429c-aa52-912b6af14958
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d65a1e42-3a22-4529-86ac-3ddf14e9163c
 		summarizeBy: none
-		sourceColumn: DATE_INGESTION
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: f709afef-b83a-4a34-bab7-8e19275fa814
+			defaultHierarchy: LocalDateTable_bb82c2df-4452-4519-abc5-100337c2f989.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition 'gold fact_player_tournament_stats' = m
 		mode: import
 		source =
 				let
-				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
 				    gold_fact_player_tournament_stats = Fonte{[Schema="gold",Item="fact_player_tournament_stats"]}[Data]
 				in
 				    gold_fact_player_tournament_stats

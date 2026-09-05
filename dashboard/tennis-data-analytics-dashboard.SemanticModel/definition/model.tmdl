@@ -14,15 +14,24 @@ annotation PBI_QueryOrder = ["gold dim_date","gold dim_entry","gold dim_players"
 annotation PBI_ProTooling = ["DevMode"]
 
 ref table 'gold dim_date'
+ref table DateTableTemplate_f3610ef2-81ef-46e8-b465-fd9857eebc23
+ref table LocalDateTable_72c60d33-aaeb-4864-81ed-e9c6f73c5f43
+ref table LocalDateTable_f2e7bc8e-cb57-42f8-b2aa-847aeabb3ef6
 ref table 'gold dim_entry'
+ref table LocalDateTable_b2a8d3a2-0293-46ad-acb8-7c3019a2ef87
 ref table 'gold dim_players'
+ref table LocalDateTable_f5e18efa-8c20-40e2-a5e8-eeff981e5123
+ref table LocalDateTable_d3376970-9b8b-462c-9bb9-c93b418749c2
 ref table 'gold dim_tournaments'
+ref table LocalDateTable_71eb9fba-48fe-4f85-973a-2e8cd80412f3
 ref table 'gold fact_player_match_stats'
+ref table LocalDateTable_7a060886-34cc-4060-afe8-077b5f1d7e4a
 ref table 'gold fact_player_ranking'
+ref table LocalDateTable_3ad2619a-4836-4dae-b696-c70e0def7f58
 ref table 'gold fact_player_season'
+ref table LocalDateTable_57da0630-73b1-425c-998a-a7a214e94285
 ref table 'gold fact_player_tournament_stats'
-ref table DateTableTemplate_dcca6f1b-639d-4eca-8bfb-4b15ccb1d5a4
-ref table LocalDateTable_1d123767-f4c3-42a2-8590-d08ac8be2da5
+ref table LocalDateTable_bb82c2df-4452-4519-abc5-100337c2f989
 
 ref cultureInfo pt-BR
 

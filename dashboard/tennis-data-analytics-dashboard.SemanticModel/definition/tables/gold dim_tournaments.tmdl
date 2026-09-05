@@ -1,9 +1,9 @@
 table 'gold dim_tournaments'
-	lineageTag: 8df4f494-9657-43f2-b0fb-f55abeafc93b
+	lineageTag: 9af7af5d-27be-4bae-a538-1315b3b5040a
 
 	column COD_TOURNEY_ID
 		dataType: string
-		lineageTag: e9fa9b29-68f5-4b34-9240-1322f41de4e1
+		lineageTag: 02779632-eac3-4659-9da9-28a6b1ab3fac
 		summarizeBy: none
 		sourceColumn: COD_TOURNEY_ID
 
@@ -11,7 +11,7 @@ table 'gold dim_tournaments'
 
 	column DES_TOURNEY_NAME
 		dataType: string
-		lineageTag: 40edcf6c-bc69-4910-bc5c-9020766b98c8
+		lineageTag: aa6f7509-16fb-446b-a6ef-84641a35ba19
 		summarizeBy: none
 		sourceColumn: DES_TOURNEY_NAME
 
@@ -19,7 +19,7 @@ table 'gold dim_tournaments'
 
 	column DES_TOURNEY_LEVEL
 		dataType: string
-		lineageTag: 148231d4-afc4-431f-8135-c6aa8fa27873
+		lineageTag: c465ee17-8b54-41ad-b6b6-0461bc962218
 		summarizeBy: none
 		sourceColumn: DES_TOURNEY_LEVEL
 
@@ -28,7 +28,7 @@ table 'gold dim_tournaments'
 	column NUM_TOURNEY_DRAW_SIZE
 		dataType: int64
 		formatString: 0
-		lineageTag: c0a72f88-8414-46b9-b5fd-3ec205e95cc0
+		lineageTag: 365bcc12-f4c8-435f-8e4f-2d1ecf5b79ee
 		summarizeBy: sum
 		sourceColumn: NUM_TOURNEY_DRAW_SIZE
 
@@ -36,7 +36,7 @@ table 'gold dim_tournaments'
 
 	column DES_TOURNEY_SURFACE
 		dataType: string
-		lineageTag: 63d6e622-c5b5-4b02-aa8c-f9c802552536
+		lineageTag: 3eab0dea-62bc-4e63-9760-b0ed17642bfd
 		summarizeBy: none
 		sourceColumn: DES_TOURNEY_SURFACE
 
@@ -44,7 +44,7 @@ table 'gold dim_tournaments'
 
 	column FLAG_TOURNEY_IS_INDOOR
 		dataType: string
-		lineageTag: 4c141e4a-4dce-4ca0-8929-6f3b41cad94e
+		lineageTag: b25c268b-7dcb-4e5c-be22-de84db3ca1ba
 		summarizeBy: none
 		sourceColumn: FLAG_TOURNEY_IS_INDOOR
 
@@ -52,7 +52,7 @@ table 'gold dim_tournaments'
 
 	column DES_TOURNEY_STATUS
 		dataType: string
-		lineageTag: e78bea1f-77fa-4dc6-b34d-f3c42a2dde64
+		lineageTag: 587aff6e-c986-46dd-b0de-26de70a0b7e7
 		summarizeBy: none
 		sourceColumn: DES_TOURNEY_STATUS
 
@@ -60,7 +60,7 @@ table 'gold dim_tournaments'
 
 	column DATE_TOURNEY_START
 		dataType: string
-		lineageTag: b841df98-63d5-4f64-bf02-d84a28668ff9
+		lineageTag: 62bf08cc-3538-46e5-9936-57f7f0ce86f8
 		summarizeBy: none
 		sourceColumn: DATE_TOURNEY_START
 
@@ -68,24 +68,32 @@ table 'gold dim_tournaments'
 
 	column REF_YEAR
 		dataType: string
-		lineageTag: c9602362-0c54-46d7-92c9-1b5509f3e4dc
+		lineageTag: c97886e4-b3e6-4652-b0b6-c732d7867d0a
 		summarizeBy: none
 		sourceColumn: REF_YEAR
 
 		annotation SummarizationSetBy = Automatic
 
-	column DATE_INGESTION
-		dataType: string
-		lineageTag: 903f0a7b-fb95-4c8d-a40d-8b2c0b8155c1
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: be4fdef3-37c5-4f06-b469-9783f6ec6320
 		summarizeBy: none
-		sourceColumn: DATE_INGESTION
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: 041d3a13-ccc7-456e-8268-5820c83ef74a
+			defaultHierarchy: LocalDateTable_71eb9fba-48fe-4f85-973a-2e8cd80412f3.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column SK_TOURNEY
 		dataType: int64
 		formatString: 0
-		lineageTag: bf14a4e9-713a-4ef8-b8fb-3cb8225bde50
+		lineageTag: 5394bf01-d5e7-4b2c-a20a-cbd453a98f3c
 		summarizeBy: none
 		sourceColumn: SK_TOURNEY
 
@@ -95,7 +103,7 @@ table 'gold dim_tournaments'
 		mode: import
 		source =
 				let
-				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
 				    gold_dim_tournaments = Fonte{[Schema="gold",Item="dim_tournaments"]}[Data]
 				in
 				    gold_dim_tournaments

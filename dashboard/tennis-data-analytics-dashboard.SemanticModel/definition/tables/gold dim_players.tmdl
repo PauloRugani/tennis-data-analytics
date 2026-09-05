@@ -1,9 +1,22 @@
 table 'gold dim_players'
-	lineageTag: 8fc2487f-3966-4de4-895d-48de00a64c99
+	lineageTag: a04b090c-28b4-4693-b0f3-fd7688b021c1
+
+	measure Medida = COUNT('gold dim_players'[DES_PLAYER_COUNTRY_ISO2])
+		formatString: 0
+		lineageTag: 4fbbc4e0-7d77-4cc8-b728-8720f29486f4
+
+	column SK_PLAYER
+		dataType: int64
+		formatString: 0
+		lineageTag: 03f6673d-85cf-4acd-8310-736b960ec32a
+		summarizeBy: none
+		sourceColumn: SK_PLAYER
+
+		annotation SummarizationSetBy = Automatic
 
 	column DES_PLAYER_NAME
 		dataType: string
-		lineageTag: d21f7f9e-8595-4ce8-ada0-14b4141ad5b2
+		lineageTag: 76301bcd-bc0d-4147-b4ff-e7a579c23f4f
 		summarizeBy: none
 		sourceColumn: DES_PLAYER_NAME
 
@@ -11,7 +24,7 @@ table 'gold dim_players'
 
 	column COD_PLAYER_ID
 		dataType: string
-		lineageTag: 7a7a1a3f-16f7-4b27-bf60-601da4f62705
+		lineageTag: d5520611-6fc1-459a-9d7e-32071a3ac57a
 		summarizeBy: none
 		sourceColumn: COD_PLAYER_ID
 
@@ -19,7 +32,7 @@ table 'gold dim_players'
 
 	column COD_PLAYER_ID_OLD
 		dataType: string
-		lineageTag: 47865234-84ac-4843-a095-ec13fd2b5a0a
+		lineageTag: 527597e8-350c-4270-bf3f-02abe8370397
 		summarizeBy: none
 		sourceColumn: COD_PLAYER_ID_OLD
 
@@ -27,23 +40,24 @@ table 'gold dim_players'
 
 	column DES_PLAYER_HAND
 		dataType: string
-		lineageTag: 876b592c-f638-4bdd-8ae6-e83b9fe56fd0
+		lineageTag: 00efdb86-1cc3-435c-a909-bee282ceddb3
 		summarizeBy: none
 		sourceColumn: DES_PLAYER_HAND
 
 		annotation SummarizationSetBy = Automatic
 
 	column NUM_PLAYER_HEIGHT
-		dataType: string
-		lineageTag: 99f2e02a-0531-4e97-8b81-c4c50085c62c
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: a0022cf5-23b2-4ee2-be0f-2cb8baf43852
+		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_HEIGHT
 
 		annotation SummarizationSetBy = Automatic
 
 	column DES_PLAYER_COUNTRY
 		dataType: string
-		lineageTag: e2eda479-ad74-4bd1-a0dd-bebedbc5bf74
+		lineageTag: ef7116ad-1396-4bbe-a69c-5b090979d765
 		summarizeBy: none
 		sourceColumn: DES_PLAYER_COUNTRY
 
@@ -51,42 +65,49 @@ table 'gold dim_players'
 
 	column DES_PLAYER_COUNTRY_ISO2
 		dataType: string
-		lineageTag: 69da95b1-fdd4-4980-b232-c604db3603d7
+		lineageTag: f6582b85-7afc-451b-b71a-c92483d65a4e
 		summarizeBy: none
 		sourceColumn: DES_PLAYER_COUNTRY_ISO2
 
 		annotation SummarizationSetBy = Automatic
 
 	column DATE_PLAYER_BIRTH
-		dataType: string
-		lineageTag: 13a5fc52-2e9a-4f64-a31e-7e76eb0f5bf7
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a0121f1d-6406-4514-84cb-b81a21313ae3
 		summarizeBy: none
 		sourceColumn: DATE_PLAYER_BIRTH
 
+		variation Variation
+			isDefault
+			relationship: d1aaf0c6-aea2-4626-8c76-8c0ae557e41f
+			defaultHierarchy: LocalDateTable_f5e18efa-8c20-40e2-a5e8-eeff981e5123.'Hierarquia de datas'
+
 		annotation SummarizationSetBy = Automatic
 
-	column DATE_INGESTION
-		dataType: string
-		lineageTag: ed516af8-09c3-4ec5-bcbb-211f2e042d9a
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d6f0f8a6-31cd-4aa1-8600-2bc3fd80bb78
 		summarizeBy: none
-		sourceColumn: DATE_INGESTION
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: d222dc07-13a9-46c2-9a6b-d945e5fa8751
+			defaultHierarchy: LocalDateTable_d3376970-9b8b-462c-9bb9-c93b418749c2.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
 
-	column SK_PLAYER
-		dataType: int64
-		formatString: 0
-		lineageTag: 3e56256f-c618-4ac3-b861-02eabfb6ab40
-		summarizeBy: none
-		sourceColumn: SK_PLAYER
-
-		annotation SummarizationSetBy = Automatic
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition 'gold dim_players' = m
 		mode: import
 		source =
 				let
-				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
 				    gold_dim_players = Fonte{[Schema="gold",Item="dim_players"]}[Data]
 				in
 				    gold_dim_players

@@ -5,9 +5,9 @@
     "x": 0,
     "y": 0,
     "z": 1000,
-    "height": 720,
-    "width": 102,
-    "tabOrder": 3000
+    "height": 61.7910447761194,
+    "width": 1279.7014925373135,
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "shape",
@@ -55,6 +55,19 @@
           },
           "selector": {
             "id": "default"
+          }
+        }
+      ],
+      "outline": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ]

@@ -1,9 +1,10 @@
 table 'gold fact_player_season'
-	lineageTag: 21da3120-1248-4fcd-8d3d-3f0f1f6b21ea
+	lineageTag: ed8dc9ff-0645-44c7-a9a2-d0c4cd9f3a7d
 
 	column SK_PLAYER
-		dataType: string
-		lineageTag: 780afcb8-49fc-4b32-8c7a-99b6dbd89a49
+		dataType: int64
+		formatString: 0
+		lineageTag: d96061a2-fd13-46ce-9db0-6333b87dae4c
 		summarizeBy: none
 		sourceColumn: SK_PLAYER
 
@@ -11,7 +12,7 @@ table 'gold fact_player_season'
 
 	column SK_DATE
 		dataType: string
-		lineageTag: 311efb51-a137-4962-8a37-409835bed6ea
+		lineageTag: ffebd99e-70e8-419f-96cc-1ac0550160a5
 		summarizeBy: none
 		sourceColumn: SK_DATE
 
@@ -20,7 +21,7 @@ table 'gold fact_player_season'
 	column NUM_TOTAL_MATCHES
 		dataType: int64
 		formatString: 0
-		lineageTag: 1e4536df-63a0-43d2-a069-6f3a4d468aa2
+		lineageTag: ab7ae626-d144-44bc-aa94-3aa2cea80279
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_MATCHES
 
@@ -29,7 +30,7 @@ table 'gold fact_player_season'
 	column NUM_TOTAL_TOURNAMENTS
 		dataType: int64
 		formatString: 0
-		lineageTag: acdb8124-2a51-4604-aa2b-771dcf900fa6
+		lineageTag: 50396524-52b5-40fe-afa7-c65e61c463c1
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_TOURNAMENTS
 
@@ -38,7 +39,7 @@ table 'gold fact_player_season'
 	column NUM_TOTAL_WINS
 		dataType: int64
 		formatString: 0
-		lineageTag: 70688b04-25cf-409b-a764-a411288ed5a9
+		lineageTag: 659b611f-ea3d-43fa-b9ff-cb09061af50f
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_WINS
 
@@ -47,7 +48,7 @@ table 'gold fact_player_season'
 	column NUM_TOTAL_LOSSES
 		dataType: int64
 		formatString: 0
-		lineageTag: 441581b0-d4a3-40f3-ac3c-b963370baf36
+		lineageTag: 6b298adf-d6cf-4457-8158-d31e05bf1817
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_LOSSES
 
@@ -56,7 +57,7 @@ table 'gold fact_player_season'
 	column NUM_TOTAL_TITLES
 		dataType: int64
 		formatString: 0
-		lineageTag: 05dd2c39-734a-4678-9ba5-c8dc85554fe9
+		lineageTag: 5fcd4930-e774-45ab-8126-dfd2f732f876
 		summarizeBy: sum
 		sourceColumn: NUM_TOTAL_TITLES
 
@@ -64,7 +65,7 @@ table 'gold fact_player_season'
 
 	column DES_AUS_OPEN_RESULT
 		dataType: string
-		lineageTag: fb7cddea-0dd0-4e2d-8bd2-3dd60b3c9c4e
+		lineageTag: 37978a88-20d4-4b8f-a93e-9f1d60d30f92
 		summarizeBy: none
 		sourceColumn: DES_AUS_OPEN_RESULT
 
@@ -72,7 +73,7 @@ table 'gold fact_player_season'
 
 	column DES_ROLAND_GARROS_RESULT
 		dataType: string
-		lineageTag: e79ed33e-49cb-4194-a456-1cd8dbd2ad5a
+		lineageTag: 42a53938-d9e0-4355-b0c7-b494764102c0
 		summarizeBy: none
 		sourceColumn: DES_ROLAND_GARROS_RESULT
 
@@ -80,7 +81,7 @@ table 'gold fact_player_season'
 
 	column DES_WIMBLEDON_RESULT
 		dataType: string
-		lineageTag: f0c4f3eb-eb0f-42cc-9a14-34bc8b53db6e
+		lineageTag: 9c25e459-7767-4b0f-8cd9-964edbbea3d8
 		summarizeBy: none
 		sourceColumn: DES_WIMBLEDON_RESULT
 
@@ -88,7 +89,7 @@ table 'gold fact_player_season'
 
 	column DES_US_OPEN_RESULT
 		dataType: string
-		lineageTag: 568a89ea-973f-46fd-93ee-515e0b7dcacd
+		lineageTag: cdd74bd2-57ab-4a1c-a1dc-3c4f7738696b
 		summarizeBy: none
 		sourceColumn: DES_US_OPEN_RESULT
 
@@ -97,7 +98,7 @@ table 'gold fact_player_season'
 	column NUM_PLAYER_START_RANK
 		dataType: int64
 		formatString: 0
-		lineageTag: 47df60e0-db56-433b-a45f-9adf8818080a
+		lineageTag: d5fd362f-5002-4ff1-a987-e82a8fd3b523
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_START_RANK
 
@@ -106,7 +107,7 @@ table 'gold fact_player_season'
 	column NUM_PLAYER_FINAL_RANK
 		dataType: int64
 		formatString: 0
-		lineageTag: 717113e8-7cbf-4519-b123-506908ac41c8
+		lineageTag: 38a53647-dadf-445c-b279-ccbc26a788aa
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_FINAL_RANK
 
@@ -115,7 +116,7 @@ table 'gold fact_player_season'
 	column NUM_PLAYER_BEST_RANK
 		dataType: int64
 		formatString: 0
-		lineageTag: 35311b58-3983-429a-a560-c04887f64562
+		lineageTag: 005e437c-8433-4260-b2b6-ea0186606bde
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_BEST_RANK
 
@@ -124,7 +125,7 @@ table 'gold fact_player_season'
 	column NUM_PLAYER_WORST_RANK
 		dataType: int64
 		formatString: 0
-		lineageTag: 1fdf9dbc-5412-42c0-83b4-ac97975a9bda
+		lineageTag: 058a9509-d220-4229-879d-e24f37f60634
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_WORST_RANK
 
@@ -133,7 +134,7 @@ table 'gold fact_player_season'
 	column NUM_PLAYER_START_RANK_PTS
 		dataType: int64
 		formatString: 0
-		lineageTag: 19b5112b-2974-4f7f-9f42-9d6b8caa9b2b
+		lineageTag: 806f556d-c217-48d6-b485-656587ecde49
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_START_RANK_PTS
 
@@ -142,7 +143,7 @@ table 'gold fact_player_season'
 	column NUM_PLAYER_FINAL_RANK_PTS
 		dataType: int64
 		formatString: 0
-		lineageTag: d57f79cb-b5de-4ded-a80b-0281df9d1aed
+		lineageTag: 4af52a19-7e80-453e-b579-9606a43d5cf8
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_FINAL_RANK_PTS
 
@@ -151,7 +152,7 @@ table 'gold fact_player_season'
 	column NUM_PLAYER_BEST_RANK_PTS
 		dataType: int64
 		formatString: 0
-		lineageTag: 59be09ce-ff9b-4a5d-a9e0-fbcf25cba9d5
+		lineageTag: 81deb546-7893-4bb3-afd1-d68cc822fd1a
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_BEST_RANK_PTS
 
@@ -160,25 +161,33 @@ table 'gold fact_player_season'
 	column NUM_PLAYER_WORST_RANK_PTS
 		dataType: int64
 		formatString: 0
-		lineageTag: 4d7dcde9-3a53-4516-9e46-daedaee0775f
+		lineageTag: 86c44d4b-f92c-44c0-991b-a624ebf38763
 		summarizeBy: sum
 		sourceColumn: NUM_PLAYER_WORST_RANK_PTS
 
 		annotation SummarizationSetBy = Automatic
 
-	column DATE_INGESTION
-		dataType: string
-		lineageTag: adb75767-c984-4f53-a910-aece1e003903
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 48062b17-210c-437b-ae20-e8b3b1b91bf1
 		summarizeBy: none
-		sourceColumn: DATE_INGESTION
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: 748e6cd9-ae25-409d-9dba-05fdf9fb56dc
+			defaultHierarchy: LocalDateTable_57da0630-73b1-425c-998a-a7a214e94285.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition 'gold fact_player_season' = m
 		mode: import
 		source =
 				let
-				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
 				    gold_fact_player_season = Fonte{[Schema="gold",Item="fact_player_season"]}[Data]
 				in
 				    gold_fact_player_season

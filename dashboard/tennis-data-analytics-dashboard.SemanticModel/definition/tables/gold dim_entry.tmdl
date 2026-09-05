@@ -1,10 +1,10 @@
 table 'gold dim_entry'
-	lineageTag: 267b48f0-e665-4c21-a2b7-676cb8a2c926
+	lineageTag: 5a66ad2f-5a8b-4880-9c90-671da4948c6c
 
 	column SK_ENTRY_TYPE
 		dataType: int64
 		formatString: 0
-		lineageTag: 7ce56a93-52b8-4944-bfae-e57d8ffd2f7f
+		lineageTag: acb6fe4b-8f29-46fe-b6a8-7a2b4ca11570
 		summarizeBy: none
 		sourceColumn: SK_ENTRY_TYPE
 
@@ -12,7 +12,7 @@ table 'gold dim_entry'
 
 	column COD_PLAYER_ENTRY
 		dataType: string
-		lineageTag: 35b9cb3e-6384-4e12-b90c-e810038266ba
+		lineageTag: 6c5e2bd0-1d1f-4f37-b8d1-13d2dd417c2f
 		summarizeBy: none
 		sourceColumn: COD_PLAYER_ENTRY
 
@@ -20,25 +20,33 @@ table 'gold dim_entry'
 
 	column DES_ENTRY_TYPE
 		dataType: string
-		lineageTag: a524e1cb-7d14-4833-986f-72e207d0efe4
+		lineageTag: 4741b29d-1bff-44c7-8c0c-529478264996
 		summarizeBy: none
 		sourceColumn: DES_ENTRY_TYPE
 
 		annotation SummarizationSetBy = Automatic
 
-	column DATE_INGESTION
-		dataType: string
-		lineageTag: 6667f9bf-a817-4036-86f1-1af317c02778
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 722e39e5-c96a-4805-9baa-a9fd86fba7da
 		summarizeBy: none
-		sourceColumn: DATE_INGESTION
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: 838947a5-847b-42cb-a5e8-8dc4c64d55b8
+			defaultHierarchy: LocalDateTable_b2a8d3a2-0293-46ad-acb8-7c3019a2ef87.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition 'gold dim_entry' = m
 		mode: import
 		source =
 				let
-				    Fonte = PostgreSQL.Database("aws-1-sa-east-1.pooler.supabase.com:5432", "postgres"),
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
 				    gold_dim_entry = Fonte{[Schema="gold",Item="dim_entry"]}[Data]
 				in
 				    gold_dim_entry
