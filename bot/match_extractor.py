@@ -59,9 +59,3 @@ def run_airflow():
 
 def run_local():
     results = run(save_folder=LOCAL_RAW_DATA_DIR)
-
-def clean_airflow_temp():
-    if os.path.exists(AIRFLOW_TEMP_DIR):
-        shutil.rmtree(AIRFLOW_TEMP_DIR)
-        print(f"[Airflow] {AIRFLOW_TEMP_DIR} removed.")
-

@@ -2,12 +2,14 @@ import os
 import sys
 from datetime import datetime, timedelta
 from airflow import DAG
+# pyrefly: ignore [missing-import]
 from airflow.operators.python import PythonOperator
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from bot.match_extractor import run_airflow, cleanup_airflow_staging, AIRFLOW_TEMP_DIR
+from bot.match_extractor import run_airflow, AIRFLOW_TEMP_DIR
 from src.utils.push_github import push_to_github
+from src.utils.clean_airflow_tmp import clean_airflow_tmp
 
 def push():
     if not os.path.exists(AIRFLOW_TEMP_DIR):
@@ -39,11 +41,10 @@ with DAG(
     start_date=datetime(2024, 1, 1),
     schedule=None,
     catchup=False,
-    tags=['tennis', 'raw', 'playwright', 'github'],
 ) as dag:
 
     task_download = PythonOperator(
-        task_id='download_matches_staging',
+        task_id='extract_matches',
         python_callable=run_airflow,
     )
 
@@ -53,8 +54,8 @@ with DAG(
     )
 
     task_cleanup = PythonOperator(
-        task_id='cleanup_staging_files',
-        python_callable=cleanup_airflow_staging,
+        task_id='cleanup_tmp_files',
+        python_callable=clean_airflow_tmp,
         trigger_rule='all_done',
     )
 
