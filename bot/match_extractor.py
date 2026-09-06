@@ -1,8 +1,6 @@
 import os
-import shutil
-import tempfile
 from datetime import datetime
-from playwright.sync_api import Playwright, sync_playwright
+from playwright.sync_api import sync_playwright
 
 AIRFLOW_TEMP_DIR = "/tmp/airflow_staging"
 LOCAL_RAW_DATA_DIR = os.path.join("data", "raw")
@@ -54,8 +52,9 @@ def run(save_folder: str):
 
 
 def run_airflow():
-    print(f"[Airflow] Download starts at: {AIRFLOW_TEMP_DIR}")
+    print(f"[Airflow] Download matches starts at: {AIRFLOW_TEMP_DIR}")
     run(save_folder=AIRFLOW_TEMP_DIR)
 
-def run_local():
+if __name__ == "__main__":
     results = run(save_folder=LOCAL_RAW_DATA_DIR)
+    print(results)
