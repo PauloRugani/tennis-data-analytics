@@ -1,82 +1,52 @@
-from pyspark.sql import SparkSession
-from pyspark.sql import functions as f
-
 import os
+import sys
+from pyspark.sql import functions as f
 from datetime import datetime
+from dotenv import load_dotenv
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from utils.pyspark_handler import PySparkHandler
+
+load_dotenv()
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 
-from dotenv import load_dotenv
-load_dotenv()
-
-def create_spark_session():
+def load_tables(handler, init_run=False):
     try:
-        print("Creating spark session...")
-        spark = (
-            SparkSession.builder.appName("atp_ranking")
-            .config("spark.driver.memory", "4g")
-            .config("spark.executor.memory", "4g")
-            .config("spark.jars.packages", "org.postgresql:postgresql:42.7.3")
-            .config("spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2")
-            .getOrCreate()
-        )
-        return spark
-    except Exception as e:
-        print(e)
-        raise
-
-def load_tables(spark, init_run=False):
-    try:
-        print("Loading data...")
         if not init_run:
-            tb_atp_rankings = (
-                spark.read
-                .format("jdbc")
-                .option("url", os.getenv("JDBC_URL"))
-                .option("dbtable", "bronze.tb_atp_rankings")
-                .option("user", os.getenv("DB_USER"))
-                .option("password", os.getenv("DB_PASSWORD"))
-                .option("driver", "org.postgresql.Driver")
-                .load()
+            tb_atp_rankings = handler.load_data(
+                spark=handler.spark,
+                path="s3a://tennis-data-lake/bronze/tb_atp_rankings/",
+                format="parquet"
             )
         else:
             tb_atp_rankings = None
 
-        try:
-            tb_incremental_rankings = (
-                spark.read
-                .format("csv")
-                .option("header", "true")
-                .load(fr"data/raw/incremental/tb_incremental_ranking_{datetime.now().year}.csv")
-            )
-        except Exception as e:
-            tb_incremental_rankings = (
-                spark.read
-                .format("csv")
-                .option("header", "true")
-                .load(fr"/tmp/airflow_staging/incremental/tb_incremental_ranking_{datetime.now().year}.csv")
-            )
+        tb_incremental_rankings = handler.load_data(
+            spark=handler.spark,
+            path=fr"s3a://tennis-data-lake/raw/incremental/tb_incremental_ranking_{datetime.now().year}.csv",
+            format="csv",
+            header="true"
+        )
 
-        historical_ranking = r"data/raw/historical/ranking"
-        print("Data loaded")
+        historical_ranking = "s3a://tennis-data-lake/raw/historical/ranking/"
     except Exception as e:
         print(e)
         raise
     
     return tb_atp_rankings, tb_incremental_rankings, historical_ranking
 
-def run_transformation(spark, init_run, tb_atp_rankings, tb_incremental_rankings, historical_ranking):
+def run_transformation(handler, init_run, tb_atp_rankings, tb_incremental_rankings, historical_ranking):
     try:
         print("Running transformations...")
         if not init_run:
             df = tb_atp_rankings
         else:
-            df = (
-                spark.read
-                .format("csv")
-                .option("header", "true")
-                .option("inferSchema", "false")
-                .load(historical_ranking)
+            df = handler.load_data(
+                spark=handler.spark,
+                path=historical_ranking,
+                format="csv",
+                header="true",
+                inferSchema="false"
             )
 
         new_rankings = (
@@ -106,43 +76,35 @@ def run_transformation(spark, init_run, tb_atp_rankings, tb_incremental_rankings
         print(e)
         raise
 
-def save_table(init_run, df_final):
+def save_table(handler, init_run, df_final):
     try:
-        print("Saving data...")
         if not init_run:
             save_mode = "append"
         else:
             save_mode = "overwrite"
 
         if df_final.count() > 0:
-            (
-                df_final.write
-                .format("jdbc")
-                .option("url", os.getenv("JDBC_URL"))
-                .option("dbtable", "bronze.tb_atp_rankings")
-                .option("user", os.getenv("DB_USER"))
-                .option("password", os.getenv("DB_PASSWORD"))
-                .option("driver", "org.postgresql.Driver")
-                .mode(save_mode)
-                .save()
+            handler.save_data(
+                df=df_final,
+                path="s3a://tennis-data-lake/bronze/tb_atp_rankings/",
+                format="parquet",
+                mode=save_mode
             )
-        print("Data saved to database")
     except Exception as e:
         print(e)
         raise
 
 def run(init_run: bool):
-    spark = None
+    handler = None
     try:
-        spark = create_spark_session()
-        tb_atp_rankings, tb_incremental_rankings, historical_ranking = load_tables(spark, init_run)
-        df_final = run_transformation(spark, init_run, tb_atp_rankings, tb_incremental_rankings, historical_ranking)
-        save_table(init_run, df_final)
+        handler = PySparkHandler(app_name="tb_atp_ranking_bronze")
+        tb_atp_rankings, tb_incremental_rankings, historical_ranking = load_tables(handler, init_run)
+        df_final = run_transformation(handler, init_run, tb_atp_rankings, tb_incremental_rankings, historical_ranking)
+        save_table(handler, init_run, df_final)
     finally:
-        if spark:
-            print("Stopping spark session...")
-            spark.stop()
-            print("Spark session stopped.")
+        print("Stopping spark session...")
+        handler.spark.stop()
+        print("Spark session stopped.")
 
 if __name__ == "__main__":
-    run(init_run=False)
+    run(init_run=True)
