@@ -1,89 +1,45 @@
 import os
+import sys
 import pandas as pd
-from pyspark.sql import SparkSession
 from pyspark.sql import functions as f
 from pyspark.sql.window import Window
 from dotenv import load_dotenv
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from utils.pyspark_handler import PySparkHandler
+
 load_dotenv()
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 
-def create_spark_session():
+def load_tables(handler):
     try:
-        print("Creating spark session...")
-        spark = (
-            SparkSession.builder.appName("fact_player_match_stats")
-            .config("spark.driver.memory", "4g")
-            .config("spark.executor.memory", "4g")
-            .config("spark.jars.packages", "org.postgresql:postgresql:42.7.3")
-            .config("spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2")
-            .getOrCreate()
+        tb_player_match = handler.load_data(
+            spark=handler.spark,
+            path="s3a://tennis-data-lake/silver/tb_atp_player_match/",
+            format="parquet"
         )
-        
-        spark.conf.set("spark.sql.repl.eagerEval.enabled", True)
-        spark.conf.set("spark.sql.repl.eagerEval.maxNumRows", 200)
-        spark.conf.set("spark.sql.repl.eagerEval.truncate", 50)
-        return spark
-    except Exception as e:
-        print(e)
-        raise
-
-def load_tables(spark):
-    try:
-        print("Loading data...")
-        tb_player_match = (
-            spark.read
-            .format("jdbc")
-            .option("url", os.getenv("JDBC_URL"))
-            .option("dbtable", "silver.tb_atp_player_match")
-            .option("user", os.getenv("DB_USER"))
-            .option("password", os.getenv("DB_PASSWORD"))
-            .option("driver", "org.postgresql.Driver")
-            .load()
+        tb_tournaments = handler.load_data(
+            spark=handler.spark,
+            path="s3a://tennis-data-lake/gold/dimension/dim_tournaments/",
+            format="parquet"
         )
-
-        tb_tournaments = (
-            spark.read
-            .format("jdbc")
-            .option("url", os.getenv("JDBC_URL"))
-            .option("dbtable", "gold.dim_tournaments")
-            .option("user", os.getenv("DB_USER"))
-            .option("password", os.getenv("DB_PASSWORD"))
-            .option("driver", "org.postgresql.Driver")
-            .load()
+        tb_date = handler.load_data(
+            spark=handler.spark,
+            path="s3a://tennis-data-lake/gold/dimension/dim_date/",
+            format="parquet"
         )
-
-        tb_date = (
-            spark.read
-            .format("jdbc")
-            .option("url", os.getenv("JDBC_URL"))
-            .option("dbtable", "gold.dim_date")
-            .option("user", os.getenv("DB_USER"))
-            .option("password", os.getenv("DB_PASSWORD"))
-            .option("driver", "org.postgresql.Driver")
-            .load()
+        tb_players = handler.load_data(
+            spark=handler.spark,
+            path="s3a://tennis-data-lake/gold/dimension/dim_players/",
+            format="parquet"
         )
-
-        tb_players = (
-            spark.read
-            .format("jdbc")
-            .option("url", os.getenv("JDBC_URL"))
-            .option("dbtable", "gold.dim_players")
-            .option("user", os.getenv("DB_USER"))
-            .option("password", os.getenv("DB_PASSWORD"))
-            .option("driver", "org.postgresql.Driver")
-            .load()
-        )
-        print("Data loaded")
         return tb_player_match, tb_tournaments, tb_date, tb_players
-
     except Exception as e:
         print(e)
         raise
 
-def run_transformation(spark, tb_player_match, tb_tournaments, tb_date, tb_players):
+def run_transformation(handler, tb_player_match, tb_tournaments, tb_date, tb_players):
     try:
-        print("Running transformations...")
         df = (
             tb_player_match.alias("p_m")
             .join(tb_tournaments.alias("t"), f.expr("p_m.COD_TOURNEY_ID <=> t.COD_TOURNEY_ID"), 'left')
@@ -137,20 +93,23 @@ def run_transformation(spark, tb_player_match, tb_tournaments, tb_date, tb_playe
             .distinct()
         )
 
-        if tb_player_match.count() == df.count():
-            print('ok')
-        else: 
+        if tb_player_match.count() != df.count():
             raise Exception("Count mismatch between source and transformed data")
             
-        print("Transformations completed")
         return df
     except Exception as e:
         print(e)
         raise
 
-def save_table(df):
+def save_table(handler, df):
     try:
-        print("Saving data...")
+        handler.save_data(
+            df=df,
+            path="s3a://tennis-data-lake/gold/fact/fact_player_match_stats/",
+            format="parquet",
+            mode="overwrite"
+        )
+        
         (
             df.write
             .format("jdbc")
@@ -162,23 +121,21 @@ def save_table(df):
             .mode("overwrite")
             .save()
         )
-        print("Data saved to database")
     except Exception as e:
         print(e)
         raise
 
 def run():
-    spark = None
+    handler = None
     try:
-        spark = create_spark_session()
-        tb_player_match, tb_tournaments, tb_date, tb_players = load_tables(spark)
-        df_final = run_transformation(spark, tb_player_match, tb_tournaments, tb_date, tb_players)
-        save_table(df_final)
+        handler = PySparkHandler(app_name="fact_player_match_stats")
+        tb_player_match, tb_tournaments, tb_date, tb_players = load_tables(handler)
+        df_final = run_transformation(handler, tb_player_match, tb_tournaments, tb_date, tb_players)
+        save_table(handler, df_final)
     finally:
-        if spark:
-            print("Stopping spark session...")
-            spark.stop()
-            print("Spark session stopped.")
+        print("Stopping spark session...")
+        handler.spark.stop()
+        print("Spark session stopped.")
 
 if __name__ == "__main__":
     run()
