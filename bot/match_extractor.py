@@ -1,25 +1,42 @@
 import os
+import io
+import boto3
+from botocore.client import Config
 from datetime import datetime
 from playwright.sync_api import sync_playwright
+from dotenv import load_dotenv
 
-AIRFLOW_TEMP_DIR = "/tmp/airflow_staging"
-LOCAL_RAW_DATA_DIR = os.path.join("data", "raw")
+load_dotenv()
 
-def download_file(page, role_name: str, base_dir: str, relative_path: str):
-    final_path = os.path.join(base_dir, relative_path)
-    os.makedirs(os.path.dirname(final_path), exist_ok=True)
-
+def get_file(page, role_name: str, relative_path: str, s3_client, bucket: str):
     with page.expect_download(timeout=60000) as download_info:
         page.get_by_role("link", name=role_name).click()
 
     download = download_info.value
-    download.save_as(final_path)
-    print(f"[Download] Saved: {final_path}")
-    return final_path
+    tmp_path = download.path()
+    
+    with open(tmp_path, "rb") as f:
+        file_bytes = f.read()
+        
+    s3_client.upload_fileobj(io.BytesIO(file_bytes), bucket, relative_path)
+    print(f"{relative_path} saved successfully")
+    
+    download.delete()
+    return relative_path
 
-def extract_bot(save_folder: str):
-    os.makedirs(save_folder, exist_ok=True)
-    downloaded_files = []
+def extract_bot():
+    s3_client = boto3.client(
+        's3',
+        endpoint_url=os.getenv("MINIO_ENDPOINT"),
+        aws_access_key_id=os.getenv("MINIO_ACCESS_KEY"),
+        aws_secret_access_key=os.getenv("MINIO_SECRET_KEY"),
+        config=Config(signature_version='s3v4')
+    )
+
+    try:
+        s3_client.head_bucket(Bucket=os.getenv("MINIO_BUCKET"))
+    except:
+        s3_client.create_bucket(Bucket=os.getenv("MINIO_BUCKET"))
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True)
@@ -30,26 +47,20 @@ def extract_bot(save_folder: str):
             page.goto("https://stats.tennismylife.org/tennis-match-database", wait_until="networkidle")
             year = datetime.now().year
 
-            file_curr = f"historical/matches/atp_matches_{year}.csv"
-            file_ongoing = "incremental/tb_ongoing_tourneys.csv"
+            file_curr = f"raw/historical/matches/atp_matches_{year}.csv"
+            file_ongoing = "raw/incremental/tb_ongoing_tourneys.csv"
 
-            path_curr = download_file(page, f"Download {year}.csv", save_folder, file_curr)
-            downloaded_files.append((path_curr, file_curr))
+            path_curr = get_file(page, f"Download {year}.csv", file_curr, s3_client, os.getenv("MINIO_BUCKET"))
 
-            path_ongoing = download_file(page, "Download ongoing_tourneys.csv", save_folder, file_ongoing)
-            downloaded_files.append((path_ongoing, file_ongoing))
+            path_ongoing = get_file(page, "Download ongoing_tourneys.csv", file_ongoing, s3_client, os.getenv("MINIO_BUCKET"))
 
         finally:
             context.close()
             browser.close()
 
-    return downloaded_files
-
-
 def run_ingestion():
-    print(f"[Airflow] Download matches starts at: {AIRFLOW_TEMP_DIR}")
-    extract_bot(save_folder=AIRFLOW_TEMP_DIR)
+    print(f"[Airflow] Download matches starts...")
+    extract_bot()
 
 if __name__ == "__main__":
-    results = extract_bot(save_folder=LOCAL_RAW_DATA_DIR)
-    print(results)
+    extract_bot()
