@@ -16,7 +16,7 @@ def load_tables(handler):
     try:
         tb_players = handler.load_data(
             spark=handler.spark,
-            path=f"{os.getenv('MINIO_BUCKET')}/silver/tb_atp_players/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/silver/tb_atp_players/",
             format="parquet"
         )
         return tb_players
@@ -103,7 +103,7 @@ def save_table(handler, df):
     try:
         handler.save_data(
             df=df,
-            path=f"{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_players/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_players/",
             format="parquet",
             mode="overwrite"
         )

@@ -15,7 +15,7 @@ def load_tables(handler, init_run=False):
         if not init_run:
             tb_atp_rankings = handler.load_data(
                 spark=handler.spark,
-                path="s3a://tennis-data-lake/bronze/tb_atp_rankings/",
+                path=f"s3a://{os.getenv('MINIO_BUCKET')}/bronze/tb_atp_rankings/",
                 format="parquet"
             )
         else:
@@ -23,12 +23,12 @@ def load_tables(handler, init_run=False):
 
         tb_incremental_rankings = handler.load_data(
             spark=handler.spark,
-            path=f"s3a://tennis-data-lake/raw/incremental/tb_incremental_ranking_{datetime.now().year}.csv",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/raw/incremental/tb_incremental_ranking_{datetime.now().year}.csv",
             format="csv",
             header="true"
         )
 
-        historical_ranking = "s3a://tennis-data-lake/raw/historical/ranking/"
+        historical_ranking = f"s3a://{os.getenv('MINIO_BUCKET')}/raw/historical/ranking/"
     except Exception as e:
         print(e)
         raise
@@ -86,7 +86,7 @@ def save_table(handler, init_run, df_final):
         if df_final.count() > 0:
             handler.save_data(
                 df=df_final,
-                path="s3a://tennis-data-lake/bronze/tb_atp_rankings/",
+                path=f"s3a://{os.getenv('MINIO_BUCKET')}/bronze/tb_atp_rankings/",
                 format="parquet",
                 mode=save_mode
             )

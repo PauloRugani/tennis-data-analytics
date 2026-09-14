@@ -15,22 +15,22 @@ def load_tables(handler):
     try:
         tb_player_match = handler.load_data(
             spark=handler.spark,
-            path=f"{os.getenv('MINIO_BUCKET')}/silver/tb_atp_player_match/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/silver/tb_atp_player_match/",
             format="parquet"
         )
         tb_tournaments = handler.load_data(
             spark=handler.spark,
-            path=f"{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_tournaments/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_tournaments/",
             format="parquet"
         )
         tb_date = handler.load_data(
             spark=handler.spark,
-            path=f"{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_date/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_date/",
             format="parquet"
         )
         tb_players = handler.load_data(
             spark=handler.spark,
-            path=f"{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_players/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_players/",
             format="parquet"
         )
         return tb_player_match, tb_tournaments, tb_date, tb_players
@@ -105,7 +105,7 @@ def save_table(handler, df):
     try:
         handler.save_data(
             df=df,
-            path=f"{os.getenv('MINIO_BUCKET')}/gold/fact/fact_player_match_stats/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/fact/fact_player_match_stats/",
             format="parquet",
             mode="overwrite"
         )

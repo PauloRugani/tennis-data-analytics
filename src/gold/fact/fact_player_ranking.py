@@ -15,17 +15,17 @@ def load_tables(handler):
     try:
         tb_atp_rankings = handler.load_data(
             spark=handler.spark,
-            path=f"{os.getenv('MINIO_BUCKET')}/silver/tb_atp_rankings/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/silver/tb_atp_rankings/",
             format="parquet"
         )
         tb_date = handler.load_data(
             spark=handler.spark,
-            path=f"{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_date/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_date/",
             format="parquet"
         )
         tb_players = handler.load_data(
             spark=handler.spark,
-            path=f"{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_players/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_players/",
             format="parquet"
         )
         return tb_atp_rankings, tb_date, tb_players
@@ -68,7 +68,7 @@ def save_table(handler, df):
     try:
         handler.save_data(
             df=df,
-            path=f"{os.getenv('MINIO_BUCKET')}/gold/fact/fact_player_ranking/",
+            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/fact/fact_player_ranking/",
             format="parquet",
             mode="overwrite"
         )
