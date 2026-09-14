@@ -1,24 +1,28 @@
 import csv
+import io
 import os
 import re
-import shutil
+import boto3
+from botocore.client import Config
+from botocore.exceptions import ClientError
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from curl_cffi import requests
+from dotenv import load_dotenv
 
-AIRFLOW_TEMP_DIR = "/tmp/airflow_staging"
-LOCAL_RAW_DATA_DIR = os.path.join("data", "raw")
+load_dotenv()
 
-def is_date_already_processed(csv_path: str, target_date: str) -> bool:
-    if not os.path.exists(csv_path) or os.path.getsize(csv_path) == 0:
-        return False
-
-    target_date_clean = str(target_date).strip()
-    found_dates = set()
-
-    with open(csv_path, mode="r", encoding="utf-8-sig") as f:
-        sample = f.read(2048)
-        f.seek(0)
+def is_date_already_processed(s3_client, bucket: str, object_name: str, target_date: str) -> bool:
+    try:
+        response = s3_client.get_object(Bucket=bucket, Key=object_name)
+        content = response['Body'].read().decode('utf-8-sig')
+        if not content.strip():
+            return False
+            
+        target_date_clean = str(target_date).strip()
+        
+        f = io.StringIO(content)
+        sample = content[:2048]
         delimiter = ";" if ";" in sample and "," not in sample else ","
 
         reader = csv.DictReader(f, delimiter=delimiter)
@@ -26,47 +30,64 @@ def is_date_already_processed(csv_path: str, target_date: str) -> bool:
             val = row.get("date")
             if val:
                 val_clean = str(val).strip()
-                found_dates.add(val_clean)
                 if val_clean == target_date_clean:
                     return True
-    return False
+        return False
+    except ClientError as e:
+        if e.response['Error']['Code'] == 'NoSuchKey':
+            return False
+        raise
 
-def previous_year_process(current_monday: datetime, save_folder: str):
+def previous_year_process(s3_client, bucket: str, current_monday: datetime):
     is_first_monday_of_year = (current_monday.month == 1 and current_monday.day <= 7)
 
     if not is_first_monday_of_year:
         return
 
     prev_year = current_monday.year - 1
-    old_file = os.path.join(
-        save_folder, f"incremental/tb_incremental_ranking_{prev_year}.csv"
-    )
+    old_file = f"raw/incremental/tb_incremental_ranking_{prev_year}.csv"
+    dest_file = f"raw/historical/ranking/tb_ranking_{prev_year}.csv"
 
-    if os.path.exists(old_file):
-        os.makedirs(os.path.join(save_folder, "historical/ranking"), exist_ok=True)
-        dest_file = os.path.join(
-            save_folder, f"historical/ranking/tb_ranking_{prev_year}.csv"
-        )
-        shutil.move(old_file, dest_file)
-        print(f"Moved: {old_file} -> {dest_file}")
+    try:
+        s3_client.head_object(Bucket=bucket, Key=old_file)
         
-def extract_bot(save_folder: str):
+        s3_client.copy_object(
+            Bucket=bucket,
+            CopySource={'Bucket': bucket, 'Key': old_file},
+            Key=dest_file
+        )
+        
+        s3_client.delete_object(Bucket=bucket, Key=old_file)
+    except Exception as e:
+        print(e)
+        raise
+
+def extract_bot():
+    s3_client = boto3.client(
+        's3',
+        endpoint_url=os.getenv("MINIO_ENDPOINT"),
+        aws_access_key_id=os.getenv("MINIO_ACCESS_KEY"),
+        aws_secret_access_key=os.getenv("MINIO_SECRET_KEY"),
+        config=Config(signature_version='s3v4')
+    )
+    try:
+        s3_client.head_bucket(Bucket=os.getenv("MINIO_BUCKET"))
+    except:
+        s3_client.create_bucket(Bucket=os.getenv("MINIO_BUCKET"))
+
     today = datetime.now()
     current_monday = today - timedelta(days=today.weekday())
     current_year = current_monday.year
     week_str = current_monday.strftime("%Y-%m-%d")
     target_date = str(week_str).replace("-", "")
 
-    previous_year_process(current_monday, save_folder)
+    previous_year_process(s3_client, os.getenv("MINIO_BUCKET"), current_monday)
 
-    incremental_dir = os.path.join(save_folder, "incremental")
-    os.makedirs(incremental_dir, exist_ok=True)
+    object_name = f"raw/incremental/tb_incremental_ranking_{current_year}.csv"
 
-    filename = f"tb_incremental_ranking_{current_year}.csv"
-    csv_path = os.path.join(incremental_dir, filename)
-
-    if is_date_already_processed(csv_path, target_date):
-        return csv_path
+    if is_date_already_processed(s3_client, os.getenv("MINIO_BUCKET"), object_name, target_date):
+        print(f"Date {target_date} already processed.")
+        return object_name
 
     url = "https://www.atptour.com/en/rankings/singles?rankRange=0-5000"
     response = requests.get(url, impersonate="chrome", timeout=60)
@@ -105,19 +126,29 @@ def extract_bot(save_folder: str):
         print("No data")
         return None
 
-    file_exists = os.path.exists(csv_path) and os.path.getsize(csv_path) > 0
+    existing_content = ""
+    file_exists = False
+    resp = s3_client.get_object(Bucket=os.getenv("MINIO_BUCKET"), Key=object_name)
+    existing_content = resp['Body'].read().decode('utf-8')
+    file_exists = True
 
-    with open(csv_path, mode="a", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=ranking[0].keys(), delimiter=",")
-        if not file_exists:
-            writer.writeheader()
-        writer.writerows(ranking)
-    return csv_path
+    out = io.StringIO()
+    if existing_content:
+        out.write(existing_content)
+        if not existing_content.endswith("\n"):
+            out.write("\n")
+            
+    writer = csv.DictWriter(out, fieldnames=ranking[0].keys(), delimiter=",")
+    if not file_exists or not existing_content.strip():
+        writer.writeheader()
+    writer.writerows(ranking)
+
+    file_bytes = out.getvalue().encode('utf-8')
+    s3_client.upload_fileobj(io.BytesIO(file_bytes), os.getenv("MINIO_BUCKET"), object_name)
 
 def run_ingestion():
-    print(f"[Airflow] Download starts at: {AIRFLOW_TEMP_DIR}")
-    extract_bot(save_folder=AIRFLOW_TEMP_DIR)
+    print(f"[Airflow] Download ranking starts...")
+    extract_bot()
 
 if __name__ == "__main__":
-    created_file = extract_bot(save_folder=LOCAL_RAW_DATA_DIR)
-    print(created_file)
+    extract_bot()
