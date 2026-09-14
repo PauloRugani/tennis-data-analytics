@@ -23,7 +23,7 @@ def load_tables(handler, init_run=False):
 
         tb_incremental_rankings = handler.load_data(
             spark=handler.spark,
-            path=fr"s3a://tennis-data-lake/raw/incremental/tb_incremental_ranking_{datetime.now().year}.csv",
+            path=f"s3a://tennis-data-lake/raw/incremental/tb_incremental_ranking_{datetime.now().year}.csv",
             format="csv",
             header="true"
         )

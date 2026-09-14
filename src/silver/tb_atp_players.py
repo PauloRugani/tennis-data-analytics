@@ -15,7 +15,7 @@ def load_tables(handler):
     try:
         tb_atp_matches = handler.load_data(
             spark=handler.spark,
-            path="s3a://tennis-data-lake/bronze/tb_atp_matches/",
+            path=f"{os.getenv('MINIO_BUCKET')}/bronze/tb_atp_matches/",
             format="parquet"
         )
         return tb_atp_matches
@@ -113,7 +113,7 @@ def save_table(handler, df):
     try:
         handler.save_data(
             df=df,
-            path="s3a://tennis-data-lake/silver/tb_atp_players/",
+            path=f"{os.getenv('MINIO_BUCKET')}/silver/tb_atp_players/",
             format="parquet",
             mode="overwrite"
         )
