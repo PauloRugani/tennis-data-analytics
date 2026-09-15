@@ -10,7 +10,7 @@ from utils.pyspark_handler import PySparkHandler
 load_dotenv()
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 
-def load_tables(handler, init_run=False):
+def load_tables(handler, init_run):
     try:
         if not init_run:
             tb_atp_rankings = handler.load_data(
@@ -94,10 +94,20 @@ def save_table(handler, init_run, df_final):
         print(e)
         raise
 
-def run(init_run: bool):
+def run():
     handler = None
     try:
         handler = PySparkHandler(app_name="tb_atp_ranking_bronze")
+        try:
+            handler.load_data(
+                spark=handler.spark,
+                path=f"s3a://{os.getenv('MINIO_BUCKET')}/bronze/tb_atp_rankings/",
+                format="parquet"
+            )
+            init_run = False
+        except:
+            init_run = True
+            
         tb_atp_rankings, tb_incremental_rankings, historical_ranking = load_tables(handler, init_run)
         df_final = run_transformation(handler, init_run, tb_atp_rankings, tb_incremental_rankings, historical_ranking)
         save_table(handler, init_run, df_final)
@@ -107,4 +117,4 @@ def run(init_run: bool):
         print("Spark session stopped.")
 
 if __name__ == "__main__":
-    run(init_run=True)
+    run()
