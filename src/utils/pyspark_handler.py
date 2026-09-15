@@ -1,12 +1,13 @@
-import os
 from pyspark.sql import SparkSession
 from dotenv import load_dotenv
-from typing import Literal
 load_dotenv()
 
 class PySparkHandler:
-    def __init__(self, app_name: str):
+    def __init__(self, app_name: str, bucket_endpoint: str, bucket_access_key: str, bucket_secret_key: str):
         self.app_name = app_name
+        self.bucket_endpoint = bucket_endpoint
+        self.bucket_access_key = bucket_access_key
+        self.bucket_secret_key = bucket_secret_key
         self.spark = self.init_spark_session()
 
     def init_spark_session(self):
@@ -21,9 +22,9 @@ class PySparkHandler:
                     "spark.jars.packages",
                     "org.postgresql:postgresql:42.7.3,org.apache.hadoop:hadoop-aws:3.3.4,com.amazonaws:aws-java-sdk-bundle:1.12.262",
                 )
-                .config("spark.hadoop.fs.s3a.endpoint", os.getenv("MINIO_ENDPOINT"))
-                .config("spark.hadoop.fs.s3a.access.key", os.getenv("MINIO_ACCESS_KEY"))
-                .config("spark.hadoop.fs.s3a.secret.key", os.getenv("MINIO_SECRET_KEY"))
+                .config("spark.hadoop.fs.s3a.endpoint", self.bucket_endpoint)
+                .config("spark.hadoop.fs.s3a.access.key", self.bucket_access_key)
+                .config("spark.hadoop.fs.s3a.secret.key", self.bucket_secret_key)
                 .config("spark.hadoop.fs.s3a.path.style.access", "true")
                 .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
                 .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false")
