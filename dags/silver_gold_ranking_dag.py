@@ -22,60 +22,59 @@ default_args = {
     tags=['silver', 'gold', 'ranking']
 )
 def run_silver_gold():
+    @task
+    def load_variables():
+        from airflow.models import Variable
+        return {
+            "bucket_endpoint": Variable.get("BUCKET_ENDPOINT"),
+            "bucket_access_key": Variable.get("BUCKET_ACCESS_KEY"),
+            "bucket_secret_key": Variable.get("BUCKET_SECRET_KEY"),
+            "bucket_name": Variable.get("TENNIS_BUCKET_NAME")
+        }
+    
+    bucket_connection_vars = load_variables()
 
     @task_group(group_id='silver')
-    def run_silver():
+    def run_silver(bucket_connection_vars):
         @task
-        def run_rankings():
+        def run_rankings(bcv):
             from src.silver import tb_atp_rankings
-            tb_atp_rankings.run()
+            tb_atp_rankings.run(bcv)
 
-        run_rankings()
+        run_rankings(bucket_connection_vars)
 
     @task_group(group_id='gold')
-    def run_gold():    
+    def run_gold(bucket_connection_vars):    
         
         @task
         def setup_database():
-            from src.utils.db_handler import DBHandler
-            db_handler = DBHandler()
-            db_handler.execute_query("CREATE SCHEMA IF NOT EXISTS gold;")
-
-        @task_group(group_id='fact')
-        def run_fact():
-            @task
-            def run_fact_player_ranking():
-                from src.gold.fact import fact_player_ranking
-                fact_player_ranking.run()
+            ...
             
-            run_fact_player_ranking()
+        @task_group(group_id='fact')
+        def run_fact(bucket_connection_vars):
+            @task
+            def run_fact_player_ranking(bcv):
+                from src.gold.fact import fact_player_ranking
+                fact_player_ranking.run(bcv)
+            
+            run_fact_player_ranking(bucket_connection_vars)
 
         @task_group(group_id='create_view')
         def run_create_view():
-            from src.utils.db_handler import DBHandler
-            db_handler = DBHandler()
-            
             @task
             def run_create_fact_view():
-                tables = ["fact_player_ranking"]
-                for table in tables:
-                    print(f"Creating {table} view...")
-                    db_handler.execute_query(f"""
-                        CREATE OR REPLACE VIEW vw_{table} AS 
-                        SELECT * FROM gold.{table};
-                    """)
-                    print(f"{table} view created")
+                ...
 
             run_create_fact_view()
 
         task_setup_database = setup_database()
-        task_run_fact = run_fact()
+        task_run_fact = run_fact(bucket_connection_vars)
         task_run_create_view = run_create_view()
         
         task_setup_database  >> task_run_fact >> task_run_create_view
 
-    task_run_silver = run_silver() 
-    task_run_gold = run_gold()
+    task_run_silver = run_silver(bucket_connection_vars) 
+    task_run_gold = run_gold(bucket_connection_vars)
 
     task_run_silver >> task_run_gold
 

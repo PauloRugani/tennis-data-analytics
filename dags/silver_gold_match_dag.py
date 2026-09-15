@@ -24,130 +24,122 @@ default_args = {
     tags=['silver', 'gold', 'match']
 )
 def run_silver_gold():
+    @task
+    def load_variables():
+        from airflow.models import Variable
+        return {
+            "bucket_endpoint": Variable.get("BUCKET_ENDPOINT"),
+            "bucket_access_key": Variable.get("BUCKET_ACCESS_KEY"),
+            "bucket_secret_key": Variable.get("BUCKET_SECRET_KEY"),
+            "bucket_name": Variable.get("TENNIS_BUCKET_NAME")
+        }
+    
+    bucket_connection_vars = load_variables()
 
     @task_group(group_id='silver')
-    def run_silver():
+    def run_silver(bucket_connection_vars):
         @task
-        def run_matches():
+        def run_matches(bcv):
             from src.silver import tb_atp_matches
-            tb_atp_matches.run()
+            tb_atp_matches.run(bcv)
 
         @task
-        def run_player_match():
+        def run_player_match(bcv):
             from src.silver import tb_atp_player_match
-            tb_atp_player_match.run()
+            tb_atp_player_match.run(bcv)
 
         @task
-        def run_players():
+        def run_players(bcv):
             from src.silver import tb_atp_players
-            tb_atp_players.run()
+            tb_atp_players.run(bcv)
 
         @task
-        def run_tournaments():
+        def run_tournaments(bcv):
             from src.silver import tb_atp_tournaments
-            tb_atp_tournaments.run()
+            tb_atp_tournaments.run(bcv)
 
-        task_run_matches = run_matches()
-        task_run_player_match = run_player_match()
-        task_run_players = run_players()
-        task_run_tournaments = run_tournaments()
+        task_run_matches = run_matches(bucket_connection_vars)
+        task_run_player_match = run_player_match(bucket_connection_vars)
+        task_run_players = run_players(bucket_connection_vars)
+        task_run_tournaments = run_tournaments(bucket_connection_vars)
 
     @task_group(group_id='gold')
-    def run_gold():    
+    def run_gold(bucket_connection_vars):    
         
         @task
         def setup_database():
-            from src.utils.db_handler import DBHandler
-            db_handler = DBHandler()
-            db_handler.execute_query("CREATE SCHEMA IF NOT EXISTS gold;")
-
+            ...
+            
         @task_group(group_id='dimension')
-        def run_dimension():
+        def run_dimension(bcv):
             @task
-            def run_dim_date():
+            def run_dim_date(bcv):
                 from src.gold.dimension import dim_date
-                dim_date.run()
+                dim_date.run(bcv)
             
             @task
-            def run_dim_entry():
+            def run_dim_entry(bcv):
                 from src.gold.dimension import dim_entry
-                dim_entry.run()
+                dim_entry.run(bcv)
             
             @task
-            def run_dim_players():
+            def run_dim_players(bcv):
                 from src.gold.dimension import dim_players
-                dim_players.run()
+                dim_players.run(bcv)
             
             @task
-            def run_dim_tournaments():
+            def run_dim_tournaments(bcv):
                 from src.gold.dimension import dim_tournaments
-                dim_tournaments.run()
+                dim_tournaments.run(bcv)
 
-            run_dim_date()
-            run_dim_entry()
-            run_dim_players()
-            run_dim_tournaments()
+            run_dim_date(bcv)
+            run_dim_entry(bcv)
+            run_dim_players(bcv)
+            run_dim_tournaments(bcv)
 
         @task_group(group_id='fact')
-        def run_fact():
+        def run_fact(bcv):
             @task
-            def run_fact_player_match_stats():
+            def run_fact_player_match_stats(bcv):
                 from src.gold.fact import fact_player_match_stats
-                fact_player_match_stats.run()
+                fact_player_match_stats.run(bcv)
             
             @task
-            def run_fact_player_season():
+            def run_fact_player_season(bcv):
                 from src.gold.fact import fact_player_season
-                fact_player_season.run()
+                fact_player_season.run(bcv)
             
             @task
-            def run_fact_player_tournament_stats():
+            def run_fact_player_tournament_stats(bcv):
                 from src.gold.fact import fact_player_tournament_stats
-                fact_player_tournament_stats.run()
+                fact_player_tournament_stats.run(bcv)
 
-            run_fact_player_match_stats()
-            run_fact_player_season()
-            run_fact_player_tournament_stats()
+            run_fact_player_match_stats(bcv)
+            run_fact_player_season(bcv)
+            run_fact_player_tournament_stats(bcv)
 
     
         @task_group(group_id='create_view')
         def run_create_view():
-            from src.utils.db_handler import DBHandler
-            db_handler = DBHandler()
-
             @task
             def run_create_dimension_view():
-                tables = ["dim_date", "dim_entry", "dim_players", "dim_tournaments"]
-                for table in tables:
-                    print(f"Creating {table} view...")
-                    db_handler.execute_query(f"""
-                        CREATE OR REPLACE VIEW vw_{table} AS 
-                        SELECT * FROM gold.{table};
-                    """)
-                    print(f"{table} view created")
+                ...
             
             @task
             def run_create_fact_view():
-                tables = ["fact_player_match_stats", "fact_player_season", "fact_player_tournament_stats"]
-                for table in tables:
-                    print(f"Creating {table} view...")
-                    db_handler.execute_query(f"""
-                        CREATE OR REPLACE VIEW vw_{table} AS 
-                        SELECT * FROM gold.{table};
-                    """)
-                    print(f"{table} view created")
+                ...
 
             run_create_dimension_view()
             run_create_fact_view()
 
         task_setup_database = setup_database()
-        task_run_dimension = run_dimension()
-        task_run_fact = run_fact()
+        task_run_dimension = run_dimension(bucket_connection_vars)
+        task_run_fact = run_fact(bucket_connection_vars)
         task_run_create_view = run_create_view()
         task_setup_database >> task_run_dimension >> task_run_fact >> task_run_create_view
 
-    task_run_silver = run_silver() 
-    task_run_gold = run_gold()
+    task_run_silver = run_silver(bucket_connection_vars) 
+    task_run_gold = run_gold(bucket_connection_vars)
 
     task_run_silver >> task_run_gold
 

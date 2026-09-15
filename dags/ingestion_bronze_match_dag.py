@@ -29,6 +29,17 @@ default_args = {
     tags=['bronze', 'match', 'raw', 'ingestion']
 )
 def run_ingestion_bronze():
+    @task
+    def load_variables():
+        from airflow.models import Variable
+        return {
+            "bucket_endpoint": Variable.get("BUCKET_ENDPOINT"),
+            "bucket_access_key": Variable.get("BUCKET_ACCESS_KEY"),
+            "bucket_secret_key": Variable.get("BUCKET_SECRET_KEY"),
+            "bucket_name": Variable.get("TENNIS_BUCKET_NAME")
+        }
+    
+    bucket_connection_vars = load_variables()
 
     @task_group("ingestion")
     def run_ingestion():
@@ -38,21 +49,21 @@ def run_ingestion_bronze():
         task_get_file()
 
     @task_group("bronze")
-    def run_bronze():
+    def run_bronze(bucket_connection_vars):
         @task
-        def task_run_bronze_matches():
-            bronze_matches.run()
-        task_run_bronze_matches()
+        def task_run_bronze_matches(bcv):
+            bronze_matches.run(init_run=True, bcv=bcv)
+        task_run_bronze_matches(bucket_connection_vars)
 
     task_run_dag_silver_gold = TriggerDagRunOperator(
         task_id='run_silver_gold_match_dag',
         trigger_dag_id='silver_gold_match_dag',
         wait_for_completion=False,
-        reset_dag_run=True,
+        reset_dag_run=False,
     )
 
     task_run_ingestion = run_ingestion()
-    task_run_bronze = run_bronze()
+    task_run_bronze = run_bronze(bucket_connection_vars)
 
     task_run_ingestion >> task_run_bronze >> task_run_dag_silver_gold
 
