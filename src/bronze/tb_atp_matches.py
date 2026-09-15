@@ -1,21 +1,18 @@
 import os
 import sys
-import pandas as pd
 from pyspark.sql import functions as f
-from dotenv import load_dotenv
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.pyspark_handler import PySparkHandler
 
-load_dotenv()
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 
-def load_tables(handler, init_run):
+def load_tables(handler, init_run, bucket_name):
     try:
         if not init_run:
             tb_atp_matches = handler.load_data(
                 spark=handler.spark,
-                path=f"s3a://{os.getenv('MINIO_BUCKET')}/bronze/tb_atp_matches/",
+                path=f"s3a://{bucket_name}/bronze/tb_atp_matches/",
                 format="parquet"
             )
         else: 
@@ -23,12 +20,12 @@ def load_tables(handler, init_run):
             
         tb_ongoing_tourneys = handler.load_data(
             spark=handler.spark,
-            path=f"s3a://{os.getenv('MINIO_BUCKET')}/raw/incremental/tb_ongoing_tourneys.csv",
+            path=f"s3a://{bucket_name}/raw/incremental/tb_ongoing_tourneys.csv",
             format="csv",
             header="true"
         )
 
-        historical_matches = f"s3a://{os.getenv('MINIO_BUCKET')}/raw/historical/matches/"
+        historical_matches = f"s3a://{bucket_name}/raw/historical/matches/"
     except Exception as e:
         print(e)
         raise
@@ -89,7 +86,7 @@ def run_transformation(handler, init_run, tb_atp_matches, tb_ongoing_tourneys, h
         print(e)
         raise
 
-def save_table(handler, init_run, df_final):
+def save_table(handler, init_run, df_final, bucket_name):
     try:
         if not init_run:
             save_mode = "append"
@@ -99,7 +96,7 @@ def save_table(handler, init_run, df_final):
         if df_final.count() > 0:
             handler.save_data(
                 df=df_final,
-                path=f"s3a://{os.getenv('MINIO_BUCKET')}/bronze/tb_atp_matches/",
+                path=f"s3a://{bucket_name}/bronze/tb_atp_matches/",
                 format="parquet",
                 mode=save_mode
             )
@@ -107,26 +104,23 @@ def save_table(handler, init_run, df_final):
         print(e)    
         raise
 
-def run():
+def run(init_run: bool, bcv: dict = None):
     handler = None
     try:
-        handler = PySparkHandler(app_name="tb_atp_matches_bronze")
-        try:
-            handler.load_data(
-                spark=handler.spark,
-                path=f"s3a://{os.getenv('MINIO_BUCKET')}/bronze/tb_atp_matches/",
-                format="parquet"
-            )
-            init_run = False
-        except:
-            init_run = True
-        tb_atp_matches, tb_ongoing_tourneys, historical_matches = load_tables(handler, init_run)
+        handler = PySparkHandler(
+            app_name="tb_atp_matches_bronze",
+            bucket_endpoint=bcv.get("bucket_endpoint"),
+            bucket_access_key=bcv.get("bucket_access_key"),
+            bucket_secret_key=bcv.get("bucket_secret_key")
+        )
+        bucket_name = bcv.get("bucket_name")
+        tb_atp_matches, tb_ongoing_tourneys, historical_matches = load_tables(handler, init_run, bucket_name)
         df_final = run_transformation(handler, init_run, tb_atp_matches, tb_ongoing_tourneys, historical_matches)
-        save_table(handler, init_run, df_final)
+        save_table(handler, init_run, df_final, bucket_name)
     finally:
         print("Stopping spark session...")
         handler.spark.stop()
         print("Spark session stopped.")
 
 if __name__ == "__main__":
-    run()
+    run(init_run=True)
