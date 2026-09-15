@@ -60831,3 +60831,2292 @@ date,rank,name,age,points,lost_earned_points,tourn_played,dropping,next_best
 20260831,2295T,Yassin Ahmed Wageh,18,1,-,10,-,-
 20260831,2297,Anthony Susanto,29,1,-,11,-,-
 20260831,2298,Oren Vasser,26,1,-,13,-,-
+20260914,1,Jannik Sinner,25,"11,500",-1300,17,-,-
+20260914,2,Alexander Zverev,29,"9,690",+1900,20,-,-
+20260914,3,Carlos Alcaraz,23,"5,560",-1600,17,-,-
+20260914,4,Ben Shelton,23,"4,680",+1200,22,-,-
+20260914,5,Felix Auger-Aliassime,26,"3,890",-750,22,-,-
+20260914,6,Daniil Medvedev,30,"3,770",+190,24,-,-
+20260914,7,Flavio Cobolli,24,"3,720",-,26,-,-
+20260914,8,Frances Tiafoe,28,"3,380",+700,22,-,-
+20260914,9,Alex de Minaur,27,"3,300",-350,24,-,-
+20260914,10,Taylor Fritz,28,"3,175",-300,22,-,-
+20260914,11,Arthur Fils,22,"3,150",+10,18,-,-
+20260914,12,Novak Djokovic,39,"2,980",-790,16,-,-
+20260914,13,Learner Tien,20,"2,755",+190,22,50,10
+20260914,14,Rafael Jodar,19,"2,659",-12,22,-,-
+20260914,15,Jakub Mensik,21,"2,495",+50,21,-,-
+20260914,16,Brandon Nakashima,25,"2,485",-,25,100,25
+20260914,17,Alexander Bublik,29,"2,425",-100,26,250,10
+20260914,18,Casper Ruud,27,"2,335",-50,22,-,-
+20260914,19,Tommy Paul,29,"2,325",+100,22,-,-
+20260914,20,Lorenzo Musetti,24,"2,255",-350,22,165,10
+20260914,21,Valentin Vacherot,27,"2,250",+82,21,-,-
+20260914,22,Luciano Darderi,24,"2,200",+25,30,-,-
+20260914,23,Francisco Cerundolo,28,"2,130",+150,23,-,-
+20260914,24,Jiri Lehecka,24,"2,120",-300,21,-,-
+20260914,25,Andrey Rublev,28,"1,930",-150,23,-,-
+20260914,26,Karen Khachanov,30,"1,800",+750,24,-,-
+20260914,27,Alexander Blockx,21,"1,788",+392,23,-,-
+20260914,28,Alejandro Tabilo,29,"1,778",+90,32,263,50
+20260914,29,Joao Fonseca,20,"1,750",-50,19,-,-
+20260914,30,Alejandro Davidovich Fokina,27,"1,680",-50,24,-,-
+20260914,31,Tomas Martin Etcheverry,27,"1,590",+150,29,-,-
+20260914,32,Arthur Rinderknech,31,"1,583",-100,26,-,-
+20260914,33,Ugo Humbert,28,"1,535",-10,27,-,-
+20260914,34,Alex Michelsen,22,"1,460",+390,26,-,-
+20260914,35,Ignacio Buse,22,"1,460",-90,26,-,-
+20260914,36,Arthur Fery,24,"1,413",-2,20,-,-
+20260914,37,Matteo Arnaldi,25,"1,349",-,21,-,-
+20260914,38,Zizou Bergs,27,"1,345",-,28,-,-
+20260914,39,Cameron Norrie,31,"1,275",-90,25,-,-
+20260914,40,Botic van de Zandschulp,30,"1,258",+390,28,-,-
+20260914,41,Daniel Merida,21,"1,216",+59,28,-,-
+20260914,42,Luca Van Assche,22,"1,180",+40,26,-,-
+20260914,43,Matteo Berrettini,30,"1,165",+50,23,-,-
+20260914,44,Stefanos Tsitsipas,28,"1,165",+150,25,-,-
+20260914,45,Mariano Navone,25,"1,155",+90,30,-,-
+20260914,46,Hubert Hurkacz,29,"1,120",+50,23,-,-
+20260914,47,Raphael Collignon,24,"1,117",-90,26,-,-
+20260914,48,Nuno Borges,29,"1,095",-40,29,-,-
+20260914,49,Quentin Halys,29,"1,070",+40,28,-,-
+20260914,50,Denis Shapovalov,27,"1,065",-,23,-,-
+20260914,51,Sebastian Baez,25,"1,044",-,31,-,-
+20260914,52,Thiago Agustin Tirante,25,"1,010",-115,25,-,-
+20260914,53,Juan Manuel Cerundolo,24,986,-90,30,-,-
+20260914,54,Yannick Hanfmann,34,976,-15,26,-,-
+20260914,55,Tallon Griekspoor,30,975,-,28,-,-
+20260914,56,Roman Andres Burruchaga,24,957,-3,30,16,13
+20260914,57,Ethan Quinn,22,939,-10,27,-,-
+20260914,58,Adolfo Daniel Vallejo,22,939,-15,29,-,-
+20260914,59,Corentin Moutet,27,935,-,28,100,10
+20260914,60,Fabian Marozsan,26,930,-,25,-,-
+20260914,61,Miomir Kecmanovic,27,925,-,31,-,-
+20260914,62,Martin Landaluce,20,924,+2,28,16,8
+20260914,63,Arthur Gea,21,918,+209,21,-,-
+20260914,64,Jan-Lennard Struff,36,909,-180,26,-,-
+20260914,65,Vit Kopriva,29,883,-,30,64,12
+20260914,66,Sebastian Korda,26,880,-10,22,-,-
+20260914,67,James Duckworth,34,877,+24,28,-,-
+20260914,68,Jaume Munar,29,875,-115,24,-,-
+20260914,69,Daniel Altmaier,28,874,-90,33,-,-
+20260914,70,Jaime Faria,23,871,+24,26,-,-
+20260914,71,Pablo Carreno Busta,35,859,-40,22,-,-
+20260914,72,Facundo Diaz Acosta,25,826,+94,28,8,6
+20260914,73,Kamil Majchrzak,30,777,-50,25,-,-
+20260914,74,Jan Choinski,30,776,+3,30,125,7
+20260914,75,Tomas Machac,25,770,-190,22,-,-
+20260914,76,Camilo Ugo Carabelli,27,770,-,29,-,-
+20260914,77,Hamad Medjedovic,23,764,-,18,-,-
+20260914,78,Jenson Brooksby,25,763,-40,25,-,-
+20260914,79,Adrian Mannarino,38,745,-150,32,-,-
+20260914,80,Marin Cilic,37,741,-10,23,-,-
+20260914,81,Valentin Royer,25,738,-40,33,178,25
+20260914,82,Aleksandar Kovacevic,28,730,-,31,-,-
+20260914,83,Zachary Svajda,23,729,-30,18,-,-
+20260914,84,Marcos Giron,33,725,-40,28,50,13
+20260914,85,Rinky Hijikata,25,724,-,32,38,14
+20260914,86,Lorenzo Sonego,31,698,-,26,25,10
+20260914,87,Terence Atmane,24,697,+10,29,-,-
+20260914,88,Michael Zheng,22,682,+92,17,75,-
+20260914,89,Titouan Droguet,25,681,+65,26,16,10
+20260914,90,Mattia Bellucci,25,659,-,28,-,-
+20260914,91,Aleksandar Vukic,30,659,-,28,25,13
+20260914,92,Benjamin Bonzi,30,656,-,22,-,-
+20260914,93,Aleksandr Shevchenko,25,655,-,25,100,13
+20260914,94,Alex Molcan,28,645,-65,20,8,-
+20260914,95,Toby Samuel,24,640,+73,26,15,7
+20260914,96,Sho Shimabukuro,29,640,-65,28,-,-
+20260914,97,Jacob Fearnley,25,639,+16,26,-,-
+20260914,98,Jesper de Jong,26,638,+10,25,-,-
+20260914,99,Marco Trungelliti,36,637,-94,23,-,-
+20260914,100,Yibing Wu,26,635,+84,20,100,-
+20260914,101,Hugo Gaston,25,634,-63,24,-,-
+20260914,102,Adam Walton,27,630,-40,32,-,-
+20260914,103,Dino Prizmic,21,628,+10,15,25,-
+20260914,104,Martin Damm,22,624,-73,24,44,3
+20260914,105,Damir Dzumhur,34,612,-,32,-,-
+20260914,106,Giovanni Mpetshi Perricard,23,600,-,27,25,10
+20260914,107,Roman Safiullin,29,594,-40,15,-,-
+20260914,108,Otto Virtanen,25,586,+12,20,-,-
+20260914,109,Dane Sweeny,25,581,+75,28,25,6
+20260914,110,Kyrian Jacquet,25,581,-,20,-,-
+20260914,111,Christopher O'Connell,32,579,-19,20,50,-
+20260914,112,Coleman Wong,22,578,-90,27,-,-
+20260914,113,Emilio Nava,24,561,-,26,75,7
+20260914,114,Yunchaokete Bu,24,552,+56,19,-,-
+20260914,115,Patrick Kypson,26,540,-,19,-,-
+20260914,116,Zsombor Piros,26,530,-,17,-,-
+20260914,117,Dalibor Svrcina,23,525,+80,23,57,-
+20260914,118,Henrique Rocha,22,513,-,29,-,-
+20260914,119,Vilius Gaubas,21,511,-,28,-,-
+20260914,120,Marton Fucsovics,34,510,-,20,-,-
+20260914,121,Nicolas Mejia,26,509,-39,26,-,-
+20260914,122,Eliot Spizzirri,24,507,-50,14,7,-
+20260914,123,Gustavo Heide,24,503,+29,26,-,-
+20260914,124,Sebastian Ofner,30,501,+6,24,-,-
+20260914,125,Gabriel Diallo,24,500,-50,25,-,-
+20260914,126,Shintaro Mochizuki,23,478,-54,23,-,-
+20260914,127,Francisco Comesana,25,476,-40,24,-,-
+20260914,128,Grigor Dimitrov,35,472,+40,20,-,-
+20260914,129,Hugo Dellien,33,460,+38,25,-,-
+20260914,130,Alexei Popyrin,27,458,-,27,-,-
+20260914,131,Nikoloz Basilashvili,34,448,-8,20,63,-
+20260914,132,Pedro Martinez,29,447,+60,29,-,-
+20260914,133,Cristian Garin,30,446,+8,16,-,-
+20260914,134,Stan Wawrinka,41,436,-50,22,35,-
+20260914,135,Rei Sakamoto,20,429,+72,26,-,-
+20260914,136,Stefanos Sakellaridis,22,429,-6,26,-,-
+20260914,137,Alexandre Muller,29,428,-2,28,-,-
+20260914,138,Lloyd Harris,29,428,-,19,7,-
+20260914,139,Tomas Barrios Vera,28,428,+33,29,-,-
+20260914,140,Mark Lajal,23,427,+52,25,35,6
+20260914,141,Thiago Seyboth Wild,26,426,+145,22,-,-
+20260914,142,Jurij Rodionov,27,416,+21,28,-,-
+20260914,143,Pablo Llamas Ruiz,23,409,-82,20,-,-
+20260914,144,Holger Rune,23,400,-50,15,-,-
+20260914,145,Mackenzie McDonald,31,396,+6,23,38,-
+20260914,146,Andrea Pellegrino,29,390,-72,19,-,-
+20260914,147,Nicolai Budkov Kjaer,20,387,+8,29,7,-
+20260914,148,Arthur Cazaux,24,380,-16,16,25,-
+20260914,149,Dusan Lajovic,36,380,+42,27,-,-
+20260914,150,Chris Rodesch,25,377,-,19,-,-
+20260914,151,Nishesh Basavareddy,21,374,+26,14,38,-
+20260914,152,Zhizhen Zhang,29,365,-,22,25,-
+20260914,153,Juan Carlos Prado Angelo,21,364,-,26,15,-
+20260914,154,Reilly Opelka,29,361,-10,15,-,-
+20260914,155,Jack Draper,24,360,-50,16,-,-
+20260914,156,Borna Gojo,28,357,+8,16,-,-
+20260914,157,Soonwoo Kwon,28,355,-24,11,-,-
+20260914,158,Stefano Travaglia,34,355,-33,27,-,-
+20260914,159,Clement Tabur,26,353,-,25,-,-
+20260914,160,Taro Daniel,33,350,-1,18,63,-
+20260914,161,Max Alcala Gurri,24,350,+33,27,-,-
+20260914,162,Alex Bolt,33,348,-,17,-,-
+20260914,163,Marco Cecchinato,33,344,+2,29,-,-
+20260914,164,Gauthier Onclin,25,344,-11,30,7,-
+20260914,165,Tristan Schoolkate,25,343,+30,28,-,-
+20260914,166,Tom Gentzsch,23,341,-52,32,-,-
+20260914,167,Andrea Guerrieri,27,338,+37,27,-,-
+20260914,168,Federico Cina,19,337,+25,27,-,-
+20260914,169,Francesco Maestrelli,23,335,-2,24,12,-
+20260914,170,Daniil Glinka,26,333,-30,32,-,-
+20260914,171,Matej Dodig,21,329,+104,25,-,-
+20260914,172,Gonzalo Bueno,22,324,+2,31,-,-
+20260914,173,Zdenek Kolar,29,324,+6,34,40,4
+20260914,174,Elmer Moller,23,321,-10,22,-,-
+20260914,175,Harry Wendelken,24,321,+36,30,8,4
+20260914,176,Alexis Galarneau,27,316,+7,29,-,-
+20260914,177,Ilia Simakin,22,316,+106,24,-,-
+20260914,178,Michael Mmoh,28,315,-6,19,-,-
+20260914,179,Joel Schwaerzler,20,313,-11,28,8,-
+20260914,180,Lukas Neumayer,24,312,+22,26,-,-
+20260914,181,Andre Ilagan,25,309,+2,31,-,-
+20260914,182,Vitaliy Sachko,29,308,+10,23,-,-
+20260914,183,Laslo Djere,31,306,+35,22,-,-
+20260914,184,Jan Kumstat,19,302,-,22,-,-
+20260914,185,Bernard Tomic,33,296,-19,29,7,6
+20260914,186,Federico Agustin Gomez,29,292,-40,28,22,-
+20260914,187,Remy Bertola,28,292,-27,31,25,4
+20260914,188,Diego Dedura,18,291,-,28,-,-
+20260914,189,Jack Pinnington Jones,23,289,-55,20,-,-
+20260914,190,Juan Pablo Varillas,30,288,+48,28,6,4
+20260914,191,Clement Chidekh,25,287,-17,29,-,-
+20260914,192,Keegan Smith,28,287,-,31,-,-
+20260914,193,Felix Balshaw,20,286,+60,26,-,-
+20260914,194,Edas Butvilas,22,286,-,27,8,2
+20260914,195,Lautaro Midon,22,283,-10,25,-,-
+20260914,196,Luka Pavlovic,26,281,+8,25,8,-
+20260914,197,Elias Ymer,30,280,+8,24,-,-
+20260914,198,Timofey Skatov,25,280,+8,31,-,-
+20260914,199,Moise Kouame,17,279,-,21,-,-
+20260914,200,Liam Broady,32,273,-9,30,-,-
+20260914,201,Francesco Passaro,25,270,-,23,16,-
+20260914,202,Colton Smith,23,269,+16,23,-,-
+20260914,203,Andy Andrade,27,269,-,26,-,-
+20260914,204,Lorenzo Giustino,35,269,-10,29,-,-
+20260914,205,Liam Draxl,24,267,+12,24,-,-
+20260914,206,Braden Shick,22,267,+7,26,-,-
+20260914,207,Yoshihito Nishioka,30,266,-10,8,-,-
+20260914,208,Chun-Hsin Tseng,25,265,+12,21,-,-
+20260914,209,Maxim Mrva,19,265,-,29,-,-
+20260914,210,Pol Martin Tiffon,27,262,-7,23,-,-
+20260914,211,David Jorda Sanchis,32,262,-27,28,-,-
+20260914,212,Roberto Carballes Baena,33,261,-8,24,35,-
+20260914,213,Felix Gill,24,261,-1,32,-,-
+20260914,214,Tristan Boyer,25,260,-50,20,-,-
+20260914,215,Moez Echargui,33,259,+12,29,125,-
+20260914,216,Alex Barrena,23,259,+19,31,44,-
+20260914,217,Gianluca Cadenasso,21,258,-28,23,1,-
+20260914,218,Facundo Mena,33,256,+74,26,-,-
+20260914,219,Max Basing,23,253,+34,22,25,-
+20260914,220,Joao Lucas Reis Da Silva,26,252,+50,29,-,-
+20260914,221,Pavel Kotov,27,251,+25,15,-,-
+20260914,222,Inaki Montes-De La Torre,23,250,+39,24,-,-
+20260914,223,Kimmer Coppejans,32,250,-10,27,-,-
+20260914,224,Billy Harris,31,249,-100,24,7,-
+20260914,225,Raul Brancaccio,29,247,-2,28,-,-
+20260914,226,Henry Searle,20,246,-,24,-,-
+20260914,227,Juncheng Shang,21,245,-,13,25,-
+20260914,228,Guido Ivan Justo,28,244,-,30,6,4
+20260914,229,Rio Noguchi,27,242,-13,26,-,-
+20260914,230,Ilya Ivashka,32,241,+112,13,-,-
+20260914,231,Maks Kasnikowski,23,240,+20,29,-,-
+20260914,232,Jay Clarke,28,237,+1,31,25,1
+20260914,233,Nikolas Sanchez Izquierdo,27,236,-19,29,-,-
+20260914,234,Max Houkes,26,234,-4,28,-,-
+20260914,235,Roberto Bautista Agut,38,233,-10,19,-,-
+20260914,236,Andrej Nedic,21,233,+13,27,-,-
+20260914,237,Matias Soto,27,232,+14,28,6,-
+20260914,238,Henri Squire,25,231,-30,29,-,-
+20260914,239,Luka Mikrut,22,229,-88,10,-,-
+20260914,240,Alejandro Moro Canas,25,229,-10,30,-,-
+20260914,241,August Holmgren,28,228,-,28,-,-
+20260914,242,Yi Zhou,21,228,-,25,25,-
+20260914,243,Leandro Riedi,24,227,-230,12,-,-
+20260914,244,Luca Nardi,23,226,-10,17,-,-
+20260914,245,Darwin Blanch,18,226,-6,28,6,-
+20260914,246,J.J. Wolf,27,225,-,11,-,-
+20260914,247,Sumit Nagal,29,225,-14,23,-,-
+20260914,248,Hayato Matsuoka,21,225,-,30,-,-
+20260914,249,Matheus Pucinelli De Almeida,25,223,+4,26,-,-
+20260914,250,Frederico Ferreira Silva,31,221,-18,32,-,-
+20260914,251,Gael Monfils,40,220,+40,12,-,-
+20260914,252,James McCabe,23,219,-12,27,-,-
+20260914,253,Daniel Rincon,23,219,-51,27,8,-
+20260914,254,Jay Friend,22,218,+38,16,-,-
+20260914,255,Charles Broom,28,218,-21,29,8,4
+20260914,256,Martin Krumich,23,217,-1,33,-,-
+20260914,257,Mika Brunold,21,214,+94,17,4,-
+20260914,258,Abdullah Shelbayh,22,214,-12,22,6,-
+20260914,259,Marvin Moeller,27,214,+4,28,-,-
+20260914,260,Michele Ribecai,23,214,-2,30,-,-
+20260914,261,Franco Roncadelli,26,212,-,26,-,-
+20260914,262,Dominic Stricker,24,211,-,18,-,-
+20260914,263,Buvaysar Gadamauri,26,210,-5,23,-,-
+20260914,264,Philip Henning,25,210,-,26,-,-
+20260914,265,Hynek Barton,22,210,-3,31,21,3
+20260914,266,Marc-Andrea Huesler,30,208,-16,18,-,-
+20260914,267,Hugo Grenier,30,207,-28,22,16,-
+20260914,268,Matthew Dellavedova,26,207,+12,42,-,-
+20260914,269,Rodrigo Pacheco Mendez,21,204,-8,26,13,-
+20260914,270,Kilian Feldbausch,21,203,-38,16,-,-
+20260914,271,Cezar Cretu,25,203,-41,22,-,-
+20260914,272,Genaro Alberto Olivieri,28,203,-46,28,-,-
+20260914,273,Nick Hardt,25,200,-,21,-,-
+20260914,274,Juan Manuel La Serna,22,200,+3,27,6,4
+20260914,275,Juan Bautista Torres,24,200,-18,30,-,-
+20260914,276,Dan Added,27,199,-4,30,64,-
+20260914,277,Filip Cristian Jianu,24,199,-14,32,4,1
+20260914,278,Pierre-Hugues Herbert,35,198,-,15,-,-
+20260914,279,Daniel Michalski,26,197,+13,25,-,-
+20260914,280,Pedro Boscardin Dias,23,197,-,31,3,-
+20260914,281,Matteo Martineau,27,196,-,27,-,-
+20260914,282,Thiago Monteiro,32,195,-9,21,8,-
+20260914,283,Stefano Napolitano,31,194,-51,20,-,-
+20260914,284,Jerome Kym,23,193,-122,16,-,-
+20260914,285,Alastair Gray,28,192,-6,23,-,-
+20260914,286,Giles Hussey,29,192,-,27,15,1
+20260914,287,Sergey Fomin,25,192,-,29,-,-
+20260914,288,Harold Mayot,24,191,-22,17,8,-
+20260914,289,Carl Emil Overbeck,25,191,+1,22,-,-
+20260914,290,Mili Poljicak,22,189,-25,20,-,-
+20260914,291,Stefan Kozlov,28,189,-,21,-,-
+20260914,292,Max Schoenhaus,19,189,+11,27,-,-
+20260914,293,Alvaro Guillen Meza,23,189,-10,30,-,-
+20260914,294,Franco Agamenone,33,188,-8,29,50,-
+20260914,295,Raphael Perot,25,188,+27,30,-,-
+20260914,296,Mert Alkaya,26,188,+3,30,-,-
+20260914,297,Yu Hsiou Hsu,27,187,-26,26,-,-
+20260914,298,Johannus Monday,24,186,-,19,-,-
+20260914,299,Petr Bar Biryukov,24,186,-12,32,-,-
+20260914,300,Oliver Crawford,27,184,-63,22,-,-
+20260914,301,Petr Nesterov,23,184,-,27,-,-
+20260914,302,Oliver Tarvet,22,181,-,14,-,-
+20260914,303,Stefan Dostanic,24,181,-,14,-,-
+20260914,304,Igor Marcondes,29,181,-,21,16,-
+20260914,305,Sandro Kopp,26,181,-21,31,8,4
+20260914,306,Guy Den Ouden,24,180,-83,16,-,-
+20260914,307,Sean Cuenin,22,180,-28,23,-,-
+20260914,308,Florent Bax,27,180,-4,29,-,-
+20260914,309,Filippo Romano,21,178,-,27,-,-
+20260914,310,Kaichi Uchida,32,178,-32,30,16,-
+20260914,311,Georgii Kravchenko,26,178,+48,35,-,-
+20260914,312,Max Hans Rehberg,23,176,-,22,-,-
+20260914,313,Andres Martin,25,174,-6,29,6,-
+20260914,314,Daniel Milavsky,25,173,-2,28,-,-
+20260914,315,Radu Mihai Papoe,24,171,-9,20,1,-
+20260914,316,Enrico Dalla Valle,28,170,+6,28,-,-
+20260914,317,Gilles Arnaud Bailly,20,170,-63,29,-,-
+20260914,318,Oriol Roca Batalla,33,170,+12,29,-,-
+20260914,319,Akira Santillan,29,170,+2,33,4,2
+20260914,320,Luciano Emanuel Ambrogi,22,169,-4,28,-,-
+20260914,321,Anton Matusevich,25,168,-1,23,-,-
+20260914,322,Calvin Hemery,31,168,-,25,-,-
+20260914,323,Tyler Zink,25,168,-,30,12,1
+20260914,324,Fajing Sun,29,165,-9,28,-,-
+20260914,325,Federico Bondioli,21,165,-19,29,-,-
+20260914,326,Miguel Damas,26,165,-14,32,14,1
+20260914,327,Florian Broska,28,164,-25,21,-,-
+20260914,328,Gonzalo Villanueva,31,164,-12,34,-,-
+20260914,329,Yanki Erel,25,162,-20,23,-,-
+20260914,330,Murphy Cassone,24,162,-20,24,-,-
+20260914,331,Ugo Blanchet,27,161,-118,23,-,-
+20260914,332,Sascha Gueymard Wayenburg,23,161,-3,29,-,-
+20260914,333,Cruz Hewitt,17,160,+8,27,-,-
+20260914,334,Dali Blanch,23,160,-,28,-,-
+20260914,335,Nicolas Kicker,34,160,-8,29,-,-
+20260914,336,Carlos Sanchez Jover,26,160,+2,29,-,-
+20260914,337,Lucas Poullain,30,159,-1,26,-,-
+20260914,338,Tiago Pereira,22,159,+8,40,-,-
+20260914,339,Mees Rottgering,19,157,-3,19,-,-
+20260914,340,Thomas Faurel,20,156,+3,29,3,-
+20260914,341,Edward Winter,21,155,-4,18,-,-
+20260914,342,Mikhail Kukushkin,38,154,-8,19,8,-
+20260914,343,Ivan Marrero Curbelo,27,154,-1,20,-,-
+20260914,344,Michael Geerts,31,153,-18,26,3,-
+20260914,345,Marko Topo,23,152,-8,22,13,-
+20260914,346,Mathys Erhard,24,152,-9,31,14,3
+20260914,347,Carlos Maria Zarate,21,150,+17,31,4,3
+20260914,348,Philip Sekulic,23,149,-3,25,-,-
+20260914,349,Duje Ajdukovic,25,149,-25,29,-,-
+20260914,350,Tung-Lin Wu,28,148,+7,23,-,-
+20260914,351,Jake Delaney,29,148,+5,31,-,-
+20260914,352,Justin Engel,18,147,-32,20,-,-
+20260914,353,Norbert Gombos,36,147,+6,22,-,-
+20260914,354,Valerio Aboian,24,147,+34,30,-,-
+20260914,355,Juan Estevez,20,147,-2,31,-,-
+20260914,356,Ognjen Milic,19,146,-12,24,8,1
+20260914,357,Arthur Nagel,23,146,-,27,-,-
+20260914,358,Sebastian Sorger,20,145,+2,24,8,1
+20260914,359,Gabriele Piraino,22,145,+5,25,11,-
+20260914,360,Tiago Torres,24,144,-9,26,-,-
+20260914,361,Eduardo Ribeiro,28,144,+4,27,-,-
+20260914,362,Aidan Mayo,23,143,-,14,-,-
+20260914,363,Daniel Masur,31,143,+6,21,26,1
+20260914,364,Marat Sharipov,23,143,+36,24,-,-
+20260914,365,Dimitar Kuzmanov,33,143,+8,33,-,-
+20260914,366,Petr Brunclik,20,142,-,20,-,-
+20260914,367,Dhakshineswar Suresh,26,141,-,12,-,-
+20260914,368,George Loffhagen,25,140,-,16,-,-
+20260914,369,Manas Dhamne,18,140,+4,27,15,-
+20260914,370,Marc Polmans,29,139,-,17,16,-
+20260914,371,Hamish Stewart,27,139,-17,22,16,1
+20260914,372,Alejo Sanchez Quilez,21,139,+10,23,-,-
+20260914,373,Francesco Forti,27,139,-3,24,-,-
+20260914,374,Antoine Ghibaudo,21,138,-12,23,10,-
+20260914,375,Murkel Dellien,28,138,-,29,22,-
+20260914,376,Robin Bertrand,23,138,+17,38,8,3
+20260914,377,Eliakim Coulibaly,24,137,-25,21,-,-
+20260914,378,Juan Pablo Ficovich,29,137,-,25,-,-
+20260914,379,Andrej Martin,36,136,+11,20,-,-
+20260914,380,Tommaso Compagnucci,26,136,-4,24,-,-
+20260914,381,Lucio Ratti,22,135,+1,27,-,-
+20260914,382,Laurent Lokoli,31,134,+2,17,-,-
+20260914,383,Hernan Casanova,32,134,-9,20,10,-
+20260914,384,Arthur Weber,34,133,+11,20,16,-
+20260914,385,Max Wiskandt,24,132,-,27,-,-
+20260914,386,Massimo Giunta,22,132,+15,27,-,-
+20260914,387,Kasidit Samrej,25,132,+38,31,-,-
+20260914,388,Alex Martinez,25,131,-8,19,-,-
+20260914,389,Joaquin Aguilar Cardozo,21,131,+15,19,-,-
+20260914,390,Jacopo Vasami,18,129,-2,14,-,-
+20260914,391,Jack Kennedy,18,129,-,19,-,-
+20260914,392,Daniel Elahi Galan,30,129,-34,21,-,-
+20260914,393,Andrey Chepelev,28,129,-6,40,-,-
+20260914,394,David Goffin,35,128,-50,12,-,-
+20260914,395,Andrea Collarini,34,128,-8,20,6,-
+20260914,396,Omar Jasika,29,128,+7,32,-,-
+20260914,397,Johan Nikles,29,127,+11,22,-,-
+20260914,398,Luca Castelnuovo,29,127,+25,23,-,-
+20260914,399,Yuta Shimizu,27,127,-2,23,-,-
+20260914,400,Marek Gengel,30,127,-4,24,8,-
+20260914,401,Lui Maxted,22,126,-18,22,-,-
+20260914,402,Mateus Alves,25,126,+8,23,25,-
+20260914,403,Justin Boulais,24,125,+2,26,10,-
+20260914,404,Blaise Bicknell,24,124,-6,23,-,-
+20260914,405,Samuele Pieri,24,124,-1,30,-,-
+20260914,406,Yosuke Watanuki,28,123,+6,16,-,-
+20260914,407,Olle Wallin,24,123,+4,24,-,-
+20260914,408,Vadym Ursu,29,123,+2,28,-,-
+20260914,409,Mats Rosenkranz,28,122,-,12,25,-
+20260914,410,Eric Vanshelboim,25,121,+6,26,-,-
+20260914,411,Masamichi Imamura,27,121,-6,28,3,2
+20260914,412,Mitchell Krueger,32,120,-28,21,-,-
+20260914,413,Dylan Dietrich,21,119,-,9,-,-
+20260914,414,Thanasi Kokkinakis,30,118,-,10,-,-
+20260914,415,Niels Visker,24,118,+5,24,-,-
+20260914,416,Semen Pankin,27,117,-,26,-,-
+20260914,417,Denis Yevseyev,33,116,+9,30,-,-
+20260914,418,Carlos Taberner,29,115,-6,13,-,-
+20260914,419,Aziz Dougaz,29,115,+31,14,-,-
+20260914,420,Ozan Baris,22,114,-,16,-,-
+20260914,421,Karim Bennani,19,114,+10,21,-,-
+20260914,422,Benjamin Hassan,31,114,-4,22,-,-
+20260914,423,Louis Wessels,28,114,+21,26,-,-
+20260914,424,Andrew Fenty,26,114,-14,27,-,-
+20260914,425,Jordan Thompson,32,113,-50,8,-,-
+20260914,426,Jonas Forejtek,25,113,-18,23,-,-
+20260914,427,Giulio Zeppieri,24,112,-115,8,38,-
+20260914,428,Robert Strombachs,26,112,-7,27,-,-
+20260914,429,Kei Nishikori,36,111,+16,9,-,-
+20260914,430,Enzo Aguiard,24,111,+24,20,3,-
+20260914,431,Khumoyun Sultanov,27,111,+10,21,-,-
+20260914,432,Pavel Lagutin,21,111,+13,22,1,-
+20260914,433,Maxime Chazal,33,111,-2,25,-,-
+20260914,434,Sergi Perez Contri,28,111,+9,26,-,-
+20260914,435,Geoffrey Blancaneaux,28,111,-33,28,-,-
+20260914,436,Constantin Bittoun Kouzmine,27,111,-2,34,-,-
+20260914,437,Garrett Johns,25,110,-16,29,-,-
+20260914,438,Moerani Bouzige,27,110,+7,35,-,-
+20260914,439,James Trotter,27,109,+8,19,12,-
+20260914,440,Ioannis Xilas,25,109,-7,28,-,-
+20260914,441,Yannik Kelm,21,108,-1,23,-,-
+20260914,442,Nerman Fatic,31,107,-,16,-,-
+20260914,443,Oleksii Krutykh,26,107,+2,30,-,-
+20260914,444,Timo Legout,24,106,-,11,-,-
+20260914,445,Alafia Ayeni,27,106,+3,18,-,-
+20260914,446,Eero Vasa,29,105,+9,22,-,-
+20260914,447,Jie Cui,28,105,+1,23,-,-
+20260914,448,Dusan Obradovic,25,105,+13,29,-,-
+20260914,449,Mika Petkovic,19,105,-8,30,-,-
+20260914,450,Emile Hudd,26,105,-,30,-,-
+20260914,451,Spencer Johnson,23,104,-,10,-,-
+20260914,452,Kenta Miyoshi,22,104,+4,12,-,-
+20260914,453,Ivan Gakhov,29,104,+7,21,-,-
+20260914,454,Ryan Peniston,30,103,-,14,16,-
+20260914,455,Juan Cruz Martin Manzano,21,103,-4,24,-,-
+20260914,456,Luca Staeheli,26,103,-3,25,-,-
+20260914,457,Karl Poling,27,103,-,27,-,-
+20260914,458,Corentin Denolly,29,102,-5,21,8,-
+20260914,459,Cyril Vandermeersch,27,102,-2,21,-,-
+20260914,460,Felipe Meligeni Alves,28,101,-,14,-,-
+20260914,461,Radu Albot,36,101,+10,18,-,-
+20260914,462,Blake Ellis,27,101,+5,20,-,-
+20260914,463,Maximus Jones,22,101,+8,26,6,-
+20260914,464,Mitsuki Wei Kang Leong,22,101,+26,26,3,1
+20260914,465,Matthew William Donald,21,101,-6,27,3,2
+20260914,466,Viktor Durasovic,29,101,-5,27,-,-
+20260914,467,Koki Matsuda,25,100,+6,21,3,-
+20260914,468,Quinn Vandecasteele,24,100,-8,24,-,-
+20260914,469,Paulo Andre Saraiva Dos Santos,26,100,-,28,3,2
+20260914,470,Oleg Prihodko,28,99,-21,21,-,-
+20260914,471,Alex Hernandez,27,99,-,25,-,-
+20260914,472,Santiago Rodriguez Taverna,27,99,-12,27,-,-
+20260914,473,Daniel Dutra da Silva,38,99,-3,29,1,-
+20260914,474,Filip Misolic,25,97,+17,12,-,-
+20260914,475,Jack Loge,21,97,-8,30,7,1
+20260914,476,Pedro Vives Marcos,25,95,+15,15,-,-
+20260914,477,Adrian Boitan,27,95,+4,24,8,-
+20260914,478,Izan Almazan Valiente,20,95,+2,26,-,-
+20260914,479,Thijs Boogaard,18,94,+2,14,-,-
+20260914,480,Henry Bernet,19,94,-20,22,-,-
+20260914,481,Patrick Schoen,21,94,+3,22,-,-
+20260914,482,Ryan Nijboer,27,94,+12,26,-,-
+20260914,483,Colin Sinclair,31,94,+3,30,3,1
+20260914,484,Sebastian Gorzny,22,93,+50,12,-,-
+20260914,485,Luca Potenza,26,93,-,23,13,-
+20260914,486,Sergio Callejon Hernando,21,93,-1,25,-,-
+20260914,487,Duncan Chan,21,92,-,11,-,-
+20260914,488,Yassine Dlimi,23,92,-1,14,-,-
+20260914,489,Niels McDonald,18,92,-,22,-,-
+20260914,490,Cesar Bouchelaghem,22,92,+4,23,8,-
+20260914,491,Filip Jeff Planinsek,25,92,+1,29,-,-
+20260914,492,Beibit Zhukayev,25,91,-8,17,-,-
+20260914,493,Gianmarco Ferrari,25,91,+5,20,-,-
+20260914,494,Federico Arnaboldi,26,91,+6,22,-,-
+20260914,495,Miguel Tobon,20,91,-8,28,-,-
+20260914,496,Alexander Ritschard,32,90,+34,8,-,-
+20260914,497,Dragos Nicolae Madaras,29,90,+17,18,-,-
+20260914,498,Paul Jubb,26,90,-,20,-,-
+20260914,499,Alex Rybakov,29,90,-6,21,6,-
+20260914,500,Anton Shepp,23,90,-1,22,-,-
+20260914,501,Hiroki Moriya,35,90,+4,23,-,-
+20260914,502,Tai Sach,23,90,+3,33,3,1
+20260914,503,Vladyslav Orlov,31,89,-20,26,-,-
+20260914,504,Branko Djuric,21,88,+27,14,-,-
+20260914,505,Stefan Palosi,26,88,-32,17,-,-
+20260914,506,Alex Marti Pujolras,27,88,-1,20,-,-
+20260914,507,Giuseppe La Vela,25,88,-4,24,15,1
+20260914,508,Ivan Ivanov,17,88,+6,26,-,-
+20260914,509,Pedro Sakamoto,33,88,-2,29,8,-
+20260914,510,Reda Bennani,19,87,-,19,-,-
+20260914,511,Bor Artnak,22,87,-3,19,-,-
+20260914,512,Daniel Siniakov,23,86,-4,19,-,-
+20260914,513,Joao Eduardo Schiessl,22,86,+4,22,-,-
+20260914,514,Alan Magadan,25,86,-,26,-,-
+20260914,515,Lorenzo Joaquin Rodriguez,26,86,-1,28,-,-
+20260914,516,Tibo Colson,26,85,-,14,-,-
+20260914,517,Peter Makk,24,85,-4,22,8,1
+20260914,518,Leo Borg,23,85,+4,25,-,-
+20260914,519,Alexander Donski,28,84,-,12,-,-
+20260914,520,Yasutaka Uchiyama,34,84,-72,17,-,-
+20260914,521,Romain Faucon,24,84,+6,30,-,-
+20260914,522,Evan Zhu,28,84,-,30,-,-
+20260914,523,Fabrizio Andaloro,25,83,-,18,3,-
+20260914,524,Luca Wiedenmann,28,83,+6,26,2,1
+20260914,525,Christian Langmo,30,83,-16,32,-,-
+20260914,526,Gerard Campana Lee,21,82,+3,31,3,2
+20260914,527,Aziz Ouakaa,27,82,-,37,-,-
+20260914,528,Jason Kubler,33,81,-16,9,-,-
+20260914,529,Trevor Svajda,20,81,-44,12,-,-
+20260914,530,Li Tu,30,81,-,12,-,-
+20260914,531,Shunsuke Mitsui,24,80,+1,16,-,-
+20260914,532,Nikita Mashtakov,27,80,+11,17,-,-
+20260914,533,Cannon Kingsley,25,79,-20,18,-,-
+20260914,534,Carlo Alberto Caniato,20,79,-17,23,-,-
+20260914,535,M Rifki Fitriadi,27,79,-10,26,-,-
+20260914,536,Fares Zakaria,25,79,+6,26,-,-
+20260914,537,Karan Singh,23,79,+15,27,-,-
+20260914,538,Hikaru Shiraishi,26,78,-7,29,-,-
+20260914,539,Patrick Zahraj,27,78,-41,29,-,-
+20260914,540,Rudolf Molleker,25,77,-26,18,-,-
+20260914,541,Gavin Young,23,77,-,20,-,-
+20260914,542,Adrian Oetzbach,28,77,+20,26,-,-
+20260914,543,Alec Deckers,26,76,-2,25,-,-
+20260914,544,Fausto Tabacco,24,76,+4,25,-,-
+20260914,545,Martin Van Der Meerschen,26,75,+8,21,-,-
+20260914,546,Pavle Marinkov,20,75,-,21,3,-
+20260914,547,Yanis Ghazouani Durand,26,75,+9,25,-,-
+20260914,548,Alexander Binda,24,75,-,26,-,-
+20260914,549,Hyeon Chung,30,74,+3,21,-,-
+20260914,550,John Echeverria,24,74,+6,24,-,-
+20260914,551,Digvijay Pratap Singh,26,74,-,27,1,-
+20260914,552,Toufik Sahtali,27,74,-1,34,4,1
+20260914,553,Pierluigi Basile,19,73,+1,18,-,-
+20260914,554,Daniil Ostapenkov,23,73,-1,21,-,-
+20260914,555,John Hallquist Lithen,24,73,+17,30,4,1
+20260914,556,Lilian Marmousez,24,72,-15,10,-,-
+20260914,557,Tom Paris,24,72,-31,13,21,-
+20260914,558,Jelle Sels,31,72,-5,23,-,-
+20260914,559,Dimitris Sakellaridis,20,72,-1,48,-,-
+20260914,560,Milos Karol,23,71,-12,12,-,-
+20260914,561,Gabriel Ghetu,18,71,+12,17,-,-
+20260914,562,Svyatoslav Gulin,23,71,+5,21,-,-
+20260914,563,Mario Gonzalez Fernandez,24,71,-1,25,-,-
+20260914,564,Lorenzo Carboni,20,71,-24,25,-,-
+20260914,565,Maximo Zeitune,20,71,+15,26,-,-
+20260914,566,Taha Baadi,25,70,-,15,-,-
+20260914,567,Daniel De Jonge,27,70,-1,19,4,-
+20260914,568,Lorenzo Angelini,20,70,-1,24,-,-
+20260914,569,Nino Ehrenschneider,25,70,+4,28,-,-
+20260914,570,Christoph Negritu,32,69,-,15,-,-
+20260914,571,Saba Purtseladze,25,69,-,25,-,-
+20260914,572,Marcel Zielinski,25,69,-13,25,-,-
+20260914,573,Takuya Kumasaka,27,69,-7,26,-,-
+20260914,574,Aidan McHugh,26,68,-,10,3,-
+20260914,575,Sanhui Shin,29,68,-15,25,-,-
+20260914,576,Pierre Delage,25,68,+3,26,3,1
+20260914,577,Kirill Kivattsev,28,68,-2,30,1,-
+20260914,578,Keegan Rice,20,67,-,6,-,-
+20260914,579,Matyas Fuele,27,67,-7,16,-,-
+20260914,580,Javier Barranco Cosano,27,67,-41,16,-,-
+20260914,581,Sander Jong,26,67,+18,20,-,-
+20260914,582,Kaylan Bigun,20,67,-,23,2,-
+20260914,583,Kuan-Yi Lee,30,67,+6,23,15,-
+20260914,584,Federico Iannaccone,27,67,+11,26,-,-
+20260914,585,Paul Inchauspe,22,66,-,7,-,-
+20260914,586,Alec Beckley,25,66,-5,15,-,-
+20260914,587,Amr Elsayed,27,66,-,21,-,-
+20260914,588,Pietro Fellin,25,66,-1,22,-,-
+20260914,589,Amit Vales,21,66,+1,23,-,-
+20260914,590,Sebastian Gima,24,66,-1,30,4,1
+20260914,591,Lukas Pokorny,24,65,+4,15,-,-
+20260914,592,Robin Catry,24,65,-2,22,-,-
+20260914,593,Leonardo Rossi,24,65,-,30,-,-
+20260914,594,Ignacio Monzon,28,65,+7,33,2,1
+20260914,595,Joao Domingues,32,64,-,16,-,-
+20260914,596,Iliyan Radulov,21,64,-,17,-,-
+20260914,597,Andrea Vavassori,31,63,-,3,-,-
+20260914,598,Renta Tokuda,28,63,-31,21,25,-
+20260914,599,Millen Hurrion,27,63,-,25,1,-
+20260914,600,Erik Arutiunian,21,62,-,11,2,-
+20260914,601,Juan Sebastian Gomez,34,62,-,12,-,-
+20260914,602,Jamie Mackenzie,18,62,-,12,-,-
+20260914,603,Pieter De Lange,20,62,+6,22,-,-
+20260914,604,Amir Omarkhanov,18,62,+2,25,-,-
+20260914,605,Matisse Bobichon,24,61,+5,21,8,-
+20260914,606,Lorenzo Bocchi,28,61,-2,23,-,-
+20260914,607,Guillaume Dalmasso,23,61,-4,23,4,-
+20260914,608,Naoki Nakagawa,29,60,+22,16,8,-
+20260914,609,Oleksandr Ovcharenko,24,60,+2,22,-,-
+20260914,610,Bruno Fernandez,22,60,+5,27,-,-
+20260914,611,Cedrik-Marcel Stebe,35,59,-,8,3,-
+20260914,612,Jacopo Berrettini,27,59,-12,12,-,-
+20260914,613,Alexander Weis,29,59,-8,13,-,-
+20260914,614,Alan Fernando Rubio Fierros,27,59,-,15,-,-
+20260914,615,Alexander Vasilev,19,59,-,16,-,-
+20260914,616,Tuncay Duran,22,59,+2,16,-,-
+20260914,617,S D Prajwal Dev,30,59,-1,18,8,-
+20260914,618,Thiago Cigarran,26,59,+6,24,-,-
+20260914,619,Dominik Palan,25,59,-31,24,-,-
+20260914,620,Nicolas Tepmahc,25,59,-1,29,-,-
+20260914,621,Bruno Kuzuhara,22,59,-,29,8,1
+20260914,622,Michael Antonius,16,58,+8,10,-,-
+20260914,623,Alejandro Juan Mano,21,58,-1,16,-,-
+20260914,624,Michael Bassem Sobhy,22,58,-17,20,-,-
+20260914,625,Maxime Janvier,29,58,-12,24,3,-
+20260914,626,Chase Ferguson,27,58,+3,25,2,-
+20260914,627,Yanaki Milev,22,58,+28,26,-,-
+20260914,628,Conner Huertas del Pino,30,57,-,12,-,-
+20260914,629,Aidan Kim,21,57,-12,12,-,-
+20260914,630,Pedro Rodenas,22,57,+7,16,-,-
+20260914,631,Carlos Lopez Montagud,26,57,-17,18,-,-
+20260914,632,Kai Wehnelt,30,57,-13,22,-,-
+20260914,633,Mae Malige,20,57,-11,26,8,-
+20260914,634,Gabriele Bosio,25,57,+8,26,-,-
+20260914,635,Kokoro Isomura,23,57,-23,28,-,-
+20260914,636,Samir Banerjee,22,56,-25,8,26,-
+20260914,637,Yaroslav Demin,21,56,+5,20,-,-
+20260914,638,Manuel Mazza,27,56,+15,21,-,-
+20260914,639,Dan Martin,27,56,-4,21,-,-
+20260914,640,Tomasz Berkieta,20,56,-,21,-,-
+20260914,641,Stefan Adrian Andreescu,24,56,-10,22,-,-
+20260914,642,Timofei Derepasko,19,56,+6,30,4,1
+20260914,643,Daniel Jade,17,55,+8,11,-,-
+20260914,644,Ryan Colby,22,55,+1,18,-,-
+20260914,645,Marlon Vankan,26,55,-5,22,-,-
+20260914,646,Ergi Kirkin,27,55,+2,23,-,-
+20260914,647,Samuel Heredia,20,55,-,29,-,-
+20260914,648,Filip Peliwo,32,55,-18,29,8,-
+20260914,649,Stefan Popovic,23,55,-3,30,-,-
+20260914,650,Theo Papamalamis,20,54,-3,14,-,-
+20260914,651,Dmitry Popko,29,54,-,17,-,-
+20260914,652,Andrea De Marchi,19,54,+3,23,-,-
+20260914,653,Melios Efstathiou,27,53,-1,20,-,-
+20260914,654,Sidharth Rawat,33,53,-18,20,-,-
+20260914,655,Keisuke Saitoh,25,53,+2,23,-,-
+20260914,656,Naoya Honda,20,53,-2,25,-,-
+20260914,657,Roger Pascual Ferra,20,52,-,9,-,-
+20260914,658,Guto Miguel,17,52,-,11,-,-
+20260914,659,Anton Arzhankin,23,52,+2,18,-,-
+20260914,660,Karol Filar,28,52,-16,23,-,-
+20260914,661,Maxwell Mckennon,24,52,-4,26,-,-
+20260914,662,Stefan Horia Haita,19,51,-,15,-,-
+20260914,663,Leo Raquillet,20,51,-1,20,-,-
+20260914,664,Isaac Becroft,25,51,+1,24,-,-
+20260914,665,Imanol Lopez Morillo,26,51,-16,29,-,-
+20260914,666,Gabriel Debru,20,50,-,1,-,-
+20260914,667,Ignacio Parisca Romera,21,50,+5,23,-,-
+20260914,668,Tim Handel,29,50,-1,24,-,-
+20260914,669,Marc Majdandzic,21,50,+1,24,-,-
+20260914,670,Yurii Dzhavakian,33,50,-,31,-,-
+20260914,671,Max Purcell,28,49,+14,6,-,-
+20260914,672,Ryan Seggerman,27,49,-,7,-,-
+20260914,673,Pablo Martinez Gomez,20,49,-2,9,-,-
+20260914,674,Arklon Huertas Del Pino Cordova,32,49,-,16,2,-
+20260914,675,Aleksandre Bakshi,29,49,+5,17,-,-
+20260914,676,Samuel Vincent Ruggeri,24,49,-,18,-,-
+20260914,677,Jacob Bradshaw,23,49,-16,19,-,-
+20260914,678,Andreja Petrovic,26,49,-1,23,1,-
+20260914,679,Radu David Turcanu,20,49,+9,24,-,-
+20260914,680,Daniel Salazar,25,49,+3,26,-,-
+20260914,681,Giovanni Oradini,28,49,-8,28,-,-
+20260914,682,Shinji Hazawa,27,49,-,29,-,-
+20260914,683,Samir Hamza Reguig,24,49,-1,32,-,-
+20260914,684,Karlis Ozolins,24,48,-3,12,-,-
+20260914,685,Franco Ribero,27,48,+1,22,2,-
+20260914,686,Yusuke Takahashi,28,48,-1,25,-,-
+20260914,687,Nikolai Barsukov,19,48,+3,28,-,-
+20260914,688,Ziga Sesko,18,47,-,17,-,-
+20260914,689,Daniel Antonio Nunez,25,47,+2,17,-,-
+20260914,690,Keshav Chopra,24,47,-1,18,-,-
+20260914,691,Alberto Barroso Campos,30,47,-10,20,-,-
+20260914,692,Rafael Izquierdo Luque,26,47,-,21,-,-
+20260914,693,Ryan Dickerson,29,47,-,21,-,-
+20260914,694,Manish Sureshkumar,27,47,+2,21,-,-
+20260914,695,Santiago De La Fuente,24,47,-1,21,4,-
+20260914,696,Strong Kirchheimer,31,47,-2,22,-,-
+20260914,697,Tristan McCormick,27,47,-,24,2,-
+20260914,698,Khololwam Montsi,23,46,-,7,-,-
+20260914,699,Thomas Fancutt,31,46,-,12,-,-
+20260914,700,Hunter Heck,24,46,+1,17,-,-
+20260914,701,Ryuki Matsuda,26,46,+6,22,-,-
+20260914,702,Tiago Cacao,28,46,-6,23,-,-
+20260914,703,Nicolas Villalon,22,46,-2,24,-,-
+20260914,704,Oscar Jose Gutierrez,33,46,+1,25,-,-
+20260914,705,Sebastian Dominko,23,45,+23,7,4,-
+20260914,706,James Story,25,45,-8,11,3,-
+20260914,707,Wilson Leite,34,45,-,23,1,-
+20260914,708,John Sperle,24,45,+12,24,1,-
+20260914,709,Dragos Nicolae Cazacu,22,45,-3,24,-,-
+20260914,710,Carles Hernandez,25,45,+3,28,8,-
+20260914,711,Bryce Nakashima,22,44,+15,9,2,-
+20260914,712,Neil Oberleitner,27,44,-10,9,3,-
+20260914,713,Herman Hoeyeraal,24,44,-1,17,-,-
+20260914,714,Loann Massard,21,44,-,22,-,-
+20260914,715,Mukund Sasikumar,29,44,-18,24,-,-
+20260914,716,Orel Kimhi,23,43,-,8,-,-
+20260914,717,Brandon Holt,28,43,-10,8,7,-
+20260914,718,Andrew Johnson,17,43,+8,9,-,-
+20260914,719,Patrick Brady,21,43,-2,10,-,-
+20260914,720,Maxim Zhukov,21,43,-34,12,-,-
+20260914,721,Grigory Shebekin,21,43,-,16,-,-
+20260914,722,Peter Fajta,24,43,-,18,-,-
+20260914,723,Oskar Brostrom Poulsen,24,43,-,20,2,-
+20260914,724,Leo Vithoontien,27,43,-5,23,-,-
+20260914,725,Nicolas Zanellato,24,43,-,25,-,-
+20260914,726,Nicolas Jadoun,24,43,+14,27,-,-
+20260914,727,Noa Vukadin,22,42,-,6,-,-
+20260914,728,Arthur Bouquier,25,42,-7,10,-,-
+20260914,729,Alessandro Pecci,25,42,-,11,-,-
+20260914,730,Juan Sebastian Osorio,28,42,-,17,-,-
+20260914,731,Dev Javia,24,42,+30,19,-,-
+20260914,732,Michal Krajci,21,42,-,19,-,-
+20260914,733,Seydina Andre,23,42,-1,25,-,-
+20260914,734,Benjamin Pietri,30,42,+4,25,-,-
+20260914,735,Olaf Pieczkowski,22,41,-4,10,-,-
+20260914,736,Igor Kudriashov,22,41,-,11,-,-
+20260914,737,Matyas Cerny,24,41,+3,16,-,-
+20260914,738,Nico Hipfl,20,41,+8,17,-,-
+20260914,739,Yuta Kawahashi,28,41,-11,21,-,-
+20260914,740,Calvin Mueller,26,41,+10,21,-,-
+20260914,741,Giorgio Tabacco,23,41,-13,22,-,-
+20260914,742,Matteo Covato,21,41,-,25,-,-
+20260914,743,Evan Bynoe,27,41,-,26,-,-
+20260914,744,Kalin Ivanovski,22,40,-,3,-,-
+20260914,745,Lukas Klein,28,40,-6,6,-,-
+20260914,746,Vignesh Gogineni,23,40,-,8,-,-
+20260914,747,Joshua Sheehy,29,40,-2,9,-,-
+20260914,748,Michael Vrbensky,26,40,-5,9,3,-
+20260914,749,Matt Hulme,27,40,-,10,-,-
+20260914,750,Adria Soriano Barrera,27,40,-8,10,-,-
+20260914,751,Uisung Park,25,40,-,15,-,-
+20260914,752,Goncalo Marques,20,40,-,16,-,-
+20260914,753,Stefano D'Agostino,22,40,+4,17,-,-
+20260914,754,Dong Ju Kim,24,40,-9,19,-,-
+20260914,755,Matt Kuhar,30,40,-,21,-,-
+20260914,756,Rodrigo Alujas,24,40,-1,22,-,-
+20260914,757,Aleksandr Braynin,27,40,-,28,-,-
+20260914,758,Taisei Ichikawa,25,40,-,30,-,-
+20260914,759,Luis Carlos Alvarez,22,39,-,6,-,-
+20260914,760,Matthew Forbes,20,39,-,7,-,-
+20260914,761,Alex Knaff,28,39,+7,13,-,-
+20260914,762,Noah Zamora,23,39,-,17,-,-
+20260914,763,Alejandro Turriziani Alvarez,23,39,+3,25,-,-
+20260914,764,Lucas Andrade Da Silva,21,38,-,6,-,-
+20260914,765,Manuel Plunger,24,38,+9,10,-,-
+20260914,766,Andres Santamarta Roig,19,38,-3,11,-,-
+20260914,767,Jakub Nicod,22,38,-5,13,-,-
+20260914,768,Ben Jones,28,38,-1,15,-,-
+20260914,769,Matt Ponchet,22,38,-,16,-,-
+20260914,770,Maik Steiner,32,38,-5,17,-,-
+20260914,771,Niklas Guttau,26,38,+3,17,-,-
+20260914,772,Daniele Rapagnetta,19,38,-6,22,-,-
+20260914,773,Gabriele Maria Noce,30,38,+2,23,-,-
+20260914,774,Lorenzo Sciahbasi,20,37,-,8,-,-
+20260914,775,Hady Habib,28,37,+1,10,-,-
+20260914,776,Abel Forger,21,37,-1,13,-,-
+20260914,777,Oskari Paldanius,19,37,+4,18,-,-
+20260914,778,Pawit Sornlaksup,27,37,-6,20,-,-
+20260914,779,Emilien Demanet,21,37,-6,22,-,-
+20260914,780,Michiel De Krom,28,37,-1,25,1,-
+20260914,781,Luca Castagnola,24,37,-,29,-,-
+20260914,782,Jack Anthrop,22,36,+2,7,-,-
+20260914,783,Nicolas Alvarez Varona,25,36,-12,10,4,-
+20260914,784,Ye Cong Mo,26,36,-4,11,-,-
+20260914,785,Fryderyk Lechno-Wasiutynski,21,36,-25,12,-,-
+20260914,786,Yannick Theodor Alexandrescou,18,36,-,14,-,-
+20260914,787,Scott Jones,28,36,-,15,-,-
+20260914,788,Viacheslav Bielinskyi,22,36,-16,15,-,-
+20260914,789,Conor Gannon,24,36,+3,17,-,-
+20260914,790,Rares Teodor Pieleanu,19,36,-3,19,-,-
+20260914,791,Tsung-Hao Huang,26,36,-22,19,-,-
+20260914,792,Dimitris Azoidis,25,36,-1,21,2,-
+20260914,793,Yuki Mochizuki,28,36,-16,22,1,-
+20260914,794,Tianhui Zhang,20,36,+4,23,-,-
+20260914,795,Dinko Dinev,22,36,-,23,-,-
+20260914,796,Benjamin Torrealba,21,36,+1,24,-,-
+20260914,797,Cosme Rolland De Ravel,22,35,-,5,-,-
+20260914,798,Alibek Kachmazov,24,35,+2,7,-,-
+20260914,799,Nicolas Oliveira,20,35,-,7,-,-
+20260914,800,Alfredo Perez,29,35,-6,8,12,-
+20260914,801,Arvid Nordquist,28,35,-,10,-,-
+20260914,802,Michael Agwi,23,35,-3,13,-,-
+20260914,803,Vincent Marysko,20,35,-9,16,-,-
+20260914,804,Walid Ahouda,22,34,-,4,-,-
+20260914,805,Gustavo Ribeiro De Almeida,20,34,-,8,-,-
+20260914,806,Aristotelis Thanos,25,34,-,11,-,-
+20260914,807,Oscar Weightman,24,34,-,12,-,-
+20260914,808,Adhithya Ganesan,20,34,-7,15,-,-
+20260914,809,Kristijan Juhas,25,34,+2,17,2,-
+20260914,810,Yuta Tomida,19,34,+13,21,-,-
+20260914,811,Bastian Malla,29,34,+5,21,1,-
+20260914,812,Lorenzo Rottoli,24,34,+7,21,-,-
+20260914,813,Alan Wazny,19,34,+1,24,-,-
+20260914,814,JiSung Nam,33,33,+15,6,-,-
+20260914,815,Gian Luca Tanner,25,33,-2,9,2,-
+20260914,816,Jannik Opitz,28,33,+1,10,-,-
+20260914,817,Tomas Farjat,25,33,-5,13,1,-
+20260914,818,Arda Azkara,23,33,-,14,-,-
+20260914,819,Attila Boros,22,33,-5,18,-,-
+20260914,820,Mert Naci Turker,28,33,-6,19,-,-
+20260914,821,Karl Friberg,27,33,-5,21,-,-
+20260914,822,Nicolas Robert,20,33,+1,22,-,-
+20260914,823,Nicholas David Ionel,23,33,-,22,-,-
+20260914,824,Miles Jones,25,33,+3,23,-,-
+20260914,825,Tomas Martinez,23,33,+4,24,-,-
+20260914,826,Carles Cordoba,20,33,-,26,-,-
+20260914,827,Joshua Charlton,27,33,-8,29,-,-
+20260914,828,Kosuke Ogura,30,33,-1,34,1,-
+20260914,829,Johan Alexander Rodriguez,22,32,-,9,-,-
+20260914,830,Gijs Brouwer,30,32,+6,10,-,-
+20260914,831,Mariano Kestelboim,30,32,-,11,12,-
+20260914,832,Adrian Andreev,25,32,-,13,-,-
+20260914,833,Maximilian Homberg,23,32,-2,13,-,-
+20260914,834,Jose Pereira,35,32,-,14,-,-
+20260914,835,Rigele Te,28,32,+15,17,-,-
+20260914,836,Lorenzo Gagliardo,26,32,+10,17,-,-
+20260914,837,Josip Simundza,21,32,-15,18,-,-
+20260914,838,Aaron Funk,20,32,+8,21,-,-
+20260914,839,Michel Hopp,27,32,-,21,-,-
+20260914,840,Taiyo Yamanaka,25,32,-1,26,2,-
+20260914,841,Yusuke Kusuhara,29,31,-,11,1,-
+20260914,842,Hoyoung Roh,20,31,-,11,-,-
+20260914,843,Linus Lagerbohm,18,31,+8,12,-,-
+20260914,844,Markus Molder,21,31,-1,13,-,-
+20260914,845,Dominik Recek,31,31,-,14,-,-
+20260914,846,Hanyi Liu,25,31,+5,14,-,-
+20260914,847,Natan Rodrigues,24,31,-,15,-,-
+20260914,848,Kasra Rahmani,20,31,-8,16,-,-
+20260914,849,Sora Fukuda,28,31,+1,19,1,-
+20260914,850,Marko Miladinovic,25,31,-1,23,-,-
+20260914,851,Sam Ryan Ziegann,28,31,-3,23,-,-
+20260914,852,William Rejchtman Vinciguerra,19,31,+2,24,-,-
+20260914,853,Joao Victor Couto Loureiro,23,31,+2,26,2,-
+20260914,854,Giannicola Misasi,26,31,-,29,-,-
+20260914,855,Cooper Williams,21,30,-4,4,-,-
+20260914,856,Alexey Vatutin,33,30,-13,5,5,-
+20260914,857,Nicolas Jarry,30,30,-10,6,-,-
+20260914,858,Jangjun Kim,19,30,-2,6,-,-
+20260914,859,Oliver Bonding,19,30,-,10,-,-
+20260914,860,Keaton Hance,18,30,-,13,-,-
+20260914,861,Robert Guna,21,30,+1,14,-,-
+20260914,862,Felix Corwin,30,30,+4,15,-,-
+20260914,863,Fernando Cavallo,20,30,-6,16,-,-
+20260914,864,Nikita Belozertsev,17,30,+4,17,-,-
+20260914,865,Thanapet Chanta,27,30,+2,18,-,-
+20260914,866,Maxwell Exsted,19,30,-,19,-,-
+20260914,867,Andrea Colombo,23,30,+2,24,1,-
+20260914,868,Alaa Trifi,19,30,-,25,-,-
+20260914,869,Samuel Alejandro Linde Palacios,18,30,-,26,-,-
+20260914,870,Davide Tortora,25,29,-,12,-,-
+20260914,871,Theodore Dean,24,29,-,13,-,-
+20260914,872,Nitin Kumar Sinha,27,29,-,14,-,-
+20260914,873,Jesse Flores,31,29,-2,18,-,-
+20260914,874,Anas Mazdrashki,20,29,+2,21,-,-
+20260914,875,Denis Klok,28,29,-3,22,-,-
+20260914,876,Fermin Tenti,29,29,-3,23,1,-
+20260914,877,Tom Zeuch,26,29,-4,24,-,-
+20260914,878,Nikola Slavic,25,29,-8,25,-,-
+20260914,879,Grigoriy Lomakin,28,29,+2,25,-,-
+20260914,880,Lorenzo Claverie,23,28,-,2,-,-
+20260914,881,Facundo Bagnis,36,28,-,3,16,-
+20260914,882,Nicolas Moreno De Alboran,29,28,-,4,-,-
+20260914,883,Orlando Luz,28,28,-,4,-,-
+20260914,884,Maxence Beauge,26,28,-19,12,-,-
+20260914,885,Egor Agafonov,24,28,-23,17,8,-
+20260914,886,Michele Mecarelli,19,28,+1,21,1,-
+20260914,887,Francisco Rocha,26,28,-7,23,-,-
+20260914,888,Emil Ruusuvuori,27,27,-10,7,-,-
+20260914,889,Ronit Karki,18,27,-,17,-,-
+20260914,890,William Grant,25,27,-,18,-,-
+20260914,891,George Lazarov,21,27,+2,18,2,-
+20260914,892,Giulio Perego,23,27,-1,18,-,-
+20260914,893,Victor Hugo Remondy Pagotto,21,27,+15,20,-,-
+20260914,894,Ryotaro Taguchi,26,27,+3,20,-,-
+20260914,895,Egor Pleshivtsev,19,27,-2,23,-,-
+20260914,896,Max Dahlin,20,26,-2,4,-,-
+20260914,897,Kuan-Shou Chen,18,26,+25,5,-,-
+20260914,898,Benito Sanchez Martinez,24,26,-,6,-,-
+20260914,899,Alvin Nicholas Tudorica,24,26,-4,6,-,-
+20260914,900,Federico Coria,34,26,-,7,-,-
+20260914,901,Igor Gimenez,26,26,-5,7,1,-
+20260914,902,Ofek Shimanov,21,26,+2,8,-,-
+20260914,903,Jason Jung,37,26,-,9,-,-
+20260914,904,Charlie Robertson,19,26,-,11,-,-
+20260914,905,Mikalai Haliak,28,26,+2,14,-,-
+20260914,906,Marcello Serafini,24,26,+1,16,3,-
+20260914,907,Qian Sun,25,26,+9,16,-,-
+20260914,908,Oliver Okonkwo,26,26,+4,18,-,-
+20260914,909,Julian Cundom,25,26,+3,22,2,-
+20260914,910,Aditya Vishal Balsekar,23,26,+5,24,-,-
+20260914,911,Pietro Marino,25,26,+2,25,-,-
+20260914,912,Andrea Fiorentini,25,26,-2,26,1,-
+20260914,913,Benjamin O'Connell,27,26,+4,27,1,-
+20260914,914,Kerem Yilmaz,19,26,-,28,-,-
+20260914,915,Elmar Ejupovic,33,25,-,1,-,-
+20260914,916,Nick Kyrgios,31,25,-,3,-,-
+20260914,917,Zsombor Velcz,23,25,-,6,-,-
+20260914,918,Noritaka Koizumi,23,25,+1,10,-,-
+20260914,919,Matteo Sciahbasi,19,25,-,12,-,-
+20260914,920,Mirza Basic,35,25,-24,12,-,-
+20260914,921,Tristan Stringer,20,25,-,14,-,-
+20260914,922,Ryan Fishback,24,25,-,17,-,-
+20260914,923,Aryan Shah,20,25,-,17,3,-
+20260914,924,Rafael Tosetto,27,25,+3,23,-,-
+20260914,925,Alexandre Aubriot,27,25,+4,23,1,-
+20260914,926,Marcus Walters,28,25,-,24,-,-
+20260914,927,Jeremy Gschwendtner,28,25,+3,28,4,-
+20260914,928,Muhammad Shoaib,24,24,-,4,-,-
+20260914,929,Pierre Yves Bailly,22,24,-,6,-,-
+20260914,930,Kriish Tyagi,19,24,-,7,-,-
+20260914,931,Etienne Donnet,25,24,-8,8,8,-
+20260914,932,Ronald Hohmann,25,24,-1,14,-,-
+20260914,933,Christopher Li,23,24,-,14,-,-
+20260914,934,Michael Zhu,34,24,-3,21,1,-
+20260914,935,Rocco Piatti,22,24,-,23,-,-
+20260914,936,Matthew Summers,27,24,-4,26,-,-
+20260914,937,Nicolas Barrientos,39,23,-,4,-,-
+20260914,938,James Watt,26,23,-4,6,-,-
+20260914,939,Martin Borisiouk,26,23,+3,7,-,-
+20260914,940,Ilya Snitari,24,23,-,7,-,-
+20260914,941,Pablo Perez Ramos,23,23,-,7,-,-
+20260914,942,Nikolay Vylegzhanin,26,23,-4,7,3,-
+20260914,943,Peter Bertran,30,23,-,8,-,-
+20260914,944,Filippo Moroni,25,23,-2,10,-,-
+20260914,945,Yun seong Chung,28,23,-1,10,-,-
+20260914,946,Kenny De Schepper,39,23,-1,13,-,-
+20260914,947,Iiro Vasa,24,23,+1,14,-,-
+20260914,948,Marc Van Der Merwe,32,23,-,15,-,-
+20260914,949,Tudor Batin,19,23,+3,15,-,-
+20260914,950,Mickael Kaouk,18,23,-,17,-,-
+20260914,951,Charles Bertimon,26,23,-,18,-,-
+20260914,952,Niccolo Catini,28,23,-5,19,8,-
+20260914,953,Mathieu Scaglia,27,23,+1,19,1,-
+20260914,954,Ali Yazdani,23,23,-,26,-,-
+20260914,955,Daniil Sarksian,20,23,-1,28,-,-
+20260914,956,Johannes Ingildsen,29,22,-3,5,-,-
+20260914,957,Aleksa Ciric,26,22,-,12,-,-
+20260914,958,Stijn Paardekooper,23,22,-7,13,-,-
+20260914,959,Alexandre Reco,27,22,+3,13,-,-
+20260914,960,Lorenzo Comino,20,22,-2,13,-,-
+20260914,961,Ryo Tabata,18,22,-,14,-,-
+20260914,962,Axel Nefve,26,22,-,15,-,-
+20260914,963,Amaury Raynel,24,22,-2,20,7,-
+20260914,964,Petros Tsitsipas,26,22,-,21,-,-
+20260914,965,Nikita Ianin,25,22,+2,24,-,-
+20260914,966,Tomas Curras Abasolo,26,22,-5,24,-,-
+20260914,967,Louis Larue,22,22,+1,26,-,-
+20260914,968,Dan Alexandru Tomescu,27,21,-8,6,3,-
+20260914,969,Vlad Cristian Breazu,22,21,+4,7,-,-
+20260914,970,Shunsuke Nakagawa,26,21,-1,9,3,-
+20260914,971,Taym Al Azmeh,22,21,-,10,-,-
+20260914,972,Micah Braswell,24,21,-,10,-,-
+20260914,973,Matthew Thomson,26,21,-,13,-,-
+20260914,974,Salvador Price,21,21,-,15,1,-
+20260914,975,Justin Roberts,29,21,-,16,-,-
+20260914,976,Geun Jun Kim,25,21,+3,18,-,-
+20260914,977,Mwendwa Mbithi,28,21,-,19,-,-
+20260914,978,Hazem Naw,26,21,+1,20,-,-
+20260914,979,Fanming Meng,18,21,+2,22,-,-
+20260914,980,Maxence Bertimon,26,21,-4,24,-,-
+20260914,981,Adan Freire Da Silva,27,21,-1,25,1,-
+20260914,982,Karim Ibrahim,23,21,-1,28,2,-
+20260914,983,Wishaya Trongcharoenchaikul,31,21,-1,29,-,-
+20260914,984,Aoran Wang,29,20,-,9,-,-
+20260914,985,Lars Goran Verwerft,23,20,-,11,-,-
+20260914,986,Elgin Khoeblal,24,20,-,11,-,-
+20260914,987,Marko Maksimovic,20,20,-2,12,4,-
+20260914,988,Ivan Nedelko,40,20,-4,13,-,-
+20260914,989,Enzo Kohlmann De Freitas,19,20,-,15,-,-
+20260914,990,Ruslan Tiukaev,21,20,-,16,1,-
+20260914,991,Yaojie Zeng,24,20,-2,16,-,-
+20260914,992,Duje Markovina,19,20,-,18,-,-
+20260914,993,Ezequiel Monferrer,23,20,+1,22,-,-
+20260914,994,David Eichenseher,20,20,-,25,-,-
+20260914,995,Michael Savano,18,19,+14,6,-,-
+20260914,996,Cezar Gabriel Papoe,18,19,-,7,-,-
+20260914,997,Joaquin Guilleme,20,19,-,10,-,-
+20260914,998,Dominik Kellovsky,30,19,-6,11,-,-
+20260914,999,Jeffrey Von Der Schulenburg,24,19,-16,11,-,-
+20260914,1000,Bekkhan Atlangeriev,25,19,-3,12,-,-
+20260914,1001,Linang Xiao,26,19,+5,13,-,-
+20260914,1002,Sydney Zick,19,19,-1,17,-,-
+20260914,1003,Gabriele Crivellaro,19,19,+4,18,-,-
+20260914,1004,Nicolas Parizzia,27,19,-,20,-,-
+20260914,1005,Iannis Miletich,21,19,-2,20,-,-
+20260914,1006,Fons Van Sambeek,24,19,+2,20,-,-
+20260914,1007,Luka Talan Lopatic,18,19,-,20,-,-
+20260914,1008,Benjamin Thomas George,23,19,-,23,-,-
+20260914,1009,Matthias Ujvary,22,19,+1,27,1,-
+20260914,1010,Jorge Plans,24,19,-14,27,-,-
+20260914,1011,Nicolas Bruna,27,19,-1,28,-,-
+20260914,1012,Leyton Rivera,24,19,-,34,2,-
+20260914,1013,Stuart Parker,29,18,-16,3,-,-
+20260914,1014,Jannik Maute,22,18,+15,4,-,-
+20260914,1015,Rethin Pranav Senthil Kumar,19,18,-,4,-,-
+20260914,1016,Dimitar Kisimov,18,18,-,5,-,-
+20260914,1017,Devin Badenhorst,22,18,-,5,-,-
+20260914,1018,Dante Pagani,18,18,-,10,-,-
+20260914,1019,Mikael Arseneault,19,18,-,11,-,-
+20260914,1020,Maximilian Neuchrist,35,18,-5,12,-,-
+20260914,1021,Stefan Seifert,41,18,-,13,1,-
+20260914,1022,Liam Gavrielides,22,18,-,14,-,-
+20260914,1023,Yan Cheng Chen,24,18,+1,16,-,-
+20260914,1024,Yuta Kikuchi,26,18,-10,16,-,-
+20260914,1025,Jakub Filip,20,18,-4,18,-,-
+20260914,1026,Chirag Duhan,22,18,+9,19,-,-
+20260914,1027,Sergi Fita Juan,19,18,-1,20,-,-
+20260914,1028,Finn Murgett,24,18,-8,20,-,-
+20260914,1029,Aljaz Jeran,22,18,-1,21,-,-
+20260914,1030,Nicolas Ifi,28,18,-,22,3,-
+20260914,1031,Younes Lalami,25,18,-1,23,-,-
+20260914,1032,Christopher Eubanks,30,17,-7,3,-,-
+20260914,1033,Joaquim de Almeida,24,17,-,4,-,-
+20260914,1034,Antoine Escoffier,34,17,-4,4,-,-
+20260914,1035,Thanaphat Boosarawongse,20,17,-,6,-,-
+20260914,1036,Luis Felipe Miguel,22,17,-,6,-,-
+20260914,1037,Patrick Maloney,26,17,-8,6,6,-
+20260914,1038,Alex Kuperstein,27,17,-,8,-,-
+20260914,1039,Jonas Gundacker,23,17,+1,9,-,-
+20260914,1040,Segundo Goity Zapico,21,17,-,9,-,-
+20260914,1041,Chanyeong Oh,28,17,-3,11,-,-
+20260914,1042,Ajeet Rai,27,17,-3,11,-,-
+20260914,1043,Christopher Papa,25,17,-,12,-,-
+20260914,1044,Zach Stephens,20,17,-,20,-,-
+20260914,1045,Niccolò Ciavarella,22,17,-2,21,-,-
+20260914,1046,Volodymyr Iakubenko,21,17,-,22,-,-
+20260914,1047,Pavlos Tsitsipas,21,17,-,26,1,-
+20260914,1048,Preston Brown,25,17,-,28,-,-
+20260914,1049,Albert Ramos-Vinolas,38,16,-,2,-,-
+20260914,1050,Alexander Rozin,21,16,-,5,-,-
+20260914,1051,Mate Valkusz,28,16,-24,6,-,-
+20260914,1052,Gianluca Brunkow,23,16,-,7,-,-
+20260914,1053,Julio Cesar Porras,28,16,-15,8,-,-
+20260914,1054,Luca Pow,21,16,-6,8,-,-
+20260914,1055,Hugo Car,23,16,+4,9,-,-
+20260914,1056,Diego Augusto Barreto Sanchez,24,16,-2,10,-,-
+20260914,1057,Federico Aguilar Cardozo,21,16,+5,10,-,-
+20260914,1058,Nikola Djosic,19,16,-,13,1,-
+20260914,1059,Nicolas Arseneault,19,16,+1,13,-,-
+20260914,1060T,Xiaofei Wang,23,16,-8,13,2,-
+20260914,1060T,Jumpei Yamasaki,29,16,-,13,-,-
+20260914,1062,Shintaro Imai,33,16,-,14,-,-
+20260914,1063,Evgeny Philippov,24,16,-,15,-,-
+20260914,1064,Benjamin Willwerth,19,16,-,16,-,-
+20260914,1065,Johan Oscar Lien,18,16,-,16,-,-
+20260914,1066,Antoni Fabre,22,16,+4,18,-,-
+20260914,1067,Rafael De Alba,24,16,+1,19,-,-
+20260914,1068,Ammar Alhogbani,27,16,-1,19,-,-
+20260914,1069,Stefan Vujic,28,16,-1,20,1,-
+20260914,1070,Joao Vitor Scramin Do Lago,20,16,-,21,-,-
+20260914,1071,Vladislav Melnic,27,16,+1,21,-,-
+20260914,1072,Melih Anavatan,20,16,-,22,-,-
+20260914,1073,Andrew Paulson,24,15,-48,3,-,-
+20260914,1074,Asahi Harazaki,22,15,-,4,-,-
+20260914,1075,Christian Sigsgaard,29,15,-,5,-,-
+20260914,1076,Jakub Paul,27,15,-14,5,-,-
+20260914,1077,Billy Blaydes,22,15,-,7,-,-
+20260914,1078,Simeon Stankovic,19,15,-,8,1,-
+20260914,1079,Alejandro Hayen,28,15,-,8,-,-
+20260914,1080,Maan Kesharwani,25,15,-,11,-,-
+20260914,1081,Jonas Eriksson Ziverts,27,15,-,14,-,-
+20260914,1082,Mathys Picard,18,15,-,16,-,-
+20260914,1083,Hiromasa Koyama,18,15,+2,18,-,-
+20260914,1084,Mateo Del Pino,23,15,-2,20,-,-
+20260914,1085,Christian Djonov,26,15,-1,23,-,-
+20260914,1086,Enzo Camargo Lima,22,15,+1,23,1,-
+20260914,1087,Filip Krolo,25,14,-,4,-,-
+20260914,1088,William Manning,21,14,-,5,-,-
+20260914,1089,Tadeas Paroulek,26,14,-5,5,5,-
+20260914,1090,Veljko Krstic,22,14,-,5,-,-
+20260914,1091,Roan Jones,22,14,+6,5,-,-
+20260914,1092,Kacper Szymkowiak,21,14,-,8,-,-
+20260914,1093,Lucas Marionneau,20,14,-,9,-,-
+20260914,1094,Noah Schachter,27,14,+1,12,-,-
+20260914,1095,Kristjan Tamm,28,14,+2,12,-,-
+20260914,1096,Valentin Basel,22,14,-,13,-,-
+20260914,1097,Pierre Antoine Tailleu,23,14,+6,14,-,-
+20260914,1098,Daniel Uta,19,14,-,14,3,-
+20260914,1099,Francesco Ferrari,29,14,-1,15,-,-
+20260914,1100,Lachlan James Mcfadzean,19,14,-,15,-,-
+20260914,1101,Filippo Mazzola,21,14,-1,17,-,-
+20260914,1102T,Felipe De Dios,23,14,+2,18,-,-
+20260914,1102T,Nicolas Garcia Longo,21,14,-,18,-,-
+20260914,1104,Kris Van Wyk,29,14,-8,19,1,-
+20260914,1105,Tobia Costanzo Baragiola Mordini,20,14,+2,20,1,-
+20260914,1106,Ali Habib,23,14,-,22,-,-
+20260914,1107,Mihai Razvan Marinescu,25,14,-3,23,-,-
+20260914,1108,Maximilian Figl,22,14,+1,25,-,-
+20260914,1109,David Pichler,30,13,-2,1,-,-
+20260914,1110,Kody Pearson,27,13,-,2,-,-
+20260914,1111,Damir Zhalgasbay,18,13,-,4,-,-
+20260914,1112,Filip Pieczonka,22,13,+3,4,-,-
+20260914,1113,Ilyas Milad Fahim,21,13,-,4,-,-
+20260914,1114,Simon Reveniau,28,13,-1,5,8,-
+20260914,1115T,Dominick Mosejczuk,19,13,-2,5,-,-
+20260914,1115T,Oliver Ojakaar,21,13,-2,5,-,-
+20260914,1117,Clement Lemire,19,13,-,5,-,-
+20260914,1118,Maximus Dussault,19,13,-,5,-,-
+20260914,1119,Jakub Vrba,21,13,+8,6,-,-
+20260914,1120,William Jansen,21,13,-,6,-,-
+20260914,1121,Bautista Vilicich,24,13,-3,7,-,-
+20260914,1122,Rodrigo Fernandes,19,13,-3,8,-,-
+20260914,1123,Jordan Hasson,26,13,+1,8,-,-
+20260914,1124,Denis Petak,20,13,-,10,-,-
+20260914,1125,Jerry Roddick,24,13,-,11,-,-
+20260914,1126,Rohan Mehra,24,13,+1,12,-,-
+20260914,1127,Gastao Elias,35,13,-,12,-,-
+20260914,1128,Vincent Dullinger,19,13,-,15,-,-
+20260914,1129,Joao Vitor Goncalves Ceolin,27,13,-,15,-,-
+20260914,1130,Thantub Suksumrarn,25,13,-,15,-,-
+20260914,1131,Liam Branger,25,13,+3,16,-,-
+20260914,1132T,Sebastiano Cocola,20,13,-,17,-,-
+20260914,1132T,Chen Dong,23,13,+1,17,1,-
+20260914,1134,Jonathan Mridha,31,13,-,17,-,-
+20260914,1135,Markus Malaszszak,22,13,-8,17,-,-
+20260914,1136,Pietro Romeo Scomparin,25,13,-5,18,-,-
+20260914,1137,Jeremy Schifris,24,13,-1,18,-,-
+20260914,1138,Giacomo Crisostomo,23,13,-,19,-,-
+20260914,1139,Leonardo Primucci,23,13,+2,21,-,-
+20260914,1140,Yuto Oki,20,13,+1,21,-,-
+20260914,1141,Mohamed Nazim Makhlouf,30,13,-1,22,2,-
+20260914,1142,Ferdinand Livet Novkirichka,18,13,+2,22,-,-
+20260914,1143,Niklas Schell,27,13,-8,23,-,-
+20260914,1144,Saveliy Ivanov,21,13,-,25,-,-
+20260914,1145,Yassine Smiej,26,13,+2,28,-,-
+20260914,1146,Matias Ponce De Leon Gomila,23,12,-,4,-,-
+20260914,1147,Mark Ceban,17,12,-,5,-,-
+20260914,1148,Nikita Samuel Filin,20,12,-,6,2,-
+20260914,1149,Adrien Burdet,24,12,+7,6,-,-
+20260914,1150,Alexis Gautier,29,12,-25,8,1,-
+20260914,1151,Adrien Gobat,25,12,-2,8,-,-
+20260914,1152,Mustafa Ege Sik,17,12,-,9,8,-
+20260914,1153,Alexander Kotzen,26,12,-,10,-,-
+20260914,1154,Elijah Sanogo,18,12,-,11,-,-
+20260914,1155,Vuk Radjenovic,21,12,+1,11,-,-
+20260914,1156,Thiago Agustin Pernas,25,12,-,12,-,-
+20260914,1157,Jan Kupcic,25,12,-1,13,-,-
+20260914,1158,Peter Buldorini,22,12,-8,14,-,-
+20260914,1159,Stefan Cooper,30,12,-,15,-,-
+20260914,1160,Alexander Wagner,19,12,-1,15,-,-
+20260914,1161,Lucca Helguera Casado,20,12,-2,15,1,-
+20260914,1162,Vlado Jankanj,20,12,-,15,-,-
+20260914,1163,Brian Bozemoj,22,12,-3,16,-,-
+20260914,1164,Viktor Frydrych,20,12,-2,17,2,-
+20260914,1165,Billy Suarez,24,12,-,17,-,-
+20260914,1166,Makoto Ochi,30,12,-1,18,-,-
+20260914,1167,Jacopo Bilardo,21,12,-2,22,-,-
+20260914,1168,Lorenzo Lorusso,26,12,+1,23,-,-
+20260914,1169,Daniel Evans,36,11,-21,2,-,-
+20260914,1170,Preston Stearns,22,11,+4,3,4,-
+20260914,1171,Vincent Jakob Reisach,17,11,-,5,-,-
+20260914,1172,Jozef Kovalik,33,11,-17,5,5,-
+20260914,1173,Pawel Juszczak,32,11,+4,5,-,-
+20260914,1174,Federico Zeballos,38,11,-,5,-,-
+20260914,1175,Mathys Domenc,17,11,+4,6,-,-
+20260914,1176,Dominique Rolland,21,11,-,8,-,-
+20260914,1177,Daniil Kakhniuk,23,11,-,8,-,-
+20260914,1178,Kevin Edengren,21,11,-,9,-,-
+20260914,1179,Alexander Frusina,20,11,-,9,-,-
+20260914,1180,Samuele Seghetti,20,11,+1,10,-,-
+20260914,1181,Marko Mesarovic,21,11,+2,10,-,-
+20260914,1182,Pranav Karthik,21,11,-,11,-,-
+20260914,1183,Jaesung Choe,26,11,-,11,4,-
+20260914,1184T,Lorenzo Berto,19,11,+4,12,-,-
+20260914,1184T,Evgenii Tiurnev,29,11,-,12,-,-
+20260914,1186T,Bernardo Munk Mesa,20,11,+3,12,-,-
+20260914,1186T,Jefferson Wendler Filho,30,11,-,12,-,-
+20260914,1188,Rocco Valente,22,11,-,14,-,-
+20260914,1189,Diego Fernandez Flores,25,11,-4,14,-,-
+20260914,1190,Blu Baker,25,11,+3,14,-,-
+20260914,1191,Jacob Brumm,27,11,-1,15,-,-
+20260914,1192,Edoardo cherie Ligniere,22,11,+1,15,-,-
+20260914,1193,Denis Spiridon,24,11,-2,16,-,-
+20260914,1194,Udit Kamboj,25,11,-,17,-,-
+20260914,1195,Stefan Ilie Bogdan Petre,17,11,+1,17,-,-
+20260914,1196,Gabriel Schenekenberg,21,11,+2,20,1,-
+20260914,1197,Nicolo Toffanin,23,11,-1,23,-,-
+20260914,1198,Joshua Peck,27,11,+1,24,1,-
+20260914,1199,Luis David Martinez,37,10,-,1,-,-
+20260914,1200T,Siddhant Banthia,26,10,-,3,-,-
+20260914,1200T,Thilo Behrmann,18,10,+1,3,-,-
+20260914,1202,Jordan Lee,16,10,+8,4,-,-
+20260914,1203,Luc Koenig,23,10,-,5,-,-
+20260914,1204,Darian King,34,10,-,5,-,-
+20260914,1205,Tito Chavez,18,10,-,6,-,-
+20260914,1206,Luc Fomba,27,10,-,6,-,-
+20260914,1207,Lautaro Agustin Falabella,28,10,-4,6,4,-
+20260914,1208,David Poljak,30,10,-4,6,-,-
+20260914,1209,Deney Wassermann,25,10,+5,7,-,-
+20260914,1210,Victor Lilov,22,10,-,7,-,-
+20260914,1211,Noah Schlagenhauf,23,10,-,7,-,-
+20260914,1212,Adam Jilly,19,10,-,8,-,-
+20260914,1213,Martin Sabas,24,10,-,8,3,-
+20260914,1214,Zura Tkemaladze,26,10,-2,8,-,-
+20260914,1215,Nicola Rispoli,29,10,+6,9,-,-
+20260914,1216,Julien Penzlin,24,10,-,9,-,-
+20260914,1217,Ethan Cook,23,10,+2,9,1,-
+20260914,1218,Viktor Markov,21,10,-,10,-,-
+20260914,1219T,Dakotah Bobo,23,10,-,11,-,-
+20260914,1219T,Artur Kukasian,22,10,-9,11,2,-
+20260914,1221,Kazuki Nishiwaki,31,10,-1,11,3,-
+20260914,1222,Liam Krall,24,10,-,12,-,-
+20260914,1223,Theo Herrmann,21,10,-,12,-,-
+20260914,1224T,Vardan Manukyan,21,10,-,12,-,-
+20260914,1224T,Gabriele Pennaforti,25,10,-10,12,1,-
+20260914,1226,Filiberto Fumagalli,24,10,-1,12,-,-
+20260914,1227,Tymur Bieldiugin,20,10,-,13,-,-
+20260914,1228,Jiri Cizek,21,10,-,13,-,-
+20260914,1229,Arjun Rathi,18,10,-,13,-,-
+20260914,1230,Oscar Brown,24,10,-,14,-,-
+20260914,1231,Reece Falck,24,10,-,16,-,-
+20260914,1232,Daniel Verbeek,22,10,+7,17,-,-
+20260914,1233,Toby Martin,33,10,-,19,-,-
+20260914,1234,Timeo Trufelli,18,10,-,23,1,-
+20260914,1235T,Gage Brymer,31,9,-,2,-,-
+20260914,1235T,Amirkhamza Nasridinov,21,9,-,2,-,-
+20260914,1235T,Erik Schiessl,22,9,-,2,-,-
+20260914,1238,Keenan Mayo,26,9,-,3,-,-
+20260914,1239,Landon Ardila,22,9,-,3,-,-
+20260914,1240,Dennis Novak,33,9,-15,3,5,-
+20260914,1241T,Niccolo Baroni,22,9,-,4,-,-
+20260914,1241T,Suk Hyun Choo,25,9,-4,4,-,-
+20260914,1241T,Yunseok Jang,23,9,-2,4,-,-
+20260914,1244,Zack Viiala,20,9,+1,4,-,-
+20260914,1245,Matias Reyniak,17,9,-,6,-,-
+20260914,1246T,Evgeny Karlovskiy,32,9,-,6,-,-
+20260914,1246T,Heorhii Shylov,18,9,+4,6,-,-
+20260914,1248,Noah Johnston,18,9,-,7,-,-
+20260914,1249,Manel Lazaro Juncadella,20,9,-1,7,-,-
+20260914,1250,Fadi Bidan,20,9,-,7,-,-
+20260914,1251,Koray Kirci,28,9,-,8,-,-
+20260914,1252,Youssef Kadiri Hassani,22,9,-,9,-,-
+20260914,1253,Santiago Giamichelle,22,9,+2,9,-,-
+20260914,1254T,James Connel,23,9,-,9,-,-
+20260914,1254T,Enzo Wallart,29,9,-,9,-,-
+20260914,1256,Noah Karma,18,9,+2,10,-,-
+20260914,1257,Alessandro Bellifemine,25,9,+2,10,-,-
+20260914,1258,Matei Florin Breazu,18,9,-,11,-,-
+20260914,1259,Alessandro Battiston,19,9,+1,11,-,-
+20260914,1260,Tom Sickenberger,19,9,-1,12,-,-
+20260914,1261T,Abhinav Sanjeev Shanmugam,27,9,-,12,-,-
+20260914,1261T,Flynn Thomas,18,9,-1,12,-,-
+20260914,1263,Axel Garcian,24,9,-12,12,1,-
+20260914,1264,Enrique Carrascosa Diaz,18,9,-,13,-,-
+20260914,1265,Maxence Rivet,22,9,-3,14,-,-
+20260914,1266,Noah Lopez Cherubino,20,9,-1,14,-,-
+20260914,1267,Valentin Lapalu,24,9,-,14,-,-
+20260914,1268,Rafael Giotis,25,9,-,14,-,-
+20260914,1269,Leonid Sheyngezikht,25,9,+1,15,-,-
+20260914,1270,James Beaven,21,9,-,15,-,-
+20260914,1271,Amine Jamji,19,9,+1,15,-,-
+20260914,1272,Justin Schlageter,25,9,-8,16,-,-
+20260914,1273,Valentino Grippo,20,9,+2,16,-,-
+20260914,1274,Mohamed Ali Abibsi,24,9,+1,16,-,-
+20260914,1275,Leonardo Borrelli,21,9,-,17,-,-
+20260914,1276T,Andrea Bacaloni,24,9,+1,17,1,-
+20260914,1276T,Maxim Shin,23,9,-1,17,-,-
+20260914,1278,Boris Butulija,27,9,+1,19,-,-
+20260914,1279,Luke Hooper,20,9,-,20,-,-
+20260914,1280,Jesse Delaney,27,9,-1,21,-,-
+20260914,1281,Niklas Waldner,24,9,+1,21,-,-
+20260914,1282,Jan Hrazdil,21,9,-1,23,-,-
+20260914,1283T,Andrea Picchione,28,8,-30,1,8,-
+20260914,1283T,Duarte Vale,27,8,-,1,-,-
+20260914,1285T,Matteo Gigante,24,8,-8,2,-,-
+20260914,1285T,Seongchan Hong,29,8,+8,2,-,-
+20260914,1285T,Elijah Strode,24,8,-,2,-,-
+20260914,1288,Niksa Arsic,21,8,-,2,-,-
+20260914,1289T,Boris Arias,32,8,-,3,-,-
+20260914,1289T,Paul Barbier Gazeu,21,8,-,3,-,-
+20260914,1291,Julian Alonso Jr,21,8,-,3,-,-
+20260914,1292,Tanishk Konduri,17,8,-,4,-,-
+20260914,1293,Aleksa Pisaric,20,8,-,4,-,-
+20260914,1294,Bozo Barun,25,8,-,5,-,-
+20260914,1295,Luca Preda,20,8,-,5,-,-
+20260914,1296,Patrik Munkhammar,19,8,-,5,-,-
+20260914,1297,Toby Kodat,23,8,-,6,-,-
+20260914,1298,Pedro Rodrigues,20,8,-,6,-,-
+20260914,1299,Stepan Baum,23,8,+4,7,-,-
+20260914,1300T,Finn Bass,26,8,-3,7,-,-
+20260914,1300T,Alejandro Garcia Carbajal,24,8,+3,7,-,-
+20260914,1302,Skander Mansouri,31,8,-,7,-,-
+20260914,1303T,Diego Jarry Fillol,23,8,-,8,-,-
+20260914,1303T,Jack Satterfield,19,8,-,8,-,-
+20260914,1305,Stian Klaassen,23,8,+1,8,-,-
+20260914,1306T,Oliver Anderson,28,8,-,8,-,-
+20260914,1306T,Felipe Virgili,21,8,-,8,-,-
+20260914,1308,Tanguy Genier,28,8,-2,9,-,-
+20260914,1309,Louis Tessa,28,8,-,9,3,-
+20260914,1310,Achilles Belkovics,22,8,-,9,-,-
+20260914,1311,Adam Lynch,22,8,-,10,-,-
+20260914,1312,Marcel Kamrowski,23,8,-,10,-,-
+20260914,1313,Ishaque Eqbal,28,8,-,11,-,-
+20260914,1314T,Bora Sengul,24,8,+1,11,-,-
+20260914,1314T,Alexander Zgirovsky,25,8,+1,11,-,-
+20260914,1316T,Noah Lopez,24,8,-,12,-,-
+20260914,1316T,Ryota Tanuma,30,8,-,12,-,-
+20260914,1318,Juan Ignacio Gallego,19,8,+3,12,-,-
+20260914,1319,Benoit Torcq,21,8,-,13,-,-
+20260914,1320,Ashton Mcleod,19,8,-,13,-,-
+20260914,1321,Alen Mujakic,23,8,-2,15,-,-
+20260914,1322,Piet Luis Pinter,21,8,-1,16,-,-
+20260914,1323,James Van Herzeele,23,8,-8,17,-,-
+20260914,1324,Kacper Knitter,19,8,-,18,-,-
+20260914,1325,Max Sheldon,23,7,-,1,-,-
+20260914,1326,Lambert Ruland,23,7,-,2,-,-
+20260914,1327,Trey Hilderbrand,26,7,-,2,5,-
+20260914,1328,Andrej Loncarevic,21,7,-,2,-,-
+20260914,1329,Mitchell Sheldon,20,7,-,3,-,-
+20260914,1330,Stefan Latinovic,26,7,-,3,-,-
+20260914,1331T,Szymon Kielan,23,7,-,3,-,-
+20260914,1331T,Patrik Niklas-Salminen,29,7,-,3,-,-
+20260914,1333,Aren Baybars,18,7,-,4,-,-
+20260914,1334,Alejandro Manzanera Pertusa,23,7,-4,5,-,-
+20260914,1335,Alexander Klintcharov,30,7,-3,5,3,-
+20260914,1336T,Uladzimir Ignatik,36,7,-1,6,-,-
+20260914,1336T,Woobin Shin,22,7,-3,6,-,-
+20260914,1338T,Phillip Jordan,25,7,-,6,-,-
+20260914,1338T,Jeremy Zhang,21,7,-,6,-,-
+20260914,1340T,Mathis Bondaz,24,7,-,6,-,-
+20260914,1340T,Roberto Cid Subervi,33,7,-,6,-,-
+20260914,1342,David Fix,21,7,-1,7,-,-
+20260914,1343,Sebastian Fanselow,34,7,-1,7,-,-
+20260914,1344,Andrea Paolini,23,7,+2,7,-,-
+20260914,1345,Jerrid Gaines Jr,17,7,-,8,-,-
+20260914,1346T,Oswaldo Alejandro Reyes Tirado,19,7,-,8,-,-
+20260914,1346T,Lev Seidman,18,7,-1,8,-,-
+20260914,1348,Nemanja Malesevic,25,7,-,8,-,-
+20260914,1349T,Hayden Jones,20,7,+2,8,-,-
+20260914,1349T,William Mirarchi,20,7,-1,8,-,-
+20260914,1351,Shu Muto,20,7,-,8,-,-
+20260914,1352,Ymerali Ibraimi,17,7,-,8,-,-
+20260914,1353,Leo Lagarrigue,20,7,-2,9,-,-
+20260914,1354,Zangar Nurlanuly,18,7,-,10,-,-
+20260914,1355,Tomas Lanik,24,7,+1,10,-,-
+20260914,1356,Alvaro Peiro Serrano,22,7,-1,11,-,-
+20260914,1357,Diogo Marques,27,7,-1,11,-,-
+20260914,1358T,Nikolas Stoot,18,7,-,11,-,-
+20260914,1358T,Drew Van Orderlain,32,7,-,11,-,-
+20260914,1360,Dillon Beckles,20,7,-,11,-,-
+20260914,1361,Mikail Alimli,23,7,-,12,-,-
+20260914,1362,Joao Silva,19,7,-,13,-,-
+20260914,1363,Dmitry Bessonov,20,7,-,13,-,-
+20260914,1364T,Ammar Elamin,24,7,+1,13,-,-
+20260914,1364T,Thando Longwe-Smit,25,7,-4,13,-,-
+20260914,1366,Ty Host,19,7,-,14,-,-
+20260914,1367,Gray Voelzke,24,7,-,14,-,-
+20260914,1368,Stefan Storch,24,7,+1,14,-,-
+20260914,1369,Matteo Fondriest,22,7,-,15,-,-
+20260914,1370T,Edison Ambarzumjan,30,7,-3,16,2,-
+20260914,1370T,Seongwoo Cho,28,7,-4,16,-,-
+20260914,1372,Michael Gloeckler,28,7,-1,18,-,-
+20260914,1373,Roman Kharlamov,19,7,-,18,-,-
+20260914,1374T,Yannik Alvarez,17,6,-,2,-,-
+20260914,1374T,Daniel Cukierman,31,6,-,2,-,-
+20260914,1374T,Facundo Juarez,28,6,-1,2,4,-
+20260914,1374T,Takeru Yuzuki,27,6,-2,2,-,-
+20260914,1378,Arthur Reymond,27,6,-,2,-,-
+20260914,1379,Moritz Kudernatsch,21,6,-,3,-,-
+20260914,1380,Jan Simonsson,23,6,-,3,-,-
+20260914,1381,Thijmen Loof,24,6,+2,3,-,-
+20260914,1382,Sergio Luis Hernandez Ramirez,27,6,-,4,-,-
+20260914,1383,Connor Thomson,25,6,-,4,-,-
+20260914,1384,Wojciech Marek,25,6,+1,4,-,-
+20260914,1385,Jan Sadzik,18,6,-1,5,-,-
+20260914,1386,Eli Stephenson,21,6,+1,5,-,-
+20260914,1387,Neo Niedner,23,6,-,5,-,-
+20260914,1388,Artem Alekseychuk,21,6,-,6,-,-
+20260914,1389,Pablo Perez Navarro,18,6,-,6,-,-
+20260914,1390T,Adam Majchrzak,20,6,-,6,-,-
+20260914,1390T,Naoki Tajima,25,6,-,6,-,-
+20260914,1392,Muzammil Murtaza,26,6,-,7,-,-
+20260914,1393,Juan Carlos Aguilar,27,6,-,7,-,-
+20260914,1394T,Harold Huens,24,6,-4,7,-,-
+20260914,1394T,Mariano Tammaro,22,6,-,7,1,-
+20260914,1396T,Jonas Kucera,19,6,-3,7,-,-
+20260914,1396T,Marko Milosavljevic,20,6,-,7,-,-
+20260914,1396T,Lasse Poertner,20,6,-,7,-,-
+20260914,1399,Matisse Farzam,19,6,+1,7,-,-
+20260914,1400T,Jesse De Jager,24,6,-1,8,-,-
+20260914,1400T,Xirui Han,20,6,+1,8,-,-
+20260914,1402T,Daniel Jovanovski,18,6,-,8,-,-
+20260914,1402T,Shu Matsuoka,23,6,-,8,-,-
+20260914,1402T,Miha Vetrih,24,6,-,8,-,-
+20260914,1405,Zhao Zhao,26,6,-,8,-,-
+20260914,1406,Andrin Casanova,22,6,-1,9,-,-
+20260914,1407,Gus Grumet,18,6,-,9,-,-
+20260914,1408T,Gian Marco Ortenzi,26,6,-,9,-,-
+20260914,1408T,Nathan Ponwith,28,6,+1,9,-,-
+20260914,1410T,Peter Alam,24,6,-,9,-,-
+20260914,1410T,Sebastian Grundtvig Jorgensen,25,6,-,9,-,-
+20260914,1412,Sergey Petrov,21,6,-,10,-,-
+20260914,1413,Juan Bautista Otegui,27,6,-,10,2,-
+20260914,1414,Nik Mikovic,22,6,-,11,-,-
+20260914,1415T,Sven Corbinais,23,6,-,11,-,-
+20260914,1415T,Hugo Pierre,30,6,-4,11,1,-
+20260914,1417,Victor Braga,21,6,-,12,-,-
+20260914,1418T,Remy Dugardin,23,6,-2,12,-,-
+20260914,1418T,Filippo Francesco Garbero,17,6,-,12,-,-
+20260914,1418T,Madhwin Kamath,24,6,-,12,-,-
+20260914,1421T,Corban Crowther,23,6,-,12,-,-
+20260914,1421T,Giammarco Gandolfi,22,6,-,12,1,-
+20260914,1423,Henry Lieberman,26,6,-,12,-,-
+20260914,1424,Taketo Takamisawa,28,6,-1,13,-,-
+20260914,1425T,Arjun Mehrotra,29,6,-,13,1,-
+20260914,1425T,Mak Mikovic,20,6,-,13,-,-
+20260914,1427T,Drazen Petrovic,23,6,+2,14,-,-
+20260914,1427T,Lucca Pinto,23,6,-,14,-,-
+20260914,1429,Sergio Planella Hernandez,19,6,-,14,-,-
+20260914,1430,Alexey Aleshchev,27,6,-,15,1,-
+20260914,1431,Aaron Gil Garcia,22,6,-1,16,-,-
+20260914,1432T,Karim Mabrouk,19,6,+1,17,-,-
+20260914,1432T,Edouard Villoslada,26,6,-1,17,-,-
+20260914,1434,Matas Vasiliauskas,24,6,-,23,-,-
+20260914,1435,Ivan Gretskiy,20,6,-5,24,-,-
+20260914,1436,Henry Jefferson,20,5,-,3,-,-
+20260914,1437T,Oliver Majdandzic,18,5,-,3,-,-
+20260914,1437T,Ryan James Storrie,28,5,-,3,-,-
+20260914,1439,Frederic Schlossmann,24,5,+2,3,-,-
+20260914,1440,Benjamin Winter Lopez,28,5,-9,3,-,-
+20260914,1441T,Jake Fellows,24,5,+5,4,-,-
+20260914,1441T,Santiago Lora,18,5,-,4,-,-
+20260914,1443,Julien De Cuyper,27,5,+2,4,-,-
+20260914,1444T,Alex Chang,22,5,-3,5,-,-
+20260914,1444T,Haydar Cem Gokpinar,19,5,-,5,-,-
+20260914,1446,Lucca Liu,22,5,-,5,-,-
+20260914,1447,Harrison Satara,19,5,+2,5,-,-
+20260914,1448,Massimo Pizzigoni,20,5,-,5,-,-
+20260914,1449,Benjamin Chelía,18,5,-,5,-,-
+20260914,1450T,Dax Donders,26,5,+2,6,-,-
+20260914,1450T,Loan Lestir,21,5,-,6,-,-
+20260914,1450T,Facundo Yunis,24,5,-,6,-,-
+20260914,1453,Ruben Hartig,24,5,+1,6,-,-
+20260914,1454,Matthieu Chambonniere,22,5,-,6,-,-
+20260914,1455T,Andrea Motta,22,5,+4,7,-,-
+20260914,1455T,Niels Peter Van Noord,26,5,-,7,-,-
+20260914,1457,Nicola Senn,22,5,-,7,-,-
+20260914,1458,Matthew Segura,25,5,-,7,-,-
+20260914,1459T,Ignacio Antonio Becerra Otarola,25,5,-,7,-,-
+20260914,1459T,Karlo Kajin,26,5,-,7,-,-
+20260914,1459T,Toshiki Karigyo,24,5,-,7,-,-
+20260914,1462,Mateo Luis Alvarez Sarmiento,21,5,+1,7,-,-
+20260914,1463,Kabir Hans,25,5,-,8,-,-
+20260914,1464,Minghui Zhang,21,5,-,8,-,-
+20260914,1465,Andreas Timini,20,5,-,8,-,-
+20260914,1466,Alex Jones,27,5,+1,8,-,-
+20260914,1467,Jake Dembo,18,5,-,9,-,-
+20260914,1468,Alessio Basile,22,5,-2,9,-,-
+20260914,1469,Yuttana Charoenphon,26,5,-2,9,-,-
+20260914,1470T,Ezekiel Clark,28,5,-1,10,2,-
+20260914,1470T,Raghav Jaisinghani,28,5,-,10,-,-
+20260914,1472T,Ewen Lumsden,26,5,-,10,-,-
+20260914,1472T,Antonio Voljavec,20,5,-,10,-,-
+20260914,1474T,Breno Braga,21,5,-,11,-,-
+20260914,1474T,Bautista De La Pena,17,5,-,11,-,-
+20260914,1476,Melvin Kumar,20,5,-,12,-,-
+20260914,1477T,Adrian Arcon,25,5,-,12,-,-
+20260914,1477T,Ivan Biletic,19,5,-1,12,-,-
+20260914,1479,Volodymyr Gurenko,18,5,-,12,-,-
+20260914,1480T,Aleksander Chayka,21,5,-3,12,-,-
+20260914,1480T,Nikola Jovic,19,5,-2,12,-,-
+20260914,1480T,Andrea M'Chich,20,5,-,12,-,-
+20260914,1483T,Carlos Giraldi,21,5,-,13,-,-
+20260914,1483T,Ivan Iutkin,19,5,-,13,-,-
+20260914,1485T,Vito Dell'Elba,27,5,-1,13,-,-
+20260914,1485T,Mac Visser,21,5,-4,13,-,-
+20260914,1487,Lorenzo Beraldo,19,5,-4,14,-,-
+20260914,1488,Arthur Bellegy,25,5,-1,14,-,-
+20260914,1489,Liam Delicata,25,5,-,15,-,-
+20260914,1490,Noah Thurner,26,5,-,16,-,-
+20260914,1491,Hitesh Chauhan,18,5,-,17,-,-
+20260914,1492T,Ioannis Kountourakis,23,5,-,18,-,-
+20260914,1492T,Duckhee Lee,28,5,-4,18,1,-
+20260914,1494T,Semen Aginskiy,21,4,-,1,-,-
+20260914,1494T,Sebastian Eriksson,21,4,-,1,-,-
+20260914,1494T,Guy Orly Iradukunda,30,4,-,1,-,-
+20260914,1494T,Jagger Leach,19,4,-,1,-,-
+20260914,1494T,Theodore Winegar,25,4,-,1,-,-
+20260914,1499,Guglielmo Verdese,20,4,-,2,-,-
+20260914,1500T,Jeremy Beale,31,4,-,2,-,-
+20260914,1500T,Tyler Bowers,23,4,+1,2,-,-
+20260914,1500T,Jody Maginley,31,4,-,2,-,-
+20260914,1500T,Togan Tokac,22,4,-,2,-,-
+20260914,1504,Kaito Uesugi,31,4,-2,2,-,-
+20260914,1505T,Donghyun Hwang,19,4,-,3,-,-
+20260914,1505T,Angel Veliz,18,4,-,3,-,-
+20260914,1507T,Petar Jovanovic,23,4,-,3,-,-
+20260914,1507T,Maximilian Marterer,31,4,-,3,-,-
+20260914,1509,Raffaele Ciurnelli,18,4,-,3,-,-
+20260914,1510T,John Bothma,18,4,-,3,-,-
+20260914,1510T,Adil Kalyanpur,26,4,-,3,-,-
+20260914,1510T,Logan Zapp,24,4,-,3,-,-
+20260914,1513,Sho Katayama,37,4,-,4,-,-
+20260914,1514,Ludovico Vaccari,21,4,-,4,-,-
+20260914,1515T,Jan Chlodnicki,17,4,+2,4,-,-
+20260914,1515T,Yeonsu Jeong,19,4,-,4,-,-
+20260914,1515T,Vit Kalina,21,4,-,4,-,-
+20260914,1515T,Matic Kriznik,21,4,-,4,-,-
+20260914,1519,Hugo Coquelin,20,4,-,5,-,-
+20260914,1520T,Manvydas Balciunas,20,4,-,5,-,-
+20260914,1520T,Teodor Davidov,16,4,-,5,-,-
+20260914,1520T,Mauricio Echazu,37,4,-,5,-,-
+20260914,1520T,Arnav Vijay Paparkar,18,4,-,5,-,-
+20260914,1520T,Peetu Pohjola,25,4,+1,5,-,-
+20260914,1520T,Davide Pontoglio,34,4,-,5,-,-
+20260914,1526,Rahul Dhokia,26,4,-,6,-,-
+20260914,1527,Gavin Goode,18,4,-4,6,-,-
+20260914,1528T,Tristan Berard,22,4,-,6,-,-
+20260914,1528T,Rodolfo Jauregui Sainz de Rozas,32,4,-,6,-,-
+20260914,1528T,Kai-I Wang,22,4,-,6,-,-
+20260914,1531T,Nathan Cox,22,4,-,6,-,-
+20260914,1531T,Cem Christopher Kucukhuseyin,19,4,+1,6,-,-
+20260914,1531T,Zane Stevens,20,4,-,6,1,-
+20260914,1534,Rhys Lawlor,17,4,-,7,-,-
+20260914,1535T,Ryan Augusto Dos Santos,23,4,-,7,-,-
+20260914,1535T,Gregor Hausberger,23,4,-,7,-,-
+20260914,1535T,Vid Mohar,20,4,-,7,-,-
+20260914,1538,Francisco Tomas Geschwind,23,4,-,7,-,-
+20260914,1539T,Toprak Avcibasi,22,4,-1,8,-,-
+20260914,1539T,Emon Van Loben Sels,21,4,-,8,-,-
+20260914,1541T,Oskari Eerola,24,4,-,8,-,-
+20260914,1541T,Albert Pedrico Kravtsov,21,4,-,8,-,-
+20260914,1543T,Hugo Hashimoto,23,4,+1,9,-,-
+20260914,1543T,Savva Rybkin,17,4,-,9,-,-
+20260914,1543T,Laurence Teunissen,17,4,-,9,-,-
+20260914,1546T,Mahmoud Chetouane,18,4,+1,9,1,-
+20260914,1546T,Valentin Garay,19,4,-,9,-,-
+20260914,1546T,Nicolas Esteban Rico Arias,25,4,-,9,-,-
+20260914,1549,Aryan Lakshmanan,21,4,-,10,-,-
+20260914,1550T,Emirhan Bulut,20,4,-,10,1,-
+20260914,1550T,Vadym Konovchuk,23,4,-1,10,1,-
+20260914,1552T,Silvio Mencaglia,22,4,-,10,-,-
+20260914,1552T,Tadeo Meneo,21,4,-,10,-,-
+20260914,1552T,Weiwen Pan,20,4,-,10,1,-
+20260914,1552T,Kosuke Shibano,30,4,-,10,-,-
+20260914,1552T,Yua Taka,23,4,-,10,-,-
+20260914,1552T,Riku Takahata,24,4,-1,10,-,-
+20260914,1558,Alessandro Coccioli,24,4,-1,11,-,-
+20260914,1559,Joao Graca,25,4,-,11,1,-
+20260914,1560,Lenny Couturier,17,4,+2,12,-,-
+20260914,1561T,Mario Arce Fernandez,20,4,+1,12,-,-
+20260914,1561T,Aldin Setkic,38,4,-,12,-,-
+20260914,1563,Parth Aggarwal,28,4,-2,13,-,-
+20260914,1564,Charles Chen,18,4,-2,13,-,-
+20260914,1565,Fumin Jiang,19,4,+1,14,-,-
+20260914,1566T,Richard Antoni,21,4,-2,15,-,-
+20260914,1566T,Luis Garcia Paez,20,4,-,15,-,-
+20260914,1566T,Tomohiro Masabayashi,28,4,-3,15,-,-
+20260914,1566T,Gilberto Ravasio,21,4,-,15,-,-
+20260914,1570,Xavi Palomar,18,4,-,16,-,-
+20260914,1571T,Xing Dao Chen,22,4,-4,16,-,-
+20260914,1571T,Esteban Talavera Cortes,21,4,-,16,-,-
+20260914,1573T,Noel Larwig,24,4,-5,17,-,-
+20260914,1573T,Noah Perfetti,25,4,-1,17,-,-
+20260914,1575T,Luis Britto,33,3,-,1,-,-
+20260914,1575T,Loren Thomas Byers,24,3,-,1,-,-
+20260914,1575T,Connor Church,20,3,-,1,-,-
+20260914,1575T,Connor Doig,18,3,-,1,-,-
+20260914,1575T,Samir Iftikhar,34,3,-,1,-,-
+20260914,1575T,Courtney John Lock,29,3,-,1,-,-
+20260914,1575T,William Mroz,23,3,-,1,-,-
+20260914,1575T,Amar Tahirovic,22,3,+3,1,-,-
+20260914,1575T,Mark Whitehouse,33,3,-,1,3,-
+20260914,1584T,Bienvenue Bolangi,24,3,-,2,-,-
+20260914,1584T,Georgi Georgiev,19,3,-,2,-,-
+20260914,1584T,Aradhya Kshitij,17,3,-,2,-,-
+20260914,1584T,Thai-Son Kwiatkowski,31,3,-,2,-,-
+20260914,1584T,Oscar Andres Martinez De Freitas,20,3,-,2,-,-
+20260914,1584T,Alexander Ikenna Okonkwo,21,3,-,2,-,-
+20260914,1584T,Guillermo Tunas,25,3,-,2,-,-
+20260914,1591T,Alejo Lorenzo Lingua Lavallen,25,3,-,2,2,-
+20260914,1591T,Miguel Angel Machado,20,3,-,2,-,-
+20260914,1591T,Mario Martinez Serrano,22,3,-,2,-,-
+20260914,1591T,Tanapatt Nirundorn,22,3,+1,2,-,-
+20260914,1595,Yousaf Khalil,27,3,-,3,-,-
+20260914,1596T,Valentino Conte,22,3,-,3,-,-
+20260914,1596T,Romain Gales,22,3,-,3,-,-
+20260914,1596T,Trisztan Gubi,21,3,+2,3,-,-
+20260914,1596T,Hao Sheng Koay,28,3,-,3,-,-
+20260914,1596T,Didrik Liljekvist,24,3,-,3,-,-
+20260914,1596T,Patrik Meszaros,20,3,-,3,-,-
+20260914,1596T,Daniel Phillips,21,3,-,3,-,-
+20260914,1596T,Oliver Sanders,18,3,-,3,-,-
+20260914,1596T,Benjamin Torres,22,3,-,3,-,-
+20260914,1596T,Iker Urribarrens Ramirez,22,3,-,3,-,-
+20260914,1596T,Damien Wenger,26,3,-12,3,-,-
+20260914,1596T,Boxiong Zhang,19,3,+1,3,-,-
+20260914,1608T,Rafalentino Ali Da Costa,16,3,+1,3,-,-
+20260914,1608T,Ignacio De Armas,17,3,-,3,-,-
+20260914,1608T,Marco Furlanetto,25,3,-,3,-,-
+20260914,1608T,Botond Kisantal,21,3,+1,3,-,-
+20260914,1608T,Aleksandar Tolev,17,3,+1,3,-,-
+20260914,1613,Robert Watzka,20,3,-,4,-,-
+20260914,1614T,Fantino Alberca De Las Casas,21,3,-,4,-,-
+20260914,1614T,Patricio Alvarado,36,3,-1,4,-,-
+20260914,1614T,Dan Brand,17,3,-,4,-,-
+20260914,1614T,Kuzey Cekirge,26,3,-,4,-,-
+20260914,1614T,Filip Drab,18,3,+2,4,-,-
+20260914,1614T,Seonyong Han,25,3,-,4,-,-
+20260914,1614T,Yannic Nittmann,19,3,-,4,-,-
+20260914,1614T,Henrique Ortenblad Nogueira,23,3,-,4,-,-
+20260914,1614T,Alexander Petrov,24,3,-,4,-,-
+20260914,1614T,Rudy Quan,20,3,-,4,-,-
+20260914,1614T,Kaua Lorenzo Santos Gava,22,3,+1,4,-,-
+20260914,1614T,James Weber,19,3,-,4,-,-
+20260914,1626T,Omar Kandil,17,3,+2,4,-,-
+20260914,1626T,Karl Kazuma Lee,23,3,-,4,-,-
+20260914,1626T,Roberto Perez Socas,18,3,+1,4,-,-
+20260914,1629T,Suk Ann,24,3,-,5,-,-
+20260914,1629T,David Bakonyi,20,3,-,5,-,-
+20260914,1629T,Lorenzo Balducci,18,3,-,5,-,-
+20260914,1629T,Alexander Bernard,23,3,-,5,-,-
+20260914,1629T,Ivan Dreycopp,23,3,+2,5,-,-
+20260914,1629T,Giovanni Fonio,28,3,-20,5,-,-
+20260914,1629T,Nicholas Godsick,21,3,-,5,-,-
+20260914,1629T,Marcel Latak,17,3,-,5,-,-
+20260914,1629T,Jasza Szajrych,24,3,-3,5,-,-
+20260914,1629T,Vishnu Vardhan,39,3,-4,5,-,-
+20260914,1629T,Lingxi Zhao,26,3,+1,5,1,-
+20260914,1640T,Bill Chan,20,3,-1,5,-,-
+20260914,1640T,Valentin Guadagno,20,3,-,5,-,-
+20260914,1640T,Alex Huszar,18,3,-,5,-,-
+20260914,1640T,Daniel Khazime,21,3,-,5,-,-
+20260914,1640T,Rihards Neimanis,18,3,-,5,-,-
+20260914,1640T,Diego Ortiz Gamonsl,22,3,+1,5,-,-
+20260914,1640T,Ilija Palavestra,19,3,-,5,-,-
+20260914,1640T,Damien Salvestre,24,3,-2,5,-,-
+20260914,1640T,Antonin Witz,18,3,-,5,-,-
+20260914,1649,Gustavo Albieri,18,3,-,6,-,-
+20260914,1650T,Santiago Pesino,19,3,-,6,-,-
+20260914,1650T,Aleksandre Shvangiradze,20,3,-,6,-,-
+20260914,1652T,Noah Brownrigg,19,3,-,6,1,-
+20260914,1652T,Ludvig Fredrik Hede,19,3,-,6,-,-
+20260914,1652T,Chun-Chien Hou,20,3,-,6,-,-
+20260914,1652T,Simone Massellani,18,3,-,6,-,-
+20260914,1652T,Michalis Sakellaridis,25,3,-,6,-,-
+20260914,1657,Florent Lagarrigue,24,3,+3,7,-,-
+20260914,1658T,Daniel Domingos,19,3,-,7,-,-
+20260914,1658T,Allan Gatoto,19,3,-,7,-,-
+20260914,1658T,Odysseas Geladaris,18,3,-,7,-,-
+20260914,1658T,Nicolas Hollender,24,3,-,7,-,-
+20260914,1658T,Amador Salazar,25,3,-,7,-,-
+20260914,1658T,Tyler Stice,26,3,-1,7,-,-
+20260914,1664T,Leonardo Angeloni,21,3,-,7,-,-
+20260914,1664T,Hugo Cardinaud,22,3,+2,7,-,-
+20260914,1664T,Leonardo Cattaneo,20,3,-,7,1,-
+20260914,1664T,Mihai Alexandru Coman,21,3,-3,7,-,-
+20260914,1664T,Vito Antonio Darderi,18,3,+2,7,-,-
+20260914,1664T,Jonas Pelle Hartenstein,25,3,-2,7,-,-
+20260914,1664T,Weiyi Kong,18,3,-1,7,-,-
+20260914,1664T,Rodrigo Leal,18,3,-,7,-,-
+20260914,1664T,Jules Leroux,21,3,-,7,-,-
+20260914,1664T,Leonardo Malgaroli,24,3,-4,7,-,-
+20260914,1664T,Alessandro Spadola,23,3,-,7,-,-
+20260914,1675T,Ye Chen,19,3,-2,8,-,-
+20260914,1675T,Pierre Antoine Faut,18,3,-2,8,-,-
+20260914,1677T,Nav Dayal,19,3,+1,8,-,-
+20260914,1677T,Pedro Andre De Almeida Santos,22,3,-,8,-,-
+20260914,1677T,Samuel De Felipe Garcia,27,3,+1,8,-,-
+20260914,1677T,Piotr Galus,25,3,-,8,-,-
+20260914,1677T,Shanker Heisnam,19,3,-,8,-,-
+20260914,1677T,Sean Hodkin,27,3,-1,8,-,-
+20260914,1677T,Evangelos Kypriotis,23,3,-,8,-,-
+20260914,1677T,Daisuke Sumizawa,27,3,-1,8,-,-
+20260914,1677T,Matei Todoran,18,3,-,8,-,-
+20260914,1677T,Justas Trainauskas,24,3,-,8,-,-
+20260914,1677T,Edoardo Zanada,25,3,-,8,-,-
+20260914,1688,Yuquan Jin,25,3,-1,9,-,-
+20260914,1689T,Daniel Bagnolini,23,3,-,9,-,-
+20260914,1689T,Maxi Carrascosa Diaz,18,3,+1,9,-,-
+20260914,1689T,Patrik Homola,22,3,+1,9,-,-
+20260914,1689T,Alejandro Lopez Escribano,20,3,-,9,-,-
+20260914,1689T,Pijus Vaitiekunas,23,3,-,9,-,-
+20260914,1689T,Ha Minh Duc Vu,23,3,+1,9,-,-
+20260914,1689T,Elias Julian Werner,23,3,-1,9,-,-
+20260914,1696,Arian Barbic,17,3,-,10,-,-
+20260914,1697T,Karol Malirz,23,3,-,10,-,-
+20260914,1697T,Caheer Warik,20,3,-,10,-,-
+20260914,1699,Valentin Gonzalez-Galino,17,3,-,11,-,-
+20260914,1700T,Tomas Jordi Leston,22,3,-,11,1,-
+20260914,1700T,Jan Wygona,19,3,+1,11,-,-
+20260914,1702T,Andrei Kunitsyn,21,3,-,12,-,-
+20260914,1702T,Manuel Mouilleron Salvo,23,3,-,12,-,-
+20260914,1702T,Dorian Tremblay,24,3,-,12,-,-
+20260914,1705T,Jose Dominguez Alonso,26,3,+1,12,-,-
+20260914,1705T,Jim Hendrikx,25,3,-,12,-,-
+20260914,1705T,Alp Horoz,31,3,-,12,-,-
+20260914,1705T,David Naharro,22,3,-,12,-,-
+20260914,1705T,Cagan Efe Tufekci,22,3,-,12,-,-
+20260914,1705T,Louis Van Herck,27,3,-1,12,-,-
+20260914,1711T,Pablo Aunion,19,3,-,13,-,-
+20260914,1711T,Jack Bruce-Smith,24,3,-,13,-,-
+20260914,1711T,Jeffrey Fradkin,24,3,-,13,-,-
+20260914,1714,Radovan Michalik,23,3,-3,14,-,-
+20260914,1715T,Federico Valle,26,3,-1,14,-,-
+20260914,1715T,Xiaoyin Yang,21,3,-,14,-,-
+20260914,1717T,Imran Daniel Abd Hazli,21,2,-,1,-,-
+20260914,1717T,Leonardo Aboian,28,2,-,1,2,-
+20260914,1717T,Justin Barki,26,2,-,1,-,-
+20260914,1717T,Nour Fathalla,20,2,-,1,-,-
+20260914,1717T,Evan King,34,2,-,1,-,-
+20260914,1717T,Nathaniel Lammons,33,2,-,1,-,-
+20260914,1717T,Pablo Manzano Lapuerta,24,2,-,1,-,-
+20260914,1717T,Diego Munoz,20,2,-,1,-,-
+20260914,1717T,Ignacio Novo,26,2,-,1,-,-
+20260914,1717T,Bruno Pujol Navarro,25,2,-,1,-,-
+20260914,1717T,Aniss Rafiq,22,2,-,1,-,-
+20260914,1717T,Ramkumar Ramanathan,31,2,-4,1,-,-
+20260914,1717T,Pietro Ricci,18,2,-,1,-,-
+20260914,1717T,Cristian Rodriguez,36,2,-,1,-,-
+20260914,1717T,Sebastian Sec,22,2,-,1,-,-
+20260914,1717T,Jakub Solarski,21,2,-,1,-,-
+20260914,1717T,Oliver Andre Solis Encinas,17,2,-,1,-,-
+20260914,1717T,Alessio Vasquez,23,2,-,1,-,-
+20260914,1717T,David Wallechner,22,2,-,1,-,-
+20260914,1717T,Marcelo Zormann,30,2,-,1,-,-
+20260914,1717T,Tomas Zurmendi,17,2,-,1,-,-
+20260914,1738T,Emiliano Aguilera,23,2,-,2,-,-
+20260914,1738T,Nathan Anthony Barki,21,2,+2,2,-,-
+20260914,1738T,Ignacio Carou,27,2,-,2,-,-
+20260914,1738T,Enzo Crevelaro,20,2,+2,2,-,-
+20260914,1738T,Eudald Gonzalez,18,2,-,2,-,-
+20260914,1738T,Cleeve Harper,25,2,-,2,-,-
+20260914,1738T,Kaan Isik Kosaner,17,2,-,2,-,-
+20260914,1738T,Junhyeon Lee,24,2,-2,2,-,-
+20260914,1738T,Jack Loutit,22,2,-,2,-,-
+20260914,1738T,Hanlei Lu,17,2,-,2,-,-
+20260914,1738T,Mario Mansilla Diez,24,2,-,2,-,-
+20260914,1738T,Roman Sancilio,19,2,-,2,-,-
+20260914,1738T,Tanakorn Srirat,24,2,-,2,-,-
+20260914,1738T,Nathan Trouve,20,2,-,2,-,-
+20260914,1738T,Andres Urrea,32,2,-,2,-,-
+20260914,1738T,Kuang Qing Xu,20,2,-,2,-,-
+20260914,1754T,Edward Etty,24,2,-,2,-,-
+20260914,1754T,Oliver Johansson,25,2,-,2,-,-
+20260914,1754T,Kabeer Kapasi,22,2,-,2,-,-
+20260914,1754T,Illya Marchenko,39,2,-,2,-,-
+20260914,1754T,Aleksandar Mihailovic,24,2,-1,2,1,-
+20260914,1754T,Bengt Johan Reinhard,19,2,-2,2,-,-
+20260914,1754T,Agustín Salazar Salazar,22,2,-,2,-,-
+20260914,1754T,Karue Sell,32,2,-,2,-,-
+20260914,1754T,Benjamin Vitter,23,2,-,2,-,-
+20260914,1763T,Jaron Held,18,2,+2,3,-,-
+20260914,1763T,Jakub Jedrzejczak,20,2,-,3,-,-
+20260914,1763T,Ku Keon Kang,29,2,-,3,-,-
+20260914,1763T,Alberto Lim,27,2,-4,3,-,-
+20260914,1763T,Darius Florin Pop,22,2,-,3,-,-
+20260914,1763T,Marat Salbiev,18,2,+2,3,-,-
+20260914,1763T,Cristian Felipe Sanchez Rojas,19,2,-,3,-,-
+20260914,1763T,Zijiang Yang,25,2,+2,3,-,-
+20260914,1763T,Konstantin Zhzhenov,22,2,-,3,-,-
+20260914,1772T,Simone Agostini,29,2,-,3,-,-
+20260914,1772T,Bader Alabdullah,24,2,+1,3,-,-
+20260914,1772T,Mehdi Benchakroun,22,2,-,3,-,-
+20260914,1772T,Sergey Betov,38,2,-,3,-,-
+20260914,1772T,Giovanni Branchetti,23,2,+1,3,-,-
+20260914,1772T,Gianluca Carlini,21,2,-,3,-,-
+20260914,1772T,Antonio Caruso,27,2,-,3,-,-
+20260914,1772T,Corey Craig,22,2,-,3,-,-
+20260914,1772T,Marwan Ehab,18,2,+1,3,-,-
+20260914,1772T,Rafael Augusto Garcia Finetto,18,2,+1,3,-,-
+20260914,1772T,Christoph Gayk,20,2,-,3,-,-
+20260914,1772T,Adam Kaczmarek,22,2,-,3,-,-
+20260914,1772T,Kolos Kincses,19,2,+1,3,-,-
+20260914,1772T,Min Ho Ko,19,2,-,3,-,-
+20260914,1772T,Gasper Matijasic,19,2,-,3,-,-
+20260914,1772T,Alejandro Melero Kretzer,21,2,-,3,-,-
+20260914,1772T,Cing-Yang Meng,28,2,-,3,1,-
+20260914,1772T,Petr Michnev,37,2,-1,3,-,-
+20260914,1772T,Milos Mikovic,21,2,-,3,-,-
+20260914,1772T,Alejandro Moreno,23,2,-,3,-,-
+20260914,1772T,Saba George Nanobashvili,21,2,-,3,-,-
+20260914,1772T,Charlie Pade,21,2,-,3,-,-
+20260914,1772T,Mikal Statham,39,2,-,3,-,-
+20260914,1772T,Martin Antonio Vergara Del Puerto,22,2,-,3,-,-
+20260914,1796T,Ryusuke Horiuchi,27,2,-,4,-,-
+20260914,1796T,Mikel Martinez,25,2,-,4,2,-
+20260914,1796T,Novak Novakovic,25,2,-,4,-,-
+20260914,1796T,S Mert Ozdemir,26,2,-,4,-,-
+20260914,1796T,Martyn Pawelski,21,2,-2,4,-,-
+20260914,1796T,Benjamin Perez,17,2,-,4,-,-
+20260914,1796T,Luiz Felipe Silva,19,2,+2,4,-,-
+20260914,1803T,Vesa Ahti,27,2,-,4,-,-
+20260914,1803T,Marko Bekeni,18,2,-,4,-,-
+20260914,1803T,Maximilian Borisov,24,2,-,4,-,-
+20260914,1803T,Yazid Lahjomri,21,2,-,4,-,-
+20260914,1803T,Woong Bi Lee,21,2,-,4,-,-
+20260914,1803T,Noah Martens,24,2,-,4,-,-
+20260914,1803T,Matisse Martin,17,2,-,4,-,-
+20260914,1803T,Jordi Mas De Ugarte,31,2,-,4,-,-
+20260914,1803T,Ali Missoum,18,2,-,4,-,-
+20260914,1803T,Eyad Reda Ezzat Mohamed Sherif,18,2,-,4,-,-
+20260914,1803T,Luis Jose Nakamine,20,2,-,4,-,-
+20260914,1803T,Kunanan Pantaratorn,18,2,-,4,-,-
+20260914,1803T,Seungmin Park,20,2,-,4,-,-
+20260914,1803T,Stijn Pel,24,2,-,4,-,-
+20260914,1803T,Derek Pham,22,2,-,4,-,-
+20260914,1803T,Lautaro Rocha,19,2,-,4,-,-
+20260914,1803T,Maxime St-Hilaire,23,2,-,4,-,-
+20260914,1803T,David Tixhon,25,2,-,4,-,-
+20260914,1803T,Maximilian Todorov,27,2,-,4,-,-
+20260914,1803T,Cooper Woestendick,19,2,-,4,-,-
+20260914,1803T,Zhan Zheng,23,2,-,4,-,-
+20260914,1824T,Hyu Kawanishi,17,2,-,5,-,-
+20260914,1824T,Alex Kobelt,29,2,-,5,-,-
+20260914,1824T,Javier Molino,25,2,-,5,-,-
+20260914,1824T,Brandon Perez,26,2,-,5,-,-
+20260914,1824T,Victor Ryden,18,2,-,5,-,-
+20260914,1824T,Taiki Takizawa,16,2,-,5,-,-
+20260914,1830T,Marco Alvarez,25,2,-,5,-,-
+20260914,1830T,Alejandro Arcila,19,2,-,5,-,-
+20260914,1830T,Gabriele Brancatelli,23,2,-,5,-,-
+20260914,1830T,Nikola Djukic Valera,24,2,+1,5,-,-
+20260914,1830T,Dmitry Dolzhenkov,22,2,-,5,-,-
+20260914,1830T,Louis Dussin,27,2,-,5,-,-
+20260914,1830T,Benjamin Hannestad,29,2,-,5,-,-
+20260914,1830T,Matt Kleiman,25,2,-,5,-,-
+20260914,1830T,Reiya Komagata,23,2,+1,5,-,-
+20260914,1830T,Daniel Lara Salmeron,25,2,-,5,-,-
+20260914,1830T,Daniele Minighini,22,2,-,5,-,-
+20260914,1830T,Diogo Morais,22,2,-,5,-,-
+20260914,1830T,Michal Novansky,24,2,-,5,-,-
+20260914,1830T,Aleksa Oparnica,18,2,+1,5,-,-
+20260914,1830T,Roman Postolka,27,2,-1,5,-,-
+20260914,1830T,Niels Ratiu,21,2,-,5,-,-
+20260914,1830T,Martins Rocens,26,2,-,5,-,-
+20260914,1830T,Felix Roussel,18,2,-,5,-,-
+20260914,1830T,Hiroki Sakagawa,25,2,-,5,-,-
+20260914,1830T,Yoshka Sborowsky,19,2,-,5,-,-
+20260914,1830T,Glib Sekachov,19,2,-,5,-,-
+20260914,1830T,Andre Souza,23,2,+1,5,-,-
+20260914,1830T,Oliwier Sterniczuk,18,2,-,5,-,-
+20260914,1830T,Zaharije-Zak Talic,28,2,+1,5,-,-
+20260914,1854,Sebastian Dominguez,24,2,-,6,-,-
+20260914,1855T,Pepijn Bastiaansen,21,2,-,6,-,-
+20260914,1855T,Alexis Gurmendi,29,2,-,6,-,-
+20260914,1855T,Joe Leather,25,2,-2,6,-,-
+20260914,1855T,Vasco Leote Prata,22,2,+1,6,-,-
+20260914,1855T,Dmytro Shirokyi,20,2,-1,6,-,-
+20260914,1855T,Tim Vaisman,19,2,+1,6,-,-
+20260914,1855T,Gabriele Volpi,30,2,-,6,-,-
+20260914,1855T,Gabriele Vulpitta,21,2,-,6,-,-
+20260914,1863,Saki Tange,22,2,-,7,-,-
+20260914,1864T,Henry Best,19,2,-,7,-,-
+20260914,1864T,Alan Bojarski,23,2,-1,7,-,-
+20260914,1864T,Tobia Grandinetti,22,2,-,7,-,-
+20260914,1864T,Gian Gruenig,26,2,-,7,-,-
+20260914,1864T,Alexander Gschiel,19,2,-,7,-,-
+20260914,1864T,Makar Krivoshchekov,20,2,+1,7,-,-
+20260914,1864T,Hugo Maia,25,2,-3,7,-,-
+20260914,1864T,Ren Nakamura,31,2,-1,7,-,-
+20260914,1864T,Ramazan Kaan Oktay,18,2,-,7,-,-
+20260914,1864T,Ruslan Serazhetdinov,21,2,-,7,-,-
+20260914,1874,Marko Retelj,18,2,-,8,-,-
+20260914,1875T,Daniel Aleksandar Amarandei,18,2,-,8,-,-
+20260914,1875T,Arthur Bonnaud,29,2,-,8,-,-
+20260914,1875T,Thomas Gerbaud,22,2,-,8,-,-
+20260914,1875T,Jack Patrick Mcgary,21,2,-,8,-,-
+20260914,1875T,Frazier Rengifo,27,2,-4,8,-,-
+20260914,1875T,Alan Raul Sau Franco,25,2,-,8,-,-
+20260914,1875T,Marvin Bernardo Spiering,29,2,-,8,-,-
+20260914,1875T,Denis Vishenchuk Vishenko,20,2,-,8,-,-
+20260914,1883,Ko Suzuki,35,2,-,9,-,-
+20260914,1884T,Matic Hribar,19,2,-,9,-,-
+20260914,1884T,Shaoyun Liu,24,2,-1,9,-,-
+20260914,1884T,Marko Nikolic,21,2,-,9,-,-
+20260914,1884T,Stevan Popovic,24,2,-,9,-,-
+20260914,1884T,Essa Qabazard,24,2,-,9,-,-
+20260914,1884T,Maties Torres Ramis,24,2,-,9,-,-
+20260914,1890T,Romain Andres,19,2,-,10,-,-
+20260914,1890T,Victor Bini,23,2,-,10,-,-
+20260914,1890T,Adam Farag Cao,18,2,-1,10,-,-
+20260914,1890T,Nicola Ion,21,2,-,10,-,-
+20260914,1890T,Emanuel Ivanisevic,18,2,-,10,-,-
+20260914,1895T,Lorenzo Ferri,22,2,-,11,-,-
+20260914,1895T,Carl Holder,20,2,-1,11,-,-
+20260914,1895T,Anthony Susanto,29,2,+1,11,-,-
+20260914,1898T,Anas Bennour Dit Sahli,19,2,-,12,-,-
+20260914,1898T,Giovanni Ciocca,19,2,-,12,-,-
+20260914,1898T,Matic Dimic,24,2,-,12,-,-
+20260914,1898T,Jordi Garcia Mestre,23,2,-,12,-,-
+20260914,1898T,Benjamin Gusic - Wan,18,2,-2,12,-,-
+20260914,1898T,Luca Parenti,23,2,-,12,-,-
+20260914,1904,Lawrence Bataljin,30,2,-1,13,-,-
+20260914,1905,Yuichiro Inui,31,2,-1,15,-,-
+20260914,1906T,Motoharu Abe,17,1,-,1,-,-
+20260914,1906T,M. Abid Ali Khan Akbar,36,1,-,1,-,-
+20260914,1906T,Filippo Alfano,18,1,-,1,-,-
+20260914,1906T,Chetanna Amadike,21,1,+1,1,-,-
+20260914,1906T,Siwanat Auytayakul,22,1,-,1,-,-
+20260914,1906T,Sam Bakker,26,1,+1,1,-,-
+20260914,1906T,Juan Ignacio Barraza,25,1,-,1,-,-
+20260914,1906T,Manuel Belda,22,1,-,1,-,-
+20260914,1906T,Alexis Berquier,19,1,-,1,-,-
+20260914,1906T,Jayson Blando,24,1,+1,1,-,-
+20260914,1906T,Daniel Borisov,22,1,-,1,-,-
+20260914,1906T,Hanamichi Carvajal,24,1,-,1,-,-
+20260914,1906T,Yago Castellanos,18,1,-,1,-,-
+20260914,1906T,Anton Chekhov,33,1,-,1,-,-
+20260914,1906T,Kayden Colombo,17,1,-,1,-,-
+20260914,1906T,Charlelie Cosnet,23,1,-,1,-,-
+20260914,1906T,Vitor Costa Gonçalves,22,1,-,1,-,-
+20260914,1906T,Sandesh Dattatray Kurale,23,1,-,1,-,-
+20260914,1906T,Gregoire Delattre,19,1,-,1,-,-
+20260914,1906T,Malanqi Du,24,1,-,1,-,-
+20260914,1906T,Gian Durrer,22,1,-,1,-,-
+20260914,1906T,Hamza El Amine,22,1,-,1,-,-
+20260914,1906T,Finlay Emslie-Robson,22,1,-,1,-,-
+20260914,1906T,Maximilian Erhardt,20,1,+1,1,-,-
+20260914,1906T,Drew Fishback,19,1,-,1,-,-
+20260914,1906T,Kanta Fujisaki,20,1,-,1,-,-
+20260914,1906T,Ruochen Gao,17,1,-,1,-,-
+20260914,1906T,Pietro Gava,17,1,-,1,-,-
+20260914,1906T,Alexander Glomb,22,1,-,1,-,-
+20260914,1906T,Jou-George Gnjidic,17,1,-,1,-,-
+20260914,1906T,Daniil Golubev,24,1,-,1,-,-
+20260914,1906T,Federico Gaston Gonzalez Benitez,26,1,-,1,-,-
+20260914,1906T,Chen Hui Ho,19,1,-,1,-,-
+20260914,1906T,Ilya Ignatov,20,1,-,1,-,-
+20260914,1906T,Masaki Ishikawa,22,1,-,1,-,-
+20260914,1906T,Jarno Jans,26,1,-,1,-,-
+20260914,1906T,Aslan Karatsev,33,1,-,1,-,-
+20260914,1906T,Guelord Kayombo,25,1,-,1,-,-
+20260914,1906T,Thomas Kostka,23,1,-,1,-,-
+20260914,1906T,Oscar Lacides,21,1,-,1,-,-
+20260914,1906T,Richard Lacis,16,1,+1,1,-,-
+20260914,1906T,Woong Chan Lee,17,1,-,1,-,-
+20260914,1906T,Dylan Long,19,1,-,1,-,-
+20260914,1906T,Zoran Ludoski,21,1,-,1,-,-
+20260914,1906T,Dominik Macej,17,1,-,1,-,-
+20260914,1906T,Gergely Madarasz,31,1,-,1,-,-
+20260914,1906T,Bruno Malacarne,19,1,+1,1,-,-
+20260914,1906T,Obrad Markovski,25,1,-,1,-,-
+20260914,1906T,Will Mayew,22,1,-,1,-,-
+20260914,1906T,Dusan Milanovic,24,1,-,1,-,-
+20260914,1906T,Maximillian Mroz,20,1,-,1,-,-
+20260914,1906T,Ronan Tashinga Mtisi,18,1,-,1,-,-
+20260914,1906T,Juan Francisco Munoz,19,1,-,1,-,-
+20260914,1906T,François Musitelli,27,1,-,1,-,-
+20260914,1906T,Diogo Nassauer Mónica Vilhena Coelho,20,1,-,1,-,-
+20260914,1906T,Dian Nedev,25,1,-,1,-,-
+20260914,1906T,Felipe Pagnacco,21,1,-,1,-,-
+20260914,1906T,Danil Panarin,21,1,-,1,-,-
+20260914,1906T,Valdemar Frederik Pape,23,1,-,1,-,-
+20260914,1906T,Facundo Perlov,22,1,-,1,-,-
+20260914,1906T,David Petrovic,21,1,-,1,1,-
+20260914,1906T,Claus Piening,22,1,-,1,-,-
+20260914,1906T,Paris Pouatcha,20,1,-,1,-,-
+20260914,1906T,Andrei Radu,16,1,+1,1,-,-
+20260914,1906T,Stefano Reitano,29,1,-,1,-,-
+20260914,1906T,Milan Ristov,20,1,-,1,-,-
+20260914,1906T,Samuel Rovai,22,1,-,1,-,-
+20260914,1906T,Manuel Sanchez,35,1,-,1,-,-
+20260914,1906T,Hidde Schoenmakers,19,1,-,1,-,-
+20260914,1906T,Mauricio Schtulmann Gasca,18,1,-,1,-,-
+20260914,1906T,Jack Secord,18,1,-,1,-,-
+20260914,1906T,Kyle Seelig,28,1,-,1,-,-
+20260914,1906T,Felix Seres,19,1,+1,1,-,-
+20260914,1906T,Kael Shalin Shah,22,1,+1,1,-,-
+20260914,1906T,Yaraslav Shyla,33,1,-1,1,1,-
+20260914,1906T,Leon Sloboda,17,1,-,1,-,-
+20260914,1906T,Jannik Sötebier,16,1,-,1,-,-
+20260914,1906T,Nicholas Steiglehner,22,1,-,1,-,-
+20260914,1906T,Samuel Stolarik,22,1,-,1,-,-
+20260914,1906T,Bjorn Swenson,23,1,-,1,-,-
+20260914,1906T,Cole Thurgur,20,1,-,1,-,-
+20260914,1906T,Harry Thursfield,25,1,-,1,1,-
+20260914,1906T,Alexandr Tiutchenko,16,1,-,1,-,-
+20260914,1906T,Andrea Tognolini,19,1,-,1,-,-
+20260914,1906T,Barkat Ullah,28,1,-,1,-,-
+20260914,1906T,Andres Urquiola Montellano,22,1,-,1,-,-
+20260914,1906T,Nand Vandepoele,18,1,-,1,-,-
+20260914,1906T,Adria Velazquez Farre,16,1,-,1,-,-
+20260914,1906T,Lucas Zancheta,24,1,+1,1,-,-
+20260914,1906T,Sergej Zivkovic,19,1,-,1,-,-
+20260914,1996T,Daniel Adeleye,20,1,-,2,-,-
+20260914,1996T,Alan Aiukhanov,17,1,-,2,-,-
+20260914,1996T,Karim Al-Amin,22,1,+1,2,-,-
+20260914,1996T,Pedro Albuquerque Dietrich,18,1,-,2,-,-
+20260914,1996T,Ramiro Amarilla,25,1,-,2,-,-
+20260914,1996T,Romeo Arcuschin,19,1,-,2,-,-
+20260914,1996T,Jean Baptiste Badon,23,1,-,2,-,-
+20260914,1996T,Victor Barrere,25,1,-,2,-,-
+20260914,1996T,Vladimir Bazilevskiy,21,1,-,2,-,-
+20260914,1996T,Bastian Berenz,18,1,-1,2,-,-
+20260914,1996T,Enrique Bogo,31,1,-,2,-,-
+20260914,1996T,Ole Bredschneijder,24,1,-,2,-,-
+20260914,1996T,Evan Burnett,20,1,-,2,-,-
+20260914,1996T,Dmitrii Burtsev,20,1,-,2,-,-
+20260914,1996T,Luka Ceramilac,17,1,-,2,-,-
+20260914,1996T,Jordan Chiu,25,1,-,2,-,-
+20260914,1996T,Min Hyuk Cho,17,1,-,2,-,-
+20260914,1996T,Jose Luis Claro,23,1,-,2,-,-
+20260914,1996T,Joris De Loore,33,1,-8,2,1,-
+20260914,1996T,Martin Doskocil,19,1,-,2,-,-
+20260914,1996T,Alessandro Dragoni,29,1,-,2,-,-
+20260914,1996T,Tomas Dummer Macedo,18,1,-,2,-,-
+20260914,1996T,Dennis Andre Dutine,21,1,-,2,-,-
+20260914,1996T,Reda El Aouni,16,1,+1,2,-,-
+20260914,1996T,Karim El Feky,25,1,-,2,-,-
+20260914,1996T,Wen Bo Fan,18,1,-,2,1,-
+20260914,1996T,Roberto Ferrer Guimaraes,21,1,-,2,-,-
+20260914,1996T,Hong-Lin Fu,24,1,-,2,-,-
+20260914,1996T,Anthony Genov,24,1,-,2,-,-
+20260914,1996T,Julius Maximilian Haus,19,1,-,2,-,-
+20260914,1996T,Ilan Zheng-Xiong Hediger,20,1,-,2,-,-
+20260914,1996T,Yuya Hirose,21,1,-,2,-,-
+20260914,1996T,Juchan Hwang,18,1,-,2,-,-
+20260914,1996T,David Jeanne-Grandinot,24,1,-,2,-,-
+20260914,1996T,Yeong-Seok Jeong,26,1,-,2,-,-
+20260914,1996T,Egor Khotchenkov,23,1,-,2,-,-
+20260914,1996T,Ferdinand Kloesters,21,1,-,2,-,-
+20260914,1996T,Marko Knezevic,19,1,-,2,-,-
+20260914,1996T,Nicolas Kobelt,22,1,-,2,-,-
+20260914,1996T,Anes Latifovic,21,1,-,2,-,-
+20260914,1996T,Liangxuan Liu,16,1,-,2,-,-
+20260914,1996T,Josh Manuel,21,1,+1,2,-,-
+20260914,1996T,Norbert Marosik,22,1,-,2,-,-
+20260914,1996T,Eric Martins,20,1,+1,2,-,-
+20260914,1996T,Stefan Menichella,31,1,-,2,1,-
+20260914,1996T,Pierre Ngijol Carre,22,1,-,2,-,-
+20260914,1996T,Fnu Nidunjianzan,22,1,-,2,-,-
+20260914,1996T,Lun Obrul,22,1,-,2,-,-
+20260914,1996T,Maximilian Oezcelik,26,1,-,2,-,-
+20260914,1996T,Yshai Oliel,26,1,-,2,-,-
+20260914,1996T,Eric Jr. Olivarez,28,1,-,2,-,-
+20260914,1996T,Fabrizio Karol Pio Osti,20,1,-,2,1,-
+20260914,1996T,Hugo Ouzilou,23,1,-1,2,-,-
+20260914,1996T,Max Pade,19,1,-,2,-,-
+20260914,1996T,Minjong Park,24,1,-1,2,-,-
+20260914,1996T,Yong Joon Park,24,1,-,2,-,-
+20260914,1996T,Matei Marius Partal,17,1,+1,2,-,-
+20260914,1996T,Photos Photiades,22,1,-,2,-,-
+20260914,1996T,Sidane Pontjodikromo,25,1,-,2,-,-
+20260914,1996T,Felix Raser,17,1,-,2,-,-
+20260914,1996T,Philippe Renard,23,1,-,2,-,-
+20260914,1996T,Felipe Rivadeneira,20,1,-,2,-,-
+20260914,1996T,Matteo Sabbatini,18,1,+1,2,-,-
+20260914,1996T,Egor Shcherbakov,18,1,+1,2,-,-
+20260914,1996T,Matthew Shearer,23,1,-,2,-,-
+20260914,1996T,Amaan Siddiqui,24,1,-,2,-,-
+20260914,1996T,Leonardo Suarez,17,1,-,2,-,-
+20260914,1996T,Sulaiman Syed,16,1,-,2,-,-
+20260914,1996T,Bercel Sandor Takacs,18,1,+1,2,-,-
+20260914,1996T,Abubakar Talha,16,1,-,2,-,-
+20260914,1996T,Joan Torres Espinosa,22,1,-,2,-,-
+20260914,1996T,Mikhail Tsapenko,18,1,-,2,-,-
+20260914,1996T,Nicolas Ulrich,20,1,+1,2,-,-
+20260914,1996T,Julian Valenzuela,19,1,-,2,-,-
+20260914,1996T,Luigi Valletta,19,1,-,2,-,-
+20260914,1996T,Nikita Volonski,25,1,-,2,-,-
+20260914,1996T,Brandon Walkin,32,1,-,2,-,-
+20260914,1996T,Luc Wieland,19,1,-,2,-,-
+20260914,1996T,Aaron James Williams,22,1,-,2,-,-
+20260914,1996T,Finn Willman,19,1,-,2,-,-
+20260914,1996T,Natsuki Yamamoto,21,1,-,2,-,-
+20260914,1996T,Yerassyl Yerdilda,20,1,-,2,-,-
+20260914,1996T,Bang Shuo Yin,27,1,-1,2,-,-
+20260914,1996T,Lucas Yunez,18,1,-,2,-,-
+20260914,1996T,Borys Zgola,22,1,+1,2,-,-
+20260914,2081T,Eric Ahren Moonga,30,1,-,3,-,-
+20260914,2081T,Marcin Andrzejczak,20,1,-,3,-,-
+20260914,2081T,Erkut Aydin,20,1,+1,3,-,-
+20260914,2081T,Nicolas Baena,18,1,-,3,-,-
+20260914,2081T,Adrien Berrut,21,1,-,3,-,-
+20260914,2081T,Nika Bidzinashvili,21,1,-,3,-,-
+20260914,2081T,Lucas Bouquet,29,1,-3,3,-,-
+20260914,2081T,Federico Bove,27,1,-,3,-,-
+20260914,2081T,Alberto Bronzetti,28,1,-,3,-,-
+20260914,2081T,Matthew Carroll,26,1,-,3,-,-
+20260914,2081T,David Cristian Carteputreda,19,1,-1,3,-,-
+20260914,2081T,Mateo Castañeda,20,1,-,3,-,-
+20260914,2081T,Miles Clark,26,1,-,3,-,-
+20260914,2081T,Enrique Collar,18,1,-,3,1,-
+20260914,2081T,Goncalo Da Rosa Castro,17,1,-,3,-,-
+20260914,2081T,Sean Daryabeigi,21,1,-,3,-,-
+20260914,2081T,Mariano Dedura-Palomero,20,1,-,3,-,-
+20260914,2081T,Clement Deleersnyder,24,1,-,3,-,-
+20260914,2081T,João Pedro Didoni Bonini,19,1,-,3,-,-
+20260914,2081T,Felipe Dreer,20,1,-,3,-,-
+20260914,2081T,Birtan Duran,22,1,-,3,-,-
+20260914,2081T,Tugra Duran,19,1,-,3,-,-
+20260914,2081T,Felix Einig,26,1,-,3,-,-
+20260914,2081T,Luis Andres Flores Avila,18,1,-,3,-,-
+20260914,2081T,Sai Karteek Reddy Ganta,26,1,-,3,-,-
+20260914,2081T,Javier Guzman,23,1,-,3,-,-
+20260914,2081T,Idriss Haddouch,22,1,+1,3,-,-
+20260914,2081T,Zac Hamill,21,1,-,3,-,-
+20260914,2081T,Jia Hu,17,1,-,3,-,-
+20260914,2081T,Alessandro Hunziker,17,1,+1,3,-,-
+20260914,2081T,Ryder Jackson,21,1,-,3,-,-
+20260914,2081T,Reid Jarvis,25,1,-,3,-,-
+20260914,2081T,Aqeel Khan,46,1,-,3,-,-
+20260914,2081T,Krittin Koaykul,31,1,-,3,-,-
+20260914,2081T,Lucky Candra Kurniawan,22,1,-,3,1,-
+20260914,2081T,Jeri Lassila,21,1,-,3,-,-
+20260914,2081T,Aron Janos Major,19,1,-,3,-,-
+20260914,2081T,Franco Marini,25,1,-,3,-,-
+20260914,2081T,Sasa Markovic,20,1,-,3,-,-
+20260914,2081T,Vicente Menezes Freda,19,1,-,3,-,-
+20260914,2081T,Marco Migliorati,22,1,-,3,-,-
+20260914,2081T,Amir Milushev,21,1,-,3,-,-
+20260914,2081T,Vicente Monge,20,1,-,3,-,-
+20260914,2081T,Nicaise Muamba,26,1,-,3,-,-
+20260914,2081T,Freddy Murray,23,1,-,3,-,-
+20260914,2081T,Botond Nagy,18,1,-,3,-,-
+20260914,2081T,Seiya Nakanishi,30,1,-,3,-,-
+20260914,2081T,Kentaro Otsuka,29,1,-,3,-,-
+20260914,2081T,Thomas Patton,23,1,+1,3,-,-
+20260914,2081T,David Prasievi,20,1,-,3,-,-
+20260914,2081T,Ntungamili Raguin,17,1,-,3,-,-
+20260914,2081T,Danial Rakhmatullayev,20,1,-,3,-,-
+20260914,2081T,Henry Ren,22,1,-,3,1,-
+20260914,2081T,Rajat Shirur,18,1,-,3,-,-
+20260914,2081T,Svarmanyu Singh,20,1,-,3,-,-
+20260914,2081T,Filip Stidell,21,1,-,3,-,-
+20260914,2081T,Jaden Dewandaka Tan,19,1,-,3,-,-
+20260914,2081T,Christopher Thies,18,1,-,3,-,-
+20260914,2081T,Kai Thompson,18,1,-1,3,-,-
+20260914,2081T,Tomas Tischner,20,1,-,3,-,-
+20260914,2081T,Joe Tyler,27,1,-,3,-,-
+20260914,2081T,Breno Rossetto Urvaneja,21,1,-,3,-,-
+20260914,2081T,Steffan Van Weldam,22,1,+1,3,-,-
+20260914,2081T,Zian Vanderstappen,22,1,+1,3,-,-
+20260914,2081T,Matteo Vavassori,21,1,+1,3,-,-
+20260914,2081T,Ids Waterbolk,25,1,-,3,-,-
+20260914,2081T,Rafael Ymer,20,1,-,3,-,-
+20260914,2081T,Ahmed Zaki,21,1,-,3,1,-
+20260914,2081T,Gonzalo Zeitune,21,1,+1,3,-,-
+20260914,2081T,Shixun Zhu,19,1,-,3,-,-
+20260914,2151T,Felipe Assuncao Garla,32,1,-,4,-,-
+20260914,2151T,Joaquin Bianchi,26,1,-,4,-,-
+20260914,2151T,Filippo Callerio,21,1,-,4,-,-
+20260914,2151T,Jaume Casas Blasi,18,1,+1,4,-,-
+20260914,2151T,Pedro Henrique Chabalgoity,18,1,-,4,-,-
+20260914,2151T,Sasha Colleu,19,1,-,4,-,-
+20260914,2151T,Congsup Congcar,30,1,-1,4,-,-
+20260914,2151T,Brian Dal Zilio,19,1,+1,4,-,-
+20260914,2151T,Edoardo De Filippo,21,1,-,4,-,-
+20260914,2151T,Hernando Jose Escurra Isnardi,28,1,-1,4,-,-
+20260914,2151T,Barney Fitzpatrick,24,1,-,4,-,-
+20260914,2151T,Oriol Font,20,1,-,4,-,-
+20260914,2151T,Juan Carlos Fuentes Vasquez,20,1,-,4,-,-
+20260914,2151T,Thomas Nicholas Gadecki,20,1,-,4,-,-
+20260914,2151T,Alexander Guajardo,20,1,-,4,-,-
+20260914,2151T,Gabrielius Guzauskas,23,1,+1,4,-,-
+20260914,2151T,Tim Hammes,22,1,-,4,-,-
+20260914,2151T,Sebastian Heinrich,17,1,+1,4,-,-
+20260914,2151T,Stijn Hofman,23,1,-,4,-,-
+20260914,2151T,Gabor Hornung,21,1,-2,4,-,-
+20260914,2151T,Kaigaoge Kang,17,1,-,4,-,-
+20260914,2151T,Matthias Uwe Kask,21,1,-,4,-,-
+20260914,2151T,Bruno Kokot,19,1,-,4,-,-
+20260914,2151T,Espen Lagarde,24,1,-,4,-,-
+20260914,2151T,Niels Lootsma,32,1,-,4,-,-
+20260914,2151T,Martin Maldonado,25,1,-,4,-,-
+20260914,2151T,Cooper Mccarthy,16,1,-,4,-,-
+20260914,2151T,Enmanuel Munoz,21,1,-,4,-,-
+20260914,2151T,Loic Namigandet Tenguere,27,1,-,4,-,-
+20260914,2151T,Leon Peranovic,19,1,-,4,-,-
+20260914,2151T,Oscar Pinto Sansano,23,1,-,4,-,-
+20260914,2151T,Stan Put,16,1,+1,4,-,-
+20260914,2151T,Tadija Radovanovic,26,1,-,4,-,-
+20260914,2151T,Vihaan Reddy,16,1,-,4,-,-
+20260914,2151T,Freddie Ridout,22,1,-,4,-,-
+20260914,2151T,Roshan Santhosh,17,1,-,4,-,-
+20260914,2151T,Gabriel Sardo,22,1,-,4,-,-
+20260914,2151T,Jelani Sarr,22,1,-,4,-,-
+20260914,2151T,Stijn Slump,27,1,-10,4,-,-
+20260914,2151T,Chris Spyrou,20,1,+1,4,-,-
+20260914,2151T,Daniil Stepanov,20,1,-,4,-,-
+20260914,2151T,Timofey Stepanov,23,1,-1,4,-,-
+20260914,2151T,Leonardo Storck Franca,17,1,-,4,-,-
+20260914,2151T,Isac Stroemberg,23,1,-2,4,-,-
+20260914,2151T,Sarthak Suden,24,1,-,4,-,-
+20260914,2151T,Zhengyu Sun,19,1,-,4,-,-
+20260914,2151T,Uladzislau Tarasevich,21,1,-,4,-,-
+20260914,2151T,Ander Tarrio Ponte,20,1,-,4,-,-
+20260914,2151T,Daniel Tazabekov,18,1,-,4,-,-
+20260914,2151T,Pablo Trochu,22,1,-,4,-,-
+20260914,2151T,Lachlan Vickery,22,1,-,4,-,-
+20260914,2202T,Calin Apostol,19,1,-,5,-,-
+20260914,2202T,Daniel Batista,27,1,-,5,-,-
+20260914,2202T,Antoine Berger,28,1,-1,5,-,-
+20260914,2202T,Patricio Betancourt Gonzalez,32,1,-,5,-,-
+20260914,2202T,Henrik Bladelius,22,1,-,5,-,-
+20260914,2202T,Luka Bojicic Ono,21,1,-,5,-,-
+20260914,2202T,Milledge Cossu,24,1,-,5,-,-
+20260914,2202T,Livas Eduardo De Carvalho Damazio,16,1,-,5,-,-
+20260914,2202T,Thomas Drayton,22,1,-,5,-,-
+20260914,2202T,Mustapha El Natour,21,1,-,5,-,-
+20260914,2202T,Alex Finkelstein,23,1,-,5,-,-
+20260914,2202T,Matteo Gribaldo,17,1,-,5,-,-
+20260914,2202T,Haoyuan Huang,23,1,-1,5,1,-
+20260914,2202T,Mikhail Khodorchenko,19,1,-,5,-,-
+20260914,2202T,Jan Klimas,19,1,-1,5,-,-
+20260914,2202T,Dmitry Kopilevich,19,1,-,5,-,-
+20260914,2202T,Matyas Kozlovsky,18,1,-,5,-,-
+20260914,2202T,Justin Lenders,19,1,-1,5,-,-
+20260914,2202T,Augusto Mateo Lucarelli,19,1,-,5,-,-
+20260914,2202T,Andre Megrabian,21,1,-,5,-,-
+20260914,2202T,Matteo Mesaglio,21,1,-,5,-,-
+20260914,2202T,Abdulhamid Mubarak,32,1,-,5,-,-
+20260914,2202T,Matteo Mura,20,1,-,5,-,-
+20260914,2202T,Mattia Nannelli,21,1,-1,5,-,-
+20260914,2202T,Kaue Noatto,22,1,-,5,-,-
+20260914,2202T,Oluwaseun Peter Ogunsakin,17,1,-,5,-,-
+20260914,2202T,Pietro Pampanin,23,1,-,5,-,-
+20260914,2202T,Mattias Pisanu,19,1,-,5,-,-
+20260914,2202T,Ricardo Rodriguez - Pace,33,1,-,5,-,-
+20260914,2202T,Cedric Stanke,27,1,-,5,-,-
+20260914,2202T,Benedikt Szerencsits,20,1,-,5,-,-
+20260914,2202T,Vladan Tadic,25,1,-,5,-,-
+20260914,2202T,Gunawan Trismuwantara,23,1,-1,5,-,-
+20260914,2202T,Valentin Vanta,28,1,-1,5,-,-
+20260914,2202T,Franco Ariel Vazquez,26,1,-,5,-,-
+20260914,2202T,Ilias Zimmermann,25,1,-1,5,-,-
+20260914,2238T,Laurin Aerne,27,1,-,6,-,-
+20260914,2238T,Filippo Alberti,23,1,-,6,-,-
+20260914,2238T,Jonah Braswell,22,1,-,6,-,-
+20260914,2238T,Simon Caldwell,19,1,-,6,-,-
+20260914,2238T,Alexis Canter,28,1,-,6,-,-
+20260914,2238T,Kylian Collignon,21,1,-2,6,-,-
+20260914,2238T,Alexey Dubinin,27,1,-,6,-,-
+20260914,2238T,Mario Andre Galarraga,19,1,-,6,-,-
+20260914,2238T,Oskar Grzegorzewski,21,1,-1,6,-,-
+20260914,2238T,Petr Iamachkine,30,1,-,6,-,-
+20260914,2238T,Oskar Jansson,21,1,-,6,-,-
+20260914,2238T,Ruslan Kastsiukevich,19,1,-,6,-,-
+20260914,2238T,Kazuma Kawachi,31,1,-,6,-,-
+20260914,2238T,Arthur Laborde,22,1,-,6,-,-
+20260914,2238T,Agustin Libre,19,1,-,6,-,-
+20260914,2238T,Vladimir Osminkin,24,1,-,6,-,-
+20260914,2238T,Matthew Rankin,22,1,-,6,-,-
+20260914,2238T,Peter Sallay,25,1,-,6,-,-
+20260914,2238T,Gheorghe Claudiu Schinteie,24,1,-2,6,-,-
+20260914,2238T,Tiago Silva,21,1,-1,6,-,-
+20260914,2238T,Felipe Vazquez,18,1,-,6,-,-
+20260914,2259T,Zachary Adam-Gedge,24,1,-,7,-,-
+20260914,2259T,Cezar Stefan Bentzel,18,1,-,7,-,-
+20260914,2259T,Alvaro Jimenez,19,1,-,7,-,-
+20260914,2259T,Cian Maguire,27,1,-,7,-,-
+20260914,2259T,thomas Menzel,19,1,-,7,-,-
+20260914,2259T,Salvador Monteiro,18,1,-,7,-,-
+20260914,2259T,Alberto Morolli,26,1,+1,7,-,-
+20260914,2259T,Simphiwe Ngwenya,19,1,-,7,-,-
+20260914,2259T,Carles Rojas,22,1,-,7,-,-
+20260914,2259T,Sungbeen Sim,29,1,-6,7,-,-
+20260914,2259T,Fedor Sosedkin,19,1,-,7,-,-
+20260914,2259T,Mukkesh Sabaresh Vijay Shankar,18,1,+1,7,-,-
+20260914,2259T,Yue Xia,19,1,-,7,-,-
+20260914,2272T,Gregorio Biondolillo,26,1,-1,8,-,-
+20260914,2272T,Leonel Cesar Castro,19,1,-,8,-,-
+20260914,2272T,Samuil Chestovaliev,18,1,-,8,-,-
+20260914,2272T,Francisco Faria,28,1,-,8,-,-
+20260914,2272T,Alex Santino Nuñez Vera,19,1,-,8,-,-
+20260914,2272T,Glauco Pinheiro Da Cruz Junior,21,1,-,8,-,-
+20260914,2272T,Dylan Salton,24,1,-,8,-,-
+20260914,2272T,Sheng Tang,26,1,-1,8,-,-
+20260914,2280T,Jun Hao Luo,18,1,-,9,-,-
+20260914,2280T,William Nolan,23,1,-,9,-,-
+20260914,2282T,Andrei Corneliu Gadoiu,18,1,-,10,-,-
+20260914,2282T,Noah Regas Luis,22,1,-1,10,-,-
+20260914,2282T,Gokberk Saritas,23,1,-,10,-,-
+20260914,2282T,Tomas Serrano Luis,24,1,-1,10,-,-
+20260914,2282T,Yassin Ahmed Wageh,18,1,-,10,1,-
+20260914,2287,Darrshan Suresh,25,1,-1,12,-,-
+20260914,2288,Oren Vasser,26,1,-,13,-,-
+20260914,2289,Bogdan Seleznev,24,1,-1,16,-,-
