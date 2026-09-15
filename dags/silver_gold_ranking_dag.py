@@ -30,7 +30,7 @@ def run_silver_gold():
             from src.silver import tb_atp_rankings
             tb_atp_rankings.run()
 
-        task_run_rankings = run_rankings()
+        run_rankings()
 
     @task_group(group_id='gold')
     def run_gold():    
@@ -48,7 +48,7 @@ def run_silver_gold():
                 from src.gold.fact import fact_player_ranking
                 fact_player_ranking.run()
             
-            task_run_fact_player_ranking = run_fact_player_ranking()
+            run_fact_player_ranking()
 
         @task_group(group_id='create_view')
         def run_create_view():

@@ -23,7 +23,7 @@ def load_tables(handler):
         print(e)
         raise
 
-def run_transformation(handler, tb_atp_rankings):
+def run_transformation(tb_atp_rankings):
     try:
         df = (
             tb_atp_rankings
@@ -31,7 +31,6 @@ def run_transformation(handler, tb_atp_rankings):
                 f.date_format(f.to_date(f.col("date"), 'yyyyMMdd'), 'yyyy-MM-dd').alias("DATE_WEEK_RANKING"),
                 f.col("rank").cast("int").alias("NUM_PLAYER_RANK"),
                 f.col("name").alias("DES_PLAYER_NAME"),
-                f.col("id").alias("COD_PLAYER_ID"),
                 f.col("age").cast("int").alias("NUM_PLAYER_AGE"),
                 f.regexp_replace(f.col("points"), ",", "").cast("int").alias("NUM_PLAYER_RANK_PTS"),
                 f.col("lost_earned_points").cast("string").alias("NUM_PLAYER_LE_PTS"),
@@ -41,7 +40,7 @@ def run_transformation(handler, tb_atp_rankings):
 
                 f.col("DATE_INGESTION").alias("DATE_INGESTION")
             )
-            .dropDuplicates(["DATE_WEEK_RANKING", "COD_PLAYER_ID"])
+            .dropDuplicates(["DATE_WEEK_RANKING", "DES_PLAYER_NAME"])
         )
         return df
     except Exception as e:
@@ -65,7 +64,7 @@ def run():
     try:
         handler = PySparkHandler(app_name="tb_atp_ranking_silver")
         tb_atp_rankings = load_tables(handler)
-        df_final = run_transformation(handler, tb_atp_rankings)
+        df_final = run_transformation(tb_atp_rankings)
         save_table(handler, df_final)
     finally:
         print("Stopping spark session...")

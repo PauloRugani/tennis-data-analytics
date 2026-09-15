@@ -83,10 +83,10 @@ def run_silver_gold():
                 from src.gold.dimension import dim_tournaments
                 dim_tournaments.run()
 
-            task_run_dim_date = run_dim_date()
-            task_run_dim_entry = run_dim_entry()
-            task_run_dim_players = run_dim_players()
-            task_run_dim_tournaments = run_dim_tournaments()
+            run_dim_date()
+            run_dim_entry()
+            run_dim_players()
+            run_dim_tournaments()
 
         @task_group(group_id='fact')
         def run_fact():
@@ -105,9 +105,9 @@ def run_silver_gold():
                 from src.gold.fact import fact_player_tournament_stats
                 fact_player_tournament_stats.run()
 
-            task_run_fact_player_match = run_fact_player_match_stats()
-            task_run_fact_player_season = run_fact_player_season()
-            task_run_fact_player_tournament = run_fact_player_tournament_stats()
+            run_fact_player_match_stats()
+            run_fact_player_season()
+            run_fact_player_tournament_stats()
 
     
         @task_group(group_id='create_view')
@@ -117,7 +117,7 @@ def run_silver_gold():
 
             @task
             def run_create_dimension_view():
-                tables = ["dim_date", "dim_entry", "dim_player", "dim_tournament"]
+                tables = ["dim_date", "dim_entry", "dim_players", "dim_tournaments"]
                 for table in tables:
                     print(f"Creating {table} view...")
                     db_handler.execute_query(f"""
