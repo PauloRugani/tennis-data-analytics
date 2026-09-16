@@ -57,7 +57,7 @@ def run_ingestion_bronze():
     task_run_dag_silver_gold = TriggerDagRunOperator(
         task_id='run_silver_gold_ranking_dag',
         trigger_dag_id='silver_gold_ranking_dag',
-        wait_for_completion=False,
+        wait_for_completion=True,
         reset_dag_run=False,
     )
 
