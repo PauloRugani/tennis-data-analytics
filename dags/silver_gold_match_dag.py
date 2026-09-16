@@ -5,11 +5,6 @@ from datetime import datetime, timedelta
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.decorators import dag, task, task_group
 
-AIRFLOW_HOME = os.getenv("AIRFLOW_HOME", "/opt/airflow")
-if AIRFLOW_HOME not in sys.path:
-    sys.path.insert(0, AIRFLOW_HOME)
-    
-
 default_args = {
     'owner': 'paulorugani',
     'retries': 2,
@@ -137,7 +132,7 @@ def run_silver_gold():
                 )
                 for table in tables:
                     hook.run(f"""
-                            CREATE OR REPLACE VIEW vw_{table} AS 
+                            CREATE OR REPLACE VIEW gold.vw_{table} AS 
                             SELECT * FROM gold.{table};
                         """
                     )
@@ -150,7 +145,7 @@ def run_silver_gold():
                 )
                 for table in tables:
                     hook.run(f"""
-                            CREATE OR REPLACE VIEW vw_{table} AS 
+                            CREATE OR REPLACE VIEW gold.vw_{table} AS 
                             SELECT * FROM gold.{table};
                         """
                     )

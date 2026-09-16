@@ -5,10 +5,6 @@ from airflow.decorators import dag, task, task_group
 # pyrefly: ignore [missing-import]
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 
-AIRFLOW_HOME = os.getenv("AIRFLOW_HOME", "/opt/airflow")
-if AIRFLOW_HOME not in sys.path:
-    sys.path.insert(0, AIRFLOW_HOME)
-
 default_args = {
     'owner': 'paulorugani',
     'retries': 2,
@@ -76,7 +72,7 @@ def run_silver_gold():
                     postgres_conn_id="POSTGRES_CONNECTION"
                 )
                 hook.run("""
-                            CREATE OR REPLACE VIEW vw_fact_player_ranking AS 
+                            CREATE OR REPLACE VIEW gold.vw_fact_player_ranking AS 
                             SELECT * FROM gold.fact_player_ranking;
                         """
                         )
