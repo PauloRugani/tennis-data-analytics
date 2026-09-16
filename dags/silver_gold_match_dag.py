@@ -1,7 +1,8 @@
 import os
 import sys
 from datetime import datetime, timedelta
-
+# pyrefly: ignore [missing-import]
+from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.decorators import dag, task, task_group
 
 AIRFLOW_HOME = os.getenv("AIRFLOW_HOME", "/opt/airflow")
@@ -72,7 +73,10 @@ def run_silver_gold():
         
         @task
         def setup_database():
-            ...
+            hook = PostgresHook(
+                postgres_conn_id="POSTGRES_CONNECTION"
+            )
+            hook.run("CREATE SCHEMA IF NOT EXISTS gold;")
             
         @task_group(group_id='dimension')
         def run_dimension(conn_vars):
@@ -127,11 +131,29 @@ def run_silver_gold():
         def run_create_view():
             @task
             def run_create_dimension_view():
-                ...
+                tables = ["dim_date", "dim_entry", "dim_players", "dim_tournaments"]
+                hook = PostgresHook(
+                    postgres_conn_id="POSTGRES_CONNECTION"
+                )
+                for table in tables:
+                    hook.run(f"""
+                            CREATE OR REPLACE VIEW vw_{table} AS 
+                            SELECT * FROM gold.{table};
+                        """
+                    )
             
             @task
             def run_create_fact_view():
-                ...
+                tables = ["fact_player_match_stats", "fact_player_season", "fact_player_tournament_stats"]
+                hook = PostgresHook(
+                    postgres_conn_id="POSTGRES_CONNECTION"
+                )
+                for table in tables:
+                    hook.run(f"""
+                            CREATE OR REPLACE VIEW vw_{table} AS 
+                            SELECT * FROM gold.{table};
+                        """
+                    )
 
             run_create_dimension_view()
             run_create_fact_view()

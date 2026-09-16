@@ -2,6 +2,8 @@ import os
 import sys
 from datetime import datetime, timedelta
 from airflow.decorators import dag, task, task_group
+# pyrefly: ignore [missing-import]
+from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 AIRFLOW_HOME = os.getenv("AIRFLOW_HOME", "/opt/airflow")
 if AIRFLOW_HOME not in sys.path:
@@ -52,8 +54,11 @@ def run_silver_gold():
         
         @task
         def setup_database():
-            ...
-            
+            hook = PostgresHook(
+                postgres_conn_id="POSTGRES_CONNECTION"
+            )
+            hook.run("CREATE SCHEMA IF NOT EXISTS gold;")
+
         @task_group(group_id='fact')
         def run_fact(connection_vars):
             @task
@@ -67,7 +72,14 @@ def run_silver_gold():
         def run_create_view():
             @task
             def run_create_fact_view():
-                ...
+                hook = PostgresHook(
+                    postgres_conn_id="POSTGRES_CONNECTION"
+                )
+                hook.run("""
+                            CREATE OR REPLACE VIEW vw_fact_player_ranking AS 
+                            SELECT * FROM gold.fact_player_ranking;
+                        """
+                        )
 
             run_create_fact_view()
 
