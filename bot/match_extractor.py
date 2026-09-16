@@ -1,12 +1,8 @@
-import os
 import io
 import boto3
 from botocore.client import Config
 from datetime import datetime
 from playwright.sync_api import sync_playwright
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def get_file(page, role_name: str, relative_path: str, s3_client, bucket: str):
     with page.expect_download(timeout=60000) as download_info:

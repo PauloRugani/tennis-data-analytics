@@ -1,6 +1,5 @@
 import csv
 import io
-import os
 import re
 import boto3
 from botocore.client import Config
@@ -8,9 +7,6 @@ from botocore.exceptions import ClientError
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from curl_cffi import requests
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def is_date_already_processed(s3_client, bucket: str, object_name: str, target_date: str) -> bool:
     try:
