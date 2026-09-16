@@ -6,10 +6,6 @@ from airflow.decorators import dag, task, task_group
 # pyrefly: ignore [missing-import]
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 
-AIRFLOW_HOME = os.getenv("AIRFLOW_HOME", "/opt/airflow")
-if AIRFLOW_HOME not in sys.path:
-    sys.path.insert(0, AIRFLOW_HOME)
-    
 default_args = {
     'owner': 'paulorugani',
     'retries': 2,
@@ -39,31 +35,31 @@ def run_ingestion_bronze():
     connection_vars = load_variables()
 
     @task_group("ingestion")
-    def run_ingestion(connection_vars):
+    def ingestion(connection_vars):
         @task
-        def task_get_file(conn_vars):
+        def run_get_file(conn_vars):
             from bot.ranking_extractor import run_ingestion
             run_ingestion(conn_vars)
-        task_get_file(connection_vars)
+        run_get_file(connection_vars)
 
     @task_group("bronze")
-    def run_bronze(connection_vars):
+    def bronze(connection_vars):
         @task
-        def task_run_bronze_rankings(conn_vars):
+        def run_bronze_rankings(conn_vars):
             from src.bronze import tb_atp_ranking
             tb_atp_ranking.run(init_run=True, conn_vars=conn_vars)
-        task_run_bronze_rankings(connection_vars)
+        run_bronze_rankings(connection_vars)
 
-    task_run_dag_silver_gold = TriggerDagRunOperator(
+    run_dag_silver_gold = TriggerDagRunOperator(
         task_id='run_silver_gold_ranking_dag',
         trigger_dag_id='silver_gold_ranking_dag',
         wait_for_completion=True,
         reset_dag_run=False,
     )
 
-    task_run_ingestion = run_ingestion(connection_vars)
-    task_run_bronze = run_bronze(connection_vars)
+    run_ingestion = ingestion(connection_vars)
+    run_bronze = bronze(connection_vars)
 
-    task_run_ingestion >> task_run_bronze >> task_run_dag_silver_gold
+    run_ingestion >> run_bronze >> run_dag_silver_gold
 
 dag = run_ingestion_bronze()
