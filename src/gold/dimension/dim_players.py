@@ -3,7 +3,7 @@ import sys
 from pyspark.sql import functions as f
 from itertools import chain
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-from utils.pyspark_handler import PySparkHandler
+from src.utils.pyspark_handler import PySparkHandler
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 

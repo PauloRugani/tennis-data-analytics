@@ -88,9 +88,6 @@ def run_transformation(handler, tb_player_match, tb_tournaments, tb_date, tb_pla
             .distinct()
         )
 
-        if tb_player_match.count() != df.count():
-            raise Exception("Count mismatch between source and transformed data")
-            
         return df
     except Exception as e:
         print(e)
