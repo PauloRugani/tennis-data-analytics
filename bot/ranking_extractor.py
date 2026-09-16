@@ -62,18 +62,20 @@ def previous_year_process(s3_client, bucket: str, current_monday: datetime):
         print(e)
         raise
 
-def extract_bot():
+def extract_bot(conn_vars):
     s3_client = boto3.client(
         's3',
-        endpoint_url=os.getenv("MINIO_ENDPOINT"),
-        aws_access_key_id=os.getenv("MINIO_ACCESS_KEY"),
-        aws_secret_access_key=os.getenv("MINIO_SECRET_KEY"),
+        endpoint_url=conn_vars["bucket_endpoint"],
+        aws_access_key_id=conn_vars["bucket_access_key"],
+        aws_secret_access_key=conn_vars["bucket_secret_key"],
         config=Config(signature_version='s3v4')
     )
+
+    bucket = conn_vars["bucket_name"]
     try:
-        s3_client.head_bucket(Bucket=os.getenv("MINIO_BUCKET"))
+        s3_client.head_bucket(Bucket=bucket)
     except:
-        s3_client.create_bucket(Bucket=os.getenv("MINIO_BUCKET"))
+        s3_client.create_bucket(Bucket=bucket)
 
     today = datetime.now()
     current_monday = today - timedelta(days=today.weekday())
@@ -81,11 +83,11 @@ def extract_bot():
     week_str = current_monday.strftime("%Y-%m-%d")
     target_date = str(week_str).replace("-", "")
 
-    previous_year_process(s3_client, os.getenv("MINIO_BUCKET"), current_monday)
+    previous_year_process(s3_client, bucket, current_monday)
 
     object_name = f"raw/incremental/tb_incremental_ranking_{current_year}.csv"
 
-    if is_date_already_processed(s3_client, os.getenv("MINIO_BUCKET"), object_name, target_date):
+    if is_date_already_processed(s3_client, bucket, object_name, target_date):
         print(f"Date {target_date} already processed.")
         return object_name
 
@@ -128,7 +130,7 @@ def extract_bot():
 
     existing_content = ""
     file_exists = False
-    resp = s3_client.get_object(Bucket=os.getenv("MINIO_BUCKET"), Key=object_name)
+    resp = s3_client.get_object(Bucket=bucket, Key=object_name)
     existing_content = resp['Body'].read().decode('utf-8')
     file_exists = True
 
@@ -144,11 +146,11 @@ def extract_bot():
     writer.writerows(ranking)
 
     file_bytes = out.getvalue().encode('utf-8')
-    s3_client.upload_fileobj(io.BytesIO(file_bytes), os.getenv("MINIO_BUCKET"), object_name)
+    s3_client.upload_fileobj(io.BytesIO(file_bytes), bucket, object_name)
 
-def run_ingestion():
+def run_ingestion(conn_vars):
     print(f"[Airflow] Download ranking starts...")
-    extract_bot()
+    extract_bot(conn_vars)
 
 if __name__ == "__main__":
     extract_bot()

@@ -24,19 +24,20 @@ def get_file(page, role_name: str, relative_path: str, s3_client, bucket: str):
     download.delete()
     return relative_path
 
-def extract_bot():
+def extract_bot(conn_vars):
     s3_client = boto3.client(
         's3',
-        endpoint_url=os.getenv("MINIO_ENDPOINT"),
-        aws_access_key_id=os.getenv("MINIO_ACCESS_KEY"),
-        aws_secret_access_key=os.getenv("MINIO_SECRET_KEY"),
+        endpoint_url=conn_vars["bucket_endpoint"],
+        aws_access_key_id=conn_vars["bucket_access_key"],
+        aws_secret_access_key=conn_vars["bucket_secret_key"],
         config=Config(signature_version='s3v4')
     )
 
+    bucket = conn_vars["bucket_name"]
     try:
-        s3_client.head_bucket(Bucket=os.getenv("MINIO_BUCKET"))
+        s3_client.head_bucket(Bucket=bucket)
     except:
-        s3_client.create_bucket(Bucket=os.getenv("MINIO_BUCKET"))
+        s3_client.create_bucket(Bucket=bucket)
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True)
@@ -50,17 +51,17 @@ def extract_bot():
             file_curr = f"raw/historical/matches/atp_matches_{year}.csv"
             file_ongoing = "raw/incremental/tb_ongoing_tourneys.csv"
 
-            path_curr = get_file(page, f"Download {year}.csv", file_curr, s3_client, os.getenv("MINIO_BUCKET"))
+            path_curr = get_file(page, f"Download {year}.csv", file_curr, s3_client, bucket)
 
-            path_ongoing = get_file(page, "Download ongoing_tourneys.csv", file_ongoing, s3_client, os.getenv("MINIO_BUCKET"))
+            path_ongoing = get_file(page, "Download ongoing_tourneys.csv", file_ongoing, s3_client, bucket)
 
         finally:
             context.close()
             browser.close()
 
-def run_ingestion():
+def run_ingestion(conn_vars):
     print(f"[Airflow] Download matches starts...")
-    extract_bot()
+    extract_bot(conn_vars)
 
 if __name__ == "__main__":
     extract_bot()

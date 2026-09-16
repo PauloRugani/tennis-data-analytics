@@ -39,12 +39,12 @@ def run_ingestion_bronze():
     connection_vars = load_variables()
 
     @task_group("ingestion")
-    def run_ingestion():
+    def run_ingestion(connection_vars):
         @task
-        def task_get_file():
+        def task_get_file(conn_vars):
             from bot.ranking_extractor import run_ingestion
-            run_ingestion()
-        task_get_file()
+            run_ingestion(conn_vars)
+        task_get_file(connection_vars)
 
     @task_group("bronze")
     def run_bronze(connection_vars):
@@ -61,7 +61,7 @@ def run_ingestion_bronze():
         reset_dag_run=False,
     )
 
-    task_run_ingestion = run_ingestion()
+    task_run_ingestion = run_ingestion(connection_vars)
     task_run_bronze = run_bronze(connection_vars)
 
     task_run_ingestion >> task_run_bronze >> task_run_dag_silver_gold
