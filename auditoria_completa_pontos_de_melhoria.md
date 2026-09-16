@@ -12,7 +12,6 @@
 ## 2. 🟠 Falhas silenciosas e tratamento de erro inadequado
 
 21. Uso de `except:` (sem tipo) em pelo menos 3 lugares: `bot/match_extractor.py` (`head_bucket`/`create_bucket`), `bot/ranking_extractor.py` (idem) e `src/bronze/*.py` (decisão de `init_run`). Bare `except` captura até `KeyboardInterrupt`/`SystemExit`, mascarando qualquer causa real do erro.
-24. `previous_year_process` em [bot/ranking_extractor.py](bot/ranking_extractor.py) faz `copy_object` seguido de `delete_object` sem transação: se o processo cair entre as duas chamadas, o arquivo antigo é perdido (existe cópia, mas o original não foi removido — não é destrutivo nesse caso), mas se `copy_object` falhar silenciosamente e o código não verificar o resultado antes do `delete_object`... na implementação atual o `try/except` cobre ambas chamadas e propaga erro, então correto; mas não há verificação de que a cópia foi bem-sucedida antes do delete (apenas confia na ausência de exceção).
 
 ---
 
@@ -28,13 +27,6 @@
 
 ---
 
-## 5. 🟡 Anti-patterns de Engenharia de Dados (complementares aos já listados em arquitetura_critica.md)
-
-39. `sys.path.insert` dinâmico em todos os DAGs (já apontado em [arquitetura_critica.md](arquitetura_critica.md#1-airflow-modificação-global-do-syspath-a-famosa-gambiarra)) — reforço: isso também dificulta rodar testes unitários dos módulos `src/*` fora do container do Airflow, pois os imports (`from src.bronze import ...`) dependem desse ajuste de path só presente dentro dos arquivos DAG.
-41. `os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'` hardcoded em **todos** os scripts de `src/bronze`, `src/silver` e `src/gold` (10+ arquivos) — já criticado em [arquitetura_critica.md](arquitetura_critica.md#5-spark-acoplamento-e-hardcode-de-infraestrutura); reforço: está duplicado em cada arquivo individualmente (10+ cópias do mesmo hack) em vez de centralizado uma vez no `PySparkHandler`.
-
----
-
 ## 6. 🟡 Qualidade de código / fora do padrão de desenvolvimento
 
 58. Bloco JDBC de escrita (14 linhas: url, dbtable, user, password, driver, mode) **copiado e colado** em 8 arquivos gold diferentes, sem nenhuma função utilitária (`PySparkHandler` já existe e seria o lugar natural para um método `save_jdbc(df, table)`).
@@ -43,7 +35,6 @@
 
 ## 7. 🟡 Performance e escalabilidade
 
-69. Múltiplas chamadas a `.count()` (validação em `fact_player_match_stats.py`, `df_final.count() > 0` no bronze) disparam jobs Spark completos adicionais só para contar linhas — cada `.count()` é uma ação materializada independente, dobrando o tempo de execução em alguns pontos do pipeline.
 72. Cada execução baixa os pacotes Maven do Spark (`hadoop-aws`, `aws-java-sdk-bundle`, `postgresql` JDBC) via `spark.jars.packages` em vez de usar uma imagem/ambiente com esses jars pré-empacotados — soma minutos de latência por execução em CI (GitHub Actions) e possivelmente também no Airflow.
 
 ## 8. 🔵 Observabilidade, testes e monitoramento
