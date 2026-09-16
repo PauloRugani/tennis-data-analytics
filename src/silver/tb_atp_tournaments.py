@@ -73,16 +73,16 @@ def save_table(handler, df, bucket_name):
         print(e)
         raise
 
-def run(bcv: dict = None):
+def run(conn_vars: dict = None):
     handler = None
     try:
         handler = PySparkHandler(
             app_name="tb_atp_tournament_silver",
-            bucket_endpoint=bcv.get("bucket_endpoint"),
-            bucket_access_key=bcv.get("bucket_access_key"),
-            bucket_secret_key=bcv.get("bucket_secret_key")
+            bucket_endpoint=conn_vars.get("bucket_endpoint"),
+            bucket_access_key=conn_vars.get("bucket_access_key"),
+            bucket_secret_key=conn_vars.get("bucket_secret_key")
         )
-        bucket_name = bcv.get("bucket_name")
+        bucket_name = conn_vars.get("bucket_name")
         tb_atp_matches = load_tables(handler, bucket_name)
         df_final = run_transformation(handler, tb_atp_matches)
         save_table(handler, df_final, bucket_name)

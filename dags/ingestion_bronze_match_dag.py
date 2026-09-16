@@ -39,7 +39,7 @@ def run_ingestion_bronze():
             "bucket_name": Variable.get("TENNIS_BUCKET_NAME")
         }
     
-    bucket_connection_vars = load_variables()
+    connection_vars = load_variables()
 
     @task_group("ingestion")
     def run_ingestion():
@@ -49,11 +49,11 @@ def run_ingestion_bronze():
         task_get_file()
 
     @task_group("bronze")
-    def run_bronze(bucket_connection_vars):
+    def run_bronze(connection_vars):
         @task
-        def task_run_bronze_matches(bcv):
-            bronze_matches.run(init_run=True, bcv=bcv)
-        task_run_bronze_matches(bucket_connection_vars)
+        def task_run_bronze_matches(conn_vars):
+            bronze_matches.run(init_run=True, conn_vars=conn_vars)
+        task_run_bronze_matches(connection_vars)
 
     task_run_dag_silver_gold = TriggerDagRunOperator(
         task_id='run_silver_gold_match_dag',
@@ -63,7 +63,7 @@ def run_ingestion_bronze():
     )
 
     task_run_ingestion = run_ingestion()
-    task_run_bronze = run_bronze(bucket_connection_vars)
+    task_run_bronze = run_bronze(connection_vars)
 
     task_run_ingestion >> task_run_bronze >> task_run_dag_silver_gold
 

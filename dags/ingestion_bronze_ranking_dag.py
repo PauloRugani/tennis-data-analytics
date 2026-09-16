@@ -36,7 +36,7 @@ def run_ingestion_bronze():
             "bucket_name": Variable.get("TENNIS_BUCKET_NAME")
         }
     
-    bucket_connection_vars = load_variables()
+    connection_vars = load_variables()
 
     @task_group("ingestion")
     def run_ingestion():
@@ -47,12 +47,12 @@ def run_ingestion_bronze():
         task_get_file()
 
     @task_group("bronze")
-    def run_bronze(bucket_connection_vars):
+    def run_bronze(connection_vars):
         @task
-        def task_run_bronze_rankings(bcv):
+        def task_run_bronze_rankings(conn_vars):
             from src.bronze import tb_atp_ranking
-            tb_atp_ranking.run(init_run=True, bcv=bcv)
-        task_run_bronze_rankings(bucket_connection_vars)
+            tb_atp_ranking.run(init_run=True, conn_vars=conn_vars)
+        task_run_bronze_rankings(connection_vars)
 
     task_run_dag_silver_gold = TriggerDagRunOperator(
         task_id='run_silver_gold_ranking_dag',
@@ -62,7 +62,7 @@ def run_ingestion_bronze():
     )
 
     task_run_ingestion = run_ingestion()
-    task_run_bronze = run_bronze(bucket_connection_vars)
+    task_run_bronze = run_bronze(connection_vars)
 
     task_run_ingestion >> task_run_bronze >> task_run_dag_silver_gold
 

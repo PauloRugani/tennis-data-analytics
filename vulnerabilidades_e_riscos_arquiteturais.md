@@ -1,11 +1,3 @@
-# Vulnerabilidades e Riscos Arquiteturais (complementar)
-
-> Este arquivo reúne pontos que **não entraram** na versão enxuta de [auditoria_completa_pontos_de_melhoria.md](auditoria_completa_pontos_de_melhoria.md) (você removeu o que não fazia sentido priorizar agora), mais **descobertas novas** de uma verificação adicional em `dashboard/` e `notebooks/` que eu ainda não tinha auditado a fundo. Foco aqui é só em **vulnerabilidade de segurança** e **problema arquitetural** — não é lista de estilo/código.
-
----
-
-## 🆕 Descobertas novas (não estavam em nenhum documento anterior)
-
 ### N1. 🔴 IP do servidor de produção do Postgres exposto em texto puro no Git
 Os arquivos `.tmdl` do modelo semântico do Power BI, versionados no repositório, contêm o endereço público do banco de produção **hardcoded**:
 

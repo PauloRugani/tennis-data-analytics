@@ -1,31 +1,26 @@
 import os
 import sys
-import pandas as pd
 from pyspark.sql import functions as f
-from pyspark.sql.window import Window
-from dotenv import load_dotenv
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from utils.pyspark_handler import PySparkHandler
 
-load_dotenv()
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 
-def load_tables(handler):
+def load_tables(handler, bucket_name):
     try:
         tb_player_match = handler.load_data(
             spark=handler.spark,
-            path=f"s3a://{os.getenv('MINIO_BUCKET')}/silver/tb_atp_player_match/",
+            path=f"s3a://{bucket_name}/silver/tb_atp_player_match/",
             format="parquet"
         )
         tb_tournaments = handler.load_data(
             spark=handler.spark,
-            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_tournaments/",
+            path=f"s3a://{bucket_name}/gold/dimension/dim_tournaments/",
             format="parquet"
         )
         tb_players = handler.load_data(
             spark=handler.spark,
-            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/dimension/dim_players/",
+            path=f"s3a://{bucket_name}/gold/dimension/dim_players/",
             format="parquet"
         )
         return tb_player_match, tb_tournaments, tb_players
@@ -105,11 +100,11 @@ def run_transformation(handler, tb_player_match, tb_tournaments, tb_players):
         print(e)
         raise
 
-def save_table(handler, df):
+def save_table(handler, df, bucket_name, jdbc_url, jdbc_user, jdbc_password):
     try:
         handler.save_data(
             df=df,
-            path=f"s3a://{os.getenv('MINIO_BUCKET')}/gold/fact/fact_player_season/",
+            path=f"s3a://{bucket_name}/gold/fact/fact_player_season/",
             format="parquet",
             mode="overwrite"
         )
@@ -117,10 +112,10 @@ def save_table(handler, df):
         (
             df.write
             .format("jdbc")
-            .option("url", os.getenv("JDBC_URL"))
+            .option("url", jdbc_url)
             .option("dbtable", "gold.fact_player_season")
-            .option("user", os.getenv("DB_USER"))
-            .option("password", os.getenv("DB_PASSWORD"))
+            .option("user", jdbc_user)
+            .option("password", jdbc_password)
             .option("driver", "org.postgresql.Driver")
             .mode("overwrite")
             .save()
@@ -129,13 +124,23 @@ def save_table(handler, df):
         print(e)
         raise
 
-def run():
+def run(conn_vars: dict = None):
     handler = None
     try:
-        handler = PySparkHandler(app_name="fact_player_season")
-        tb_player_match, tb_tournaments, tb_players = load_tables(handler)
+        handler = PySparkHandler(
+            app_name="fact_player_season",
+            bucket_endpoint=conn_vars.get("bucket_endpoint"),
+            bucket_access_key=conn_vars.get("bucket_access_key"),
+            bucket_secret_key=conn_vars.get("bucket_secret_key")
+        )
+        bucket_name = conn_vars.get("bucket_name")
+        jdbc_url = conn_vars.get("jdbc_url")
+        jdbc_user = conn_vars.get("jdbc_user")
+        jdbc_password = conn_vars.get("jdbc_password")
+
+        tb_player_match, tb_tournaments, tb_players = load_tables(handler, bucket_name)
         df_final = run_transformation(handler, tb_player_match, tb_tournaments, tb_players)
-        save_table(handler, df_final)
+        save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
     finally:
         print("Stopping spark session...")
         handler.spark.stop()
