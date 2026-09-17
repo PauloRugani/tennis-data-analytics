@@ -117,6 +117,7 @@ def save_table(handler, df, bucket_name, jdbc_url, jdbc_user, jdbc_password):
             .option("user", jdbc_user)
             .option("password", jdbc_password)
             .option("driver", "org.postgresql.Driver")
+            .option("truncate", "true")
             .mode("overwrite")
             .save()
         )
