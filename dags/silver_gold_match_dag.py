@@ -1,14 +1,14 @@
-import os
-import sys
 from datetime import datetime, timedelta
 # pyrefly: ignore [missing-import]
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.decorators import dag, task, task_group
+from src.utils.notification import on_success_callback, on_failure_callback
 
 default_args = {
     'owner': 'paulorugani',
     'retries': 2,
     'retry_delay': timedelta(seconds=30),
+    'on_failure_callback': on_failure_callback
 }
 
 @dag(
@@ -17,7 +17,8 @@ default_args = {
     start_date=datetime(2026, 9, 15),
     schedule=None, 
     catchup=False,
-    tags=['silver', 'gold', 'match']
+    tags=['silver', 'gold', 'match'],
+    on_success_callback=on_success_callback
 )
 def run_silver_gold():
     @task

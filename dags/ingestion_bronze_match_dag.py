@@ -1,24 +1,24 @@
-import os
-import sys
 from datetime import datetime, timedelta
-
 from airflow.decorators import dag, task, task_group
 # pyrefly: ignore [missing-import]
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from src.utils.notification import on_success_callback, on_failure_callback
 
 default_args = {
     'owner': 'paulorugani',
     'retries': 2,
     'retry_delay': timedelta(seconds=30),
+    'on_failure_callback': on_failure_callback
 }
 
 @dag(
     dag_id='ingestion_bronze_match_dag',
     default_args=default_args,
     start_date=datetime(2026, 9, 15),
-    schedule='0 21 * * *', 
+    schedule=None, 
     catchup=False,
-    tags=['bronze', 'match', 'raw', 'ingestion']
+    tags=['bronze', 'match', 'raw', 'ingestion'],
+    on_success_callback=on_success_callback
 )
 def run_ingestion_bronze():
     @task
@@ -49,16 +49,9 @@ def run_ingestion_bronze():
             tb_atp_matches.run(init_run=True, conn_vars=conn_vars)
         run_bronze_matches(connection_vars)
 
-    run_dag_silver_gold = TriggerDagRunOperator(
-        task_id='run_silver_gold_match_dag',
-        trigger_dag_id='silver_gold_match_dag',
-        wait_for_completion=True,
-        reset_dag_run=False,
-    )
-
     run_ingestion = ingestion(connection_vars)
     run_bronze = bronze(connection_vars)
 
-    run_ingestion >> run_bronze >> run_dag_silver_gold
+    run_ingestion >> run_bronze
 
 dag = run_ingestion_bronze()
