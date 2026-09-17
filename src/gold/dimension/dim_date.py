@@ -37,7 +37,7 @@ def run_transformation(handler, tb_player_match):
 
         df = (
             df_date
-            .withColumn("SK_DATE", f.date_format("DATE", "yyyyMMdd").cast("int"))
+            .withColumn("SK_DATE", f.date_format("DATE", "yyyyMMdd").cast("string"))
             .withColumn("NUM_YEAR", f.year("DATE"))
             .withColumn("NUM_MONTH", f.month("DATE"))
             .withColumn("DES_MONTH", f.date_format("DATE", "MMMM"))
