@@ -1,7 +1,7 @@
 import os
-import sys
 from pyspark.sql import functions as f
 from src.utils.pyspark_handler import PySparkHandler
+import boto3
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 
@@ -30,19 +30,29 @@ def load_tables(handler, init_run, bucket_name):
 
     return tb_atp_matches, tb_ongoing_tourneys, historical_matches
 
-def run_transformation(handler, init_run, tb_atp_matches, tb_ongoing_tourneys, historical_matches):
+def run_transformation(handler, init_run, s3_client, bucket_name, tb_atp_matches, tb_ongoing_tourneys, historical_matches):
     try:
         print("Running transformations...")
         if not init_run:
             df = tb_atp_matches
         else:
-            df = handler.load_data(
-                spark=handler.spark,
-                path=historical_matches,
-                format="csv",
-                header="true",
-                inferSchema="false"
-            )
+            prefix = "raw/historical/matches/"
+            response = s3_client.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+            files = [
+                obj["Key"]
+                for obj in response.get("Contents", [])
+                if obj["Key"].endswith(".csv")
+            ]
+
+            df = None
+            for index, file_key in enumerate(files):
+                final_path = f"s3a://{bucket_name}/{file_key}"
+                match_data = handler.load_data(spark=handler.spark, path=final_path, format="csv", header="true")
+                if index == 0:
+                    df = match_data
+                else:
+                    df = df.unionByName(match_data, allowMissingColumns=True)
+
 
         new_matches = (
             df.alias("tb_matches")
@@ -111,9 +121,16 @@ def run(init_run: bool, conn_vars: dict = None):
             bucket_access_key=conn_vars.get("bucket_access_key"),
             bucket_secret_key=conn_vars.get("bucket_secret_key")
         )
+        s3_client = boto3.client(
+            "s3",
+            endpoint_url=conn_vars.get("bucket_endpoint"),
+            aws_access_key_id=conn_vars.get("bucket_access_key"),
+            aws_secret_access_key=conn_vars.get("bucket_secret_key")
+        )
+
         bucket_name = conn_vars.get("bucket_name")
         tb_atp_matches, tb_ongoing_tourneys, historical_matches = load_tables(handler, init_run, bucket_name)
-        df_final = run_transformation(handler, init_run, tb_atp_matches, tb_ongoing_tourneys, historical_matches)
+        df_final = run_transformation(handler, init_run, s3_client, bucket_name, tb_atp_matches, tb_ongoing_tourneys, historical_matches)
         save_table(handler, init_run, df_final, bucket_name)
     finally:
         print("Stopping spark session...")
