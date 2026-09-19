@@ -1,0 +1,112 @@
+table 'gold vw_dim_tournaments'
+	lineageTag: eebf4ef9-3f2f-4223-a5f9-081e7a468dfa
+
+	column COD_TOURNEY_ID
+		dataType: string
+		lineageTag: a21708f4-618f-43fb-81de-a16328c74242
+		summarizeBy: none
+		sourceColumn: COD_TOURNEY_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_TOURNEY_NAME
+		dataType: string
+		lineageTag: 5e6e5036-7cdc-4559-b9a9-d903700fe8b3
+		summarizeBy: none
+		sourceColumn: DES_TOURNEY_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_TOURNEY_LEVEL
+		dataType: string
+		lineageTag: bc827b8b-5eff-44f6-85ed-4e61be8f5c4f
+		summarizeBy: none
+		sourceColumn: DES_TOURNEY_LEVEL
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOURNEY_DRAW_SIZE
+		dataType: int64
+		formatString: 0
+		lineageTag: a9f4cb51-ec5e-4b8f-bcf5-1864c133ab49
+		summarizeBy: sum
+		sourceColumn: NUM_TOURNEY_DRAW_SIZE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_TOURNEY_SURFACE
+		dataType: string
+		lineageTag: d3df34e5-e896-4395-87f9-3e67eaa1012a
+		summarizeBy: none
+		sourceColumn: DES_TOURNEY_SURFACE
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLAG_TOURNEY_IS_INDOOR
+		dataType: string
+		lineageTag: d1f01799-a3fd-47ad-8e20-9a77f1a132f0
+		summarizeBy: none
+		sourceColumn: FLAG_TOURNEY_IS_INDOOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_TOURNEY_STATUS
+		dataType: string
+		lineageTag: 178d88a2-adc8-4291-ba5b-639e81b8e019
+		summarizeBy: none
+		sourceColumn: DES_TOURNEY_STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_TOURNEY_START
+		dataType: string
+		lineageTag: b6651827-4647-4a95-9fe5-fb289cb8ce30
+		summarizeBy: none
+		sourceColumn: DATE_TOURNEY_START
+
+		annotation SummarizationSetBy = Automatic
+
+	column REF_YEAR
+		dataType: string
+		lineageTag: 3b78fc9b-48f8-4d28-8890-18b369ef98e9
+		summarizeBy: none
+		sourceColumn: REF_YEAR
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 095b1ea3-a101-429c-9d90-67fb094c6636
+		summarizeBy: none
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: 1181dbea-0cdd-493a-9303-4bda70cdfd2b
+			defaultHierarchy: LocalDateTable_59c8cddb-a467-4705-a96d-601b57fe6d7a.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column SK_TOURNEY
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a9f4413-e45e-444e-b956-a9edbff31d51
+		summarizeBy: none
+		sourceColumn: SK_TOURNEY
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'gold vw_dim_tournaments' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
+				    gold_vw_dim_tournaments = Fonte{[Schema="gold",Item="vw_dim_tournaments"]}[Data]
+				in
+				    gold_vw_dim_tournaments
+
+	annotation PBI_ResultType = Exception
+

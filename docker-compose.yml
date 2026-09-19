@@ -1,0 +1,130 @@
+version: '3.8'
+
+x-airflow-common:
+  &airflow-common
+  build: .
+  env_file:
+    - .env
+  environment:
+    &airflow-common-env
+    PYTHONPATH: /opt/airflow
+    PYTHONUNBUFFERED: "1"
+    PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow123@postgres_airflow:5432/airflow
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__TEST_CONNECTION: 'Enabled'
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
+    AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL: 10
+    AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: 10
+    AIRFLOW__SCHEDULER__PARSING_PROCESSES: 2
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./config:/opt/airflow/config
+    - ./plugins:/opt/airflow/plugins
+    - ./bot:/opt/airflow/bot
+    - ./src:/opt/airflow/src
+    - ./data:/opt/airflow/data
+    - ./.env:/opt/airflow/.env
+  user: "0:0"
+  networks:
+    - default
+    - data_network
+
+services:
+  postgres_airflow:
+    image: postgres:15-alpine
+    container_name: airflow_postgres
+    environment:
+      POSTGRES_USER: <<username>>
+      POSTGRES_PASSWORD: <<password>>
+      POSTGRES_DB: <<database>>
+    volumes:
+      - ./postgres_airflow_data:/var/lib/postgresql/data
+    restart: always
+
+  postgres_db:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: <<username>>
+      POSTGRES_PASSWORD: <<password>>
+      POSTGRES_DB: <<database>>
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - default
+      - data_network
+
+  minio_s3:
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: minio_s3
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: <<username>>
+      MINIO_ROOT_PASSWORD: <<password>>
+    volumes:
+      - ./data:/data
+    networks:
+      - data_network
+    command: ["server", "/data", "--console-address", ":9001"]
+
+  airflow-init:
+    <<: *airflow-common
+    container_name: airflow_init
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        mkdir -p /opt/airflow/data
+        chmod -R 777 /opt/airflow/data
+
+        airflow db init
+        airflow users create \
+          --username <<username>> \
+          --firstname <<first name>> \
+          --lastname <<last name>> \
+          --role Admin \
+          --email <<email>> \
+          --password <<password>>.
+    restart: "no"
+    depends_on:
+      - postgres_airflow
+
+  airflow-webserver:
+    <<: *airflow-common
+    container_name: airflow_webserver
+    command: webserver
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-scheduler:
+    <<: *airflow-common
+    container_name: airflow_scheduler
+    user: "0:0"
+    command: scheduler
+    restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  data_network:
+    name: data_network

@@ -1,0 +1,196 @@
+table 'gold vw_fact_player_season'
+	lineageTag: 8708f250-4e61-457c-b585-d53ae3345596
+
+	column SK_PLAYER
+		dataType: int64
+		formatString: 0
+		lineageTag: 87e2f216-e08e-474f-b0e7-a49ffd5c8c5e
+		summarizeBy: none
+		sourceColumn: SK_PLAYER
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_DATE
+		dataType: string
+		lineageTag: 9c34a5ac-6a2c-4f37-a1d7-fcd3789fbd4f
+		summarizeBy: none
+		sourceColumn: SK_DATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_MATCHES
+		dataType: int64
+		formatString: 0
+		lineageTag: b65a187c-03d1-4e72-b1df-4d79225574cf
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_MATCHES
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_TOURNAMENTS
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f3703c9-09dd-41d1-84ff-c5b35bd27839
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_TOURNAMENTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_WINS
+		dataType: int64
+		formatString: 0
+		lineageTag: b77e037d-cfeb-4fac-8c03-c615d02a3ee7
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_WINS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_LOSSES
+		dataType: int64
+		formatString: 0
+		lineageTag: 66800705-8982-43d9-bc22-0dabedfc4bfc
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_LOSSES
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_TITLES
+		dataType: int64
+		formatString: 0
+		lineageTag: 77780ee8-718f-4502-8e84-5eb3feb283ad
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_TITLES
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_AUS_OPEN_RESULT
+		dataType: string
+		lineageTag: 8f57923e-eabe-455d-aa9a-971a17cd3acb
+		summarizeBy: none
+		sourceColumn: DES_AUS_OPEN_RESULT
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_ROLAND_GARROS_RESULT
+		dataType: string
+		lineageTag: 28c3949f-6518-4e85-b691-a3b149a3249f
+		summarizeBy: none
+		sourceColumn: DES_ROLAND_GARROS_RESULT
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_WIMBLEDON_RESULT
+		dataType: string
+		lineageTag: e6cdb868-df48-4d35-8590-c4f2ee6c633d
+		summarizeBy: none
+		sourceColumn: DES_WIMBLEDON_RESULT
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_US_OPEN_RESULT
+		dataType: string
+		lineageTag: 0a41548b-ac64-41ae-a482-c209d68788c7
+		summarizeBy: none
+		sourceColumn: DES_US_OPEN_RESULT
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_START_RANK
+		dataType: int64
+		formatString: 0
+		lineageTag: 1df03a45-eadf-4231-aaa2-33f08eeff8af
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_START_RANK
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_FINAL_RANK
+		dataType: int64
+		formatString: 0
+		lineageTag: ae103c77-80c7-42cd-970a-25f4b092bfa3
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_FINAL_RANK
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_BEST_RANK
+		dataType: int64
+		formatString: 0
+		lineageTag: 11afa8de-835a-4949-965c-156e7e261ada
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_BEST_RANK
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_WORST_RANK
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f24acc5-b670-4de3-bfbb-7ec0b26952c3
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_WORST_RANK
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_START_RANK_PTS
+		dataType: int64
+		formatString: 0
+		lineageTag: c88a077c-5801-49c5-99c4-bcd793f3979f
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_START_RANK_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_FINAL_RANK_PTS
+		dataType: int64
+		formatString: 0
+		lineageTag: edfc241c-3cd4-41a0-9340-36ad8d2463d8
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_FINAL_RANK_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_BEST_RANK_PTS
+		dataType: int64
+		formatString: 0
+		lineageTag: ff4868bb-72ef-4062-a76c-99a769d74d54
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_BEST_RANK_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_WORST_RANK_PTS
+		dataType: int64
+		formatString: 0
+		lineageTag: 411d05de-9fac-4aa3-851f-cafc453588bf
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_WORST_RANK_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 77b432a8-754a-4a03-9fc9-53830107949e
+		summarizeBy: none
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: cd8020f4-bb35-4797-9c3e-cc2621b1589e
+			defaultHierarchy: LocalDateTable_490ad2c0-eb12-47f7-9b52-9481a75da760.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'gold vw_fact_player_season' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
+				    gold_vw_fact_player_season = Fonte{[Schema="gold",Item="vw_fact_player_season"]}[Data]
+				in
+				    gold_vw_fact_player_season
+
+	annotation PBI_ResultType = Exception
+

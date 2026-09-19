@@ -1,0 +1,92 @@
+table 'gold vw_fact_player_ranking'
+	lineageTag: 7d104580-dfec-4c90-b90a-5ca11025fc2a
+
+	column SK_DATE
+		dataType: int64
+		formatString: 0
+		lineageTag: 06cd3778-49da-4847-bf22-7002f22ee22c
+		summarizeBy: none
+		sourceColumn: SK_DATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_PLAYER
+		dataType: int64
+		formatString: 0
+		lineageTag: ea9815c5-e894-43fd-af96-f51550bc8e81
+		summarizeBy: none
+		sourceColumn: SK_PLAYER
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_RANK
+		dataType: int64
+		formatString: 0
+		lineageTag: 546bc74b-a460-4399-941e-7df8ce3e3ac6
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_RANK
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_RANK_PTS
+		dataType: int64
+		formatString: 0
+		lineageTag: 5d485a33-ab04-4ce9-a23c-9d45ad7e7400
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_RANK_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_LE_PTS
+		dataType: string
+		lineageTag: dabbc49c-e35a-45e3-92de-451318935ce0
+		summarizeBy: none
+		sourceColumn: NUM_PLAYER_LE_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_DROP_PTS
+		dataType: int64
+		formatString: 0
+		lineageTag: 69c6a5e4-c94e-417e-a087-4317e0913a49
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_DROP_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_NEXT_BEST
+		dataType: int64
+		formatString: 0
+		lineageTag: 18203656-d349-4afa-bfd0-36b71b5dad76
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_NEXT_BEST
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 390ddd01-048f-4b71-9214-90e9022c68c6
+		summarizeBy: none
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: 267cf34e-41fc-4c13-9fbf-babd119d1a25
+			defaultHierarchy: LocalDateTable_b5430088-bf09-43a6-9188-a5aa0e03d3ec.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'gold vw_fact_player_ranking' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
+				    gold_vw_fact_player_ranking = Fonte{[Schema="gold",Item="vw_fact_player_ranking"]}[Data]
+				in
+				    gold_vw_fact_player_ranking
+
+	annotation PBI_ResultType = Exception
+
