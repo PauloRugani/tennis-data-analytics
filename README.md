@@ -101,7 +101,7 @@ With everything configured:
 
 ---
 
-## 🙌 Acknowledgements
+## Acknowledgements
 
 A special thanks to **Tennis My Life** for providing the comprehensive historical data that makes this project possible!
 - **Match Data:** Extracted from [stats.tennismylife.org](https://stats.tennismylife.org/)
