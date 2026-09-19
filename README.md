@@ -4,7 +4,7 @@ This project is a complete data engineering pipeline focused on extracting, proc
 
 ---
 
-## 🛠 Prerequisites
+## Prerequisites
 
 To run this project locally, ensure you have the following components installed:
 - [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
@@ -13,7 +13,7 @@ To run this project locally, ensure you have the following components installed:
 
 ---
 
-## 🚀 How to Run the Project (End-to-End)
+## Run the Project
 
 Follow these steps strictly after cloning the repository for the first time.
 
@@ -44,7 +44,7 @@ python bot/init_historical_rankings.py
 ```
 *This will populate the `raw/historical` and `raw/incremental` folders with all the necessary CSVs to feed the Data Lake.*
 
-### 3. Spin Up the Containers (Airflow, Postgres, Minio)
+### 3. Spin Up the Containers
 With the historical data in hand and the credentials configured, bring up the entire Docker infrastructure:
 
 ```bash
@@ -58,13 +58,13 @@ This will start the following services:
 
 ---
 
-## ⚙ Mandatory Apache Airflow Configurations
+## Apache Airflow Configurations
 
 As soon as Airflow is up, access the UI (`http://localhost:8080`) with the default credentials set in `docker-compose.yml` in the `airflow-init` service.
 
 For your extraction and ingestion DAGs to work properly, you MUST configure the following exact **Variables** and **Connections** as your project code expects them.
 
-### 1. Variables (Admin -> Variables)
+### 1. Variables
 Go to Admin -> Variables and create the following individual Keys. Fill in the values with your actual credentials and endpoints:
 
 | Key | Example Value | Description |
@@ -79,7 +79,7 @@ Go to Admin -> Variables and create the following individual Keys. Fill in the v
 | `TELEGRAM_BOT_TOKEN` | `your_bot_token` | Token for Telegram notifications |
 | `TELEGRAM_CHAT_ID` | `-123456789` | Chat ID for Telegram notifications |
 
-### 2. Connections (Admin -> Connections)
+### 2. Connections
 You also need to create the main database connection to allow Airflow to write data to your Postgres Data Warehouse.
 
 - **PostgreSQL Connection (Main Data Warehouse)**
@@ -93,21 +93,11 @@ You also need to create the main database connection to allow Airflow to write d
 
 ---
 
-## ▶ Uploading Files and Running the Pipelines
+## Uploading Files and Running the Pipelines
 
 With everything configured:
 1. **Minio:** Access the Minio dashboard (`http://localhost:9001`), create the main bucket (e.g., `tennis-data`), and manually upload the files that were generated in the local `raw/` folder from step 2.
 2. **Airflow:** Turn on your DAGs (`DAGs Toggle On`). Airflow will take care of reading from Minio, processing in PySpark, and sending the refined result to the PostgreSQL Database.
-
-## 🧽 Shutting Down the Project
-To bring down the infrastructure without deleting database volumes and local files:
-```bash
-docker-compose stop
-```
-To remove everything and reset the environment completely:
-```bash
-docker-compose down -v
-```
 
 ---
 
