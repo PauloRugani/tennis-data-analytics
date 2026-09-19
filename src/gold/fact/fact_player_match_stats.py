@@ -65,7 +65,7 @@ def run_transformation(handler, tb_player_match, tb_tournaments, tb_date, tb_pla
                 f.col("pw.SK_PLAYER"),
                 f.col("po.SK_PLAYER").alias("SK_PLAYER_OPPONENT"),
                 f.col("t.SK_TOURNEY"),
-                f.col("d.SK_DATE"),
+                f.col("d.SK_DATE").cast("string").alias("SK_DATE"),
                 
                 f.col("p_m.FLAG_PLAYER_IS_WINNER").alias("FLAG_PLAYER_IS_WINNER"),
                 f.coalesce(f.col("p_m.NUM_MATCH"), f.lit(0)).alias("NUM_MATCH"),

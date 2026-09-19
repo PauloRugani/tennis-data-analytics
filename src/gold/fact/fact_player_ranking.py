@@ -43,7 +43,7 @@ def run_transformation(handler, tb_atp_rankings, tb_date, tb_players):
                 'inner'
             )
             .select(
-                "d.SK_DATE",
+                f.col("d.SK_DATE").cast('string').alias("SK_DATE"),
                 "p.SK_PLAYER",
                 f.col("r.NUM_PLAYER_RANK").cast("int").alias("NUM_PLAYER_RANK"),
                 f.col("r.NUM_PLAYER_RANK_PTS").cast('int').alias("NUM_PLAYER_RANK_PTS"),
