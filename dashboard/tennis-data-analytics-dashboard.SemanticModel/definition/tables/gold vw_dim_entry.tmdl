@@ -1,0 +1,55 @@
+table 'gold vw_dim_entry'
+	lineageTag: feed5c4f-011d-4487-944d-d9cea7340d90
+
+	column SK_ENTRY_TYPE
+		dataType: int64
+		formatString: 0
+		lineageTag: 75018b4f-6cdf-4ae0-9a37-0536a0d75277
+		summarizeBy: none
+		sourceColumn: SK_ENTRY_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PLAYER_ENTRY
+		dataType: string
+		lineageTag: d728e7ca-2c94-4b4e-a5da-228bba9836c3
+		summarizeBy: none
+		sourceColumn: COD_PLAYER_ENTRY
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_ENTRY_TYPE
+		dataType: string
+		lineageTag: 204ddb47-70bd-4702-9cb6-b13a8d5ff51a
+		summarizeBy: none
+		sourceColumn: DES_ENTRY_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3e4ed6fe-f799-41fa-841a-b320afb84821
+		summarizeBy: none
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: c9640a30-dfc6-4fa1-acff-552338efdf22
+			defaultHierarchy: LocalDateTable_746819b8-4fbf-4bee-ad97-246c0de7e357.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'gold vw_dim_entry' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
+				    gold_vw_dim_entry = Fonte{[Schema="gold",Item="vw_dim_entry"]}[Data]
+				in
+				    gold_vw_dim_entry
+
+	annotation PBI_ResultType = Exception
+

@@ -9,29 +9,29 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["gold dim_date","gold dim_entry","gold dim_players","gold dim_tournaments","gold fact_player_match_stats","gold fact_player_ranking","gold fact_player_season","gold fact_player_tournament_stats"]
+annotation PBI_QueryOrder = ["gold vw_dim_date","gold vw_dim_entry","gold vw_dim_players","gold vw_dim_tournaments","gold vw_fact_player_match_stats","gold vw_fact_player_ranking","gold vw_fact_player_season","gold vw_fact_player_tournament_stats"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
-ref table 'gold dim_date'
-ref table DateTableTemplate_f3610ef2-81ef-46e8-b465-fd9857eebc23
-ref table LocalDateTable_72c60d33-aaeb-4864-81ed-e9c6f73c5f43
-ref table LocalDateTable_f2e7bc8e-cb57-42f8-b2aa-847aeabb3ef6
-ref table 'gold dim_entry'
-ref table LocalDateTable_b2a8d3a2-0293-46ad-acb8-7c3019a2ef87
-ref table 'gold dim_players'
-ref table LocalDateTable_f5e18efa-8c20-40e2-a5e8-eeff981e5123
-ref table LocalDateTable_d3376970-9b8b-462c-9bb9-c93b418749c2
-ref table 'gold dim_tournaments'
-ref table LocalDateTable_71eb9fba-48fe-4f85-973a-2e8cd80412f3
-ref table 'gold fact_player_match_stats'
-ref table LocalDateTable_7a060886-34cc-4060-afe8-077b5f1d7e4a
-ref table 'gold fact_player_ranking'
-ref table LocalDateTable_3ad2619a-4836-4dae-b696-c70e0def7f58
-ref table 'gold fact_player_season'
-ref table LocalDateTable_57da0630-73b1-425c-998a-a7a214e94285
-ref table 'gold fact_player_tournament_stats'
-ref table LocalDateTable_bb82c2df-4452-4519-abc5-100337c2f989
+ref table 'gold vw_dim_date'
+ref table DateTableTemplate_c13aa8f4-fce8-4704-83d5-bf17c61fcf3f
+ref table LocalDateTable_d55422b7-d97b-427f-8e36-8d5dd22396ee
+ref table LocalDateTable_113ee21d-9e2c-4b5f-acab-cb631648092f
+ref table 'gold vw_dim_entry'
+ref table LocalDateTable_746819b8-4fbf-4bee-ad97-246c0de7e357
+ref table 'gold vw_dim_players'
+ref table LocalDateTable_b1c84030-338c-4309-88bd-3fdc53567835
+ref table LocalDateTable_29ba7106-d5df-4875-b9cc-ab21c56899d6
+ref table 'gold vw_dim_tournaments'
+ref table LocalDateTable_59c8cddb-a467-4705-a96d-601b57fe6d7a
+ref table 'gold vw_fact_player_match_stats'
+ref table LocalDateTable_bbdada61-d7d1-4225-b537-064ba0ab5247
+ref table 'gold vw_fact_player_ranking'
+ref table LocalDateTable_b5430088-bf09-43a6-9188-a5aa0e03d3ec
+ref table 'gold vw_fact_player_season'
+ref table LocalDateTable_490ad2c0-eb12-47f7-9b52-9481a75da760
+ref table 'gold vw_fact_player_tournament_stats'
+ref table LocalDateTable_62a15950-95f0-4acd-b892-f56a256cc79d
 
 ref cultureInfo pt-BR
 

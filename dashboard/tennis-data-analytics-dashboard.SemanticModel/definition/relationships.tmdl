@@ -1,95 +1,94 @@
-relationship cf9b9dcf-f807-46f9-902c-b8985831b5b0
+relationship ddacb1c0-0886-40e2-b8ce-d11e1145b99c
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'gold dim_date'.DATE
-	toColumn: LocalDateTable_72c60d33-aaeb-4864-81ed-e9c6f73c5f43.Date
+	fromColumn: 'gold vw_dim_date'.DATE
+	toColumn: LocalDateTable_d55422b7-d97b-427f-8e36-8d5dd22396ee.Date
 
-relationship 32dd713e-6f86-4310-973e-1da344e4b0c0
+relationship b448557d-dc71-41bc-a60c-c180053f4269
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'gold dim_date'.DATE_LOAD
-	toColumn: LocalDateTable_f2e7bc8e-cb57-42f8-b2aa-847aeabb3ef6.Date
+	fromColumn: 'gold vw_dim_date'.DATE_LOAD
+	toColumn: LocalDateTable_113ee21d-9e2c-4b5f-acab-cb631648092f.Date
 
-relationship 838947a5-847b-42cb-a5e8-8dc4c64d55b8
+relationship c9640a30-dfc6-4fa1-acff-552338efdf22
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'gold dim_entry'.DATE_LOAD
-	toColumn: LocalDateTable_b2a8d3a2-0293-46ad-acb8-7c3019a2ef87.Date
+	fromColumn: 'gold vw_dim_entry'.DATE_LOAD
+	toColumn: LocalDateTable_746819b8-4fbf-4bee-ad97-246c0de7e357.Date
 
-relationship d1aaf0c6-aea2-4626-8c76-8c0ae557e41f
+relationship 4785bab7-0b87-47c2-a55b-01c9e8288e1a
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'gold dim_players'.DATE_PLAYER_BIRTH
-	toColumn: LocalDateTable_f5e18efa-8c20-40e2-a5e8-eeff981e5123.Date
+	fromColumn: 'gold vw_dim_players'.DATE_PLAYER_BIRTH
+	toColumn: LocalDateTable_b1c84030-338c-4309-88bd-3fdc53567835.Date
 
-relationship d222dc07-13a9-46c2-9a6b-d945e5fa8751
+relationship ce7fa2bb-889f-4be7-a700-82d59411491b
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'gold dim_players'.DATE_LOAD
-	toColumn: LocalDateTable_d3376970-9b8b-462c-9bb9-c93b418749c2.Date
+	fromColumn: 'gold vw_dim_players'.DATE_LOAD
+	toColumn: LocalDateTable_29ba7106-d5df-4875-b9cc-ab21c56899d6.Date
 
-relationship 041d3a13-ccc7-456e-8268-5820c83ef74a
+relationship 1181dbea-0cdd-493a-9303-4bda70cdfd2b
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'gold dim_tournaments'.DATE_LOAD
-	toColumn: LocalDateTable_71eb9fba-48fe-4f85-973a-2e8cd80412f3.Date
+	fromColumn: 'gold vw_dim_tournaments'.DATE_LOAD
+	toColumn: LocalDateTable_59c8cddb-a467-4705-a96d-601b57fe6d7a.Date
 
-relationship 33ae0a35-9761-4235-b4e1-26aaa4b885e5
+relationship 395ec87d-311d-4d1d-a5e1-15586de8d245
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'gold fact_player_match_stats'.DATE_LOAD
-	toColumn: LocalDateTable_7a060886-34cc-4060-afe8-077b5f1d7e4a.Date
+	fromColumn: 'gold vw_fact_player_match_stats'.DATE_LOAD
+	toColumn: LocalDateTable_bbdada61-d7d1-4225-b537-064ba0ab5247.Date
 
-relationship 8b344e6e-c984-4798-b0d9-81361c8b5e87
+relationship 267cf34e-41fc-4c13-9fbf-babd119d1a25
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'gold fact_player_ranking'.DATE_LOAD
-	toColumn: LocalDateTable_3ad2619a-4836-4dae-b696-c70e0def7f58.Date
+	fromColumn: 'gold vw_fact_player_ranking'.DATE_LOAD
+	toColumn: LocalDateTable_b5430088-bf09-43a6-9188-a5aa0e03d3ec.Date
 
-relationship 748e6cd9-ae25-409d-9dba-05fdf9fb56dc
+relationship cd8020f4-bb35-4797-9c3e-cc2621b1589e
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'gold fact_player_season'.DATE_LOAD
-	toColumn: LocalDateTable_57da0630-73b1-425c-998a-a7a214e94285.Date
+	fromColumn: 'gold vw_fact_player_season'.DATE_LOAD
+	toColumn: LocalDateTable_490ad2c0-eb12-47f7-9b52-9481a75da760.Date
 
-relationship f709afef-b83a-4a34-bab7-8e19275fa814
+relationship c3b4234d-118e-478b-8f5a-c9ecefc20ac0
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'gold fact_player_tournament_stats'.DATE_LOAD
-	toColumn: LocalDateTable_bb82c2df-4452-4519-abc5-100337c2f989.Date
+	fromColumn: 'gold vw_fact_player_tournament_stats'.DATE_LOAD
+	toColumn: LocalDateTable_62a15950-95f0-4acd-b892-f56a256cc79d.Date
 
-relationship AutoDetected_d1afd613-7385-464a-90b2-17248fa7ccf0
-	fromColumn: 'gold fact_player_match_stats'.SK_DATE
-	toColumn: 'gold dim_date'.SK_DATE
+relationship AutoDetected_c2db5fcf-f9f7-4b59-ab96-5eb6c8941000
+	fromColumn: 'gold vw_fact_player_match_stats'.SK_DATE
+	toColumn: 'gold vw_dim_date'.SK_DATE
 
-relationship AutoDetected_323b094f-03e9-4ebd-b5a9-a6f9b1d1ded8
-	fromColumn: 'gold fact_player_ranking'.SK_DATE
-	toColumn: 'gold dim_date'.SK_DATE
+relationship AutoDetected_2d01e562-fe20-4428-9056-b5a71cc0ef1f
+	fromColumn: 'gold vw_fact_player_ranking'.SK_DATE
+	toColumn: 'gold vw_dim_date'.SK_DATE
 
-relationship AutoDetected_2f7a1922-a044-4a4f-8431-e7d1a6b44d6d
-	fromColumn: 'gold fact_player_tournament_stats'.SK_ENTRY_TYPE
-	toColumn: 'gold dim_entry'.SK_ENTRY_TYPE
+relationship AutoDetected_e2c4f88f-3241-4077-b080-2d5b029f08c0
+	fromColumn: 'gold vw_fact_player_tournament_stats'.SK_ENTRY_TYPE
+	toColumn: 'gold vw_dim_entry'.SK_ENTRY_TYPE
 
-relationship AutoDetected_ee8c0c91-b4c8-46bd-8aa9-9a5447f9d5ae
-	fromColumn: 'gold fact_player_match_stats'.SK_PLAYER
-	toColumn: 'gold dim_players'.SK_PLAYER
+relationship AutoDetected_0c0ef827-7644-4a61-891a-bec2e8da0fe0
+	fromColumn: 'gold vw_fact_player_match_stats'.SK_PLAYER
+	toColumn: 'gold vw_dim_players'.SK_PLAYER
 
-relationship AutoDetected_75c8c253-fe76-4dfa-b1ff-59d943a9cfeb
-	fromColumn: 'gold fact_player_ranking'.SK_PLAYER
-	toColumn: 'gold dim_players'.SK_PLAYER
+relationship AutoDetected_10b78a94-9244-477a-acdc-a0317e266fd4
+	fromColumn: 'gold vw_fact_player_ranking'.SK_PLAYER
+	toColumn: 'gold vw_dim_players'.SK_PLAYER
 
-relationship AutoDetected_d92d3895-3c6b-4081-82dc-1c7e04e14289
-	fromColumn: 'gold fact_player_season'.SK_PLAYER
-	toColumn: 'gold dim_players'.SK_PLAYER
+relationship AutoDetected_c646c9a3-5914-4ca7-9247-c7514447a29a
+	fromColumn: 'gold vw_fact_player_season'.SK_PLAYER
+	toColumn: 'gold vw_dim_players'.SK_PLAYER
 
-relationship AutoDetected_eacbd681-eec0-4a93-926a-6048d98a3e6e
-	fromColumn: 'gold fact_player_tournament_stats'.SK_PLAYER
-	toColumn: 'gold dim_players'.SK_PLAYER
+relationship AutoDetected_07217d60-ca08-4a7b-b244-8cfa4bde5074
+	fromColumn: 'gold vw_fact_player_tournament_stats'.SK_PLAYER
+	toColumn: 'gold vw_dim_players'.SK_PLAYER
 
-relationship AutoDetected_b9f6d933-e2b9-4c43-98ff-5593593b4c79
-	fromColumn: 'gold fact_player_match_stats'.SK_TOURNEY
-	toColumn: 'gold dim_tournaments'.SK_TOURNEY
+relationship AutoDetected_6f418f36-0783-42b8-b535-81b5a3927f30
+	fromColumn: 'gold vw_fact_player_match_stats'.SK_TOURNEY
+	toColumn: 'gold vw_dim_tournaments'.SK_TOURNEY
 
-relationship AutoDetected_8e59c16e-c2cb-48b4-9297-1a299f034141
-	fromColumn: 'gold fact_player_tournament_stats'.SK_TOURNEY
-	toColumn: 'gold dim_tournaments'.SK_TOURNEY
+relationship AutoDetected_d95f7438-76cc-456b-a63c-78af2cab0d8e
+	fromColumn: 'gold vw_fact_player_tournament_stats'.SK_TOURNEY
+	toColumn: 'gold vw_dim_tournaments'.SK_TOURNEY
 
-relationship 1dfed15b-fd7d-07f1-d8e0-5643e4a556cd
-	crossFilteringBehavior: bothDirections
-	fromColumn: 'gold fact_player_season'.SK_DATE
-	toColumn: 'gold dim_date'.SK_DATE
+relationship 0030469c-d4fe-f44b-1107-ee1e97794e7e
+	fromColumn: 'gold vw_fact_player_season'.SK_DATE
+	toColumn: 'gold vw_dim_date'.SK_DATE
 
-relationship 542f096d-970b-ca0c-2731-e0dc69435b87
-	fromColumn: 'gold fact_player_tournament_stats'.SK_DATE
-	toColumn: 'gold dim_date'.SK_DATE
+relationship 0c5c81e8-7728-3be3-4e79-64ea3469b2bd
+	fromColumn: 'gold vw_fact_player_tournament_stats'.SK_DATE
+	toColumn: 'gold vw_dim_date'.SK_DATE
 

@@ -1,99 +1,141 @@
-from pyspark.sql import SparkSession
-from pyspark.sql import functions as f
-
-import pandas as pd
-
 import os
+from pyspark.sql import functions as f
+from src.utils.pyspark_handler import PySparkHandler
+import boto3
+
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 
-from dotenv import load_dotenv
-load_dotenv()
-
-
-try:
-    spark = (
-        SparkSession.builder.appName("bronze")
-        .config("spark.driver.memory", "3500m")
-        .config("spark.executor.memory", "3500m")
-        .config("spark.jars.packages", "org.postgresql:postgresql:42.7.3")
-        .config(
-            "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2"
+def load_tables(handler, init_run, bucket_name):
+    try:
+        if not init_run:
+            tb_atp_matches = handler.load_data(
+                spark=handler.spark,
+                path=f"s3a://{bucket_name}/bronze/tb_atp_matches/",
+                format="parquet"
+            )
+        else: 
+            tb_atp_matches = None
+            
+        tb_ongoing_tourneys = handler.load_data(
+            spark=handler.spark,
+            path=f"s3a://{bucket_name}/raw/incremental/tb_ongoing_tourneys.csv",
+            format="csv",
+            header="true"
         )
-        .getOrCreate()
-    )
-except Exception as e:
-    print(e)
+
+        historical_matches = f"s3a://{bucket_name}/raw/historical/matches/"
+    except Exception as e:
+        print(e)
+        raise
+
+    return tb_atp_matches, tb_ongoing_tourneys, historical_matches
+
+def run_transformation(handler, init_run, s3_client, bucket_name, tb_atp_matches, tb_ongoing_tourneys, historical_matches):
+    try:
+        print("Running transformations...")
+        if not init_run:
+            df = tb_atp_matches
+        else:
+            prefix = "raw/historical/matches/"
+            response = s3_client.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+            files = [
+                obj["Key"]
+                for obj in response.get("Contents", [])
+                if obj["Key"].endswith(".csv")
+            ]
+
+            df = None
+            for index, file_key in enumerate(files):
+                final_path = f"s3a://{bucket_name}/{file_key}"
+                match_data = handler.load_data(spark=handler.spark, path=final_path, format="csv", header="true")
+                if index == 0:
+                    df = match_data
+                else:
+                    df = df.unionByName(match_data, allowMissingColumns=True)
 
 
-tb_atp_matches = spark.read.format("parquet").load(r"data/bronze/tb_atp_matches/")
-
-
-tb_ongoing_tourneys = spark.read.format("csv").option("header", "true").load(r"data/raw/incremental/tb_ongoing_tourneys.csv")
-
-
-historical_matches = r"data/raw/historical/matches"
-
-
-for index, file_name in enumerate(os.listdir(historical_matches)):
-    final_path = os.path.join(historical_matches, file_name)
-    match_data = spark.read.format("csv").option("header", "true").load(final_path)
-    if index == 0:
-        df = match_data 
-    else:
-        df = df.unionByName(match_data, allowMissingColumns=True)
-
-
-new_matches = (
-    df.alias("tb_matches")
-    .join(
-        tb_ongoing_tourneys.alias("tb_ongoing"),
-        [
-            f.col("tb_matches.tourney_date") == f.col("tb_ongoing.tourney_date"), 
-            f.col("tb_matches.winner_name") == f.col("tb_ongoing.winner_name"),
-            f.col("tb_matches.loser_name") == f.col("tb_ongoing.loser_name")
-        ],
-        'right'
-        )
-    .where(f.col("tb_matches.tourney_date").isNull())
-    .select(
-        "tb_ongoing.*",
-    )
-)
-
-
-df_final = df.unionByName(new_matches, allowMissingColumns=True).withColumn("DATE_INGESTION", f.lit(f.current_date()))
-
-
-df_final = df_final.where(
-        """
-            tourney_name not like '%Davis Cup%' and 
-            tourney_name not like '%Olymp%' and 
-            tourney_name not like '%Laver Cup%' and 
-            tourney_name not like '%Next Gen%' and
-            tourney_name not like '%Atp Cup%' and 
-            tourney_name not like '%United Cup%' and 
-            tourney_name not in ('Kingston', 'Dusseldorf', 'Nations Cup')
-        """
+        new_matches = (
+            df.alias("tb_matches")
+            .join(
+                tb_ongoing_tourneys.alias("tb_ongoing"),
+                [
+                    f.col("tb_matches.tourney_date") == f.col("tb_ongoing.tourney_date"), 
+                    f.col("tb_matches.winner_name") == f.col("tb_ongoing.winner_name"),
+                    f.col("tb_matches.loser_name") == f.col("tb_ongoing.loser_name")
+                ],
+                'right'
+                )
+            .where(f.col("tb_matches.tourney_date").isNull())
+            .select(
+                "tb_ongoing.*",
+            )
         )
 
 
-if df_final.count() > 0:
-    (
-        df_final.write
-        .mode("overwrite")
-        .option("compression", "snappy")
-        .parquet(r"data/bronze/tb_atp_matches")
-    )
+        if not init_run:
+            df_final = new_matches.withColumn("DATE_INGESTION", f.lit(f.current_date()))
+        else:
+            df_final = df.unionByName(new_matches, allowMissingColumns=True).withColumn("DATE_INGESTION", f.lit(f.current_date()))
 
-    (
-        df_final.write
-        .format("jdbc")
-        .option("url", os.getenv("JDBC_URL"))
-        .option("dbtable", "bronze.tb_atp_matches")
-        .option("user", os.getenv("DB_USER"))
-        .option("password", os.getenv("DB_PASSWORD"))
-        .option("driver", "org.postgresql.Driver")
-        .mode("overwrite")
-        .save()
-    )    
+        df_final = df_final.where(
+                """
+                    tourney_name not like '%Davis Cup%' and 
+                    tourney_name not like '%Olymp%' and 
+                    tourney_name not like '%Laver Cup%' and 
+                    tourney_name not like '%Next Gen%' and
+                    tourney_name not like '%Atp Cup%' and 
+                    tourney_name not like '%United Cup%' and 
+                    tourney_name not in ('Kingston', 'Dusseldorf', 'Nations Cup')
+                """
+                )
+        print("Transformations completed")
+        return df_final
+    except Exception as e:
+        print(e)
+        raise
 
+def save_table(handler, init_run, df_final, bucket_name):
+    try:
+        if not init_run:
+            save_mode = "append"
+        else:
+            save_mode = "overwrite"
+            
+        if df_final.count() > 0:
+            handler.save_data(
+                df=df_final,
+                path=f"s3a://{bucket_name}/bronze/tb_atp_matches/",
+                format="parquet",
+                mode=save_mode
+            )
+    except Exception as e:
+        print(e)    
+        raise
+
+def run(init_run: bool, conn_vars: dict = None):
+    handler = None
+    try:
+        handler = PySparkHandler(
+            app_name="tb_atp_matches_bronze",
+            bucket_endpoint=conn_vars.get("bucket_endpoint"),
+            bucket_access_key=conn_vars.get("bucket_access_key"),
+            bucket_secret_key=conn_vars.get("bucket_secret_key")
+        )
+        s3_client = boto3.client(
+            "s3",
+            endpoint_url=conn_vars.get("bucket_endpoint"),
+            aws_access_key_id=conn_vars.get("bucket_access_key"),
+            aws_secret_access_key=conn_vars.get("bucket_secret_key")
+        )
+
+        bucket_name = conn_vars.get("bucket_name")
+        tb_atp_matches, tb_ongoing_tourneys, historical_matches = load_tables(handler, init_run, bucket_name)
+        df_final = run_transformation(handler, init_run, s3_client, bucket_name, tb_atp_matches, tb_ongoing_tourneys, historical_matches)
+        save_table(handler, init_run, df_final, bucket_name)
+    finally:
+        print("Stopping spark session...")
+        handler.spark.stop()
+        print("Spark session stopped.")
+
+if __name__ == "__main__":
+    run(init_run=True)

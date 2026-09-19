@@ -1,94 +1,105 @@
-from pyspark.sql import SparkSession
-from pyspark.sql import functions as f
-from pyspark.sql.window import Window
-import pandas as pd
-
 import os
+import sys
+from pyspark.sql import functions as f
+from dotenv import load_dotenv
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from src.utils.pyspark_handler import PySparkHandler
+
+load_dotenv()
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 
-from dotenv import load_dotenv
-load_dotenv()
+def load_tables(handler, bucket_name):
+    try:
+        tb_player_match = handler.load_data(
+            spark=handler.spark,
+            path=f"s3a://{bucket_name}/silver/tb_atp_player_match/",
+            format="parquet"
+        )
+        return tb_player_match
+    except Exception as e:
+        print(e)
+        raise
 
+def run_transformation(handler, tb_player_match):
+    try:
+        df = (
+            tb_player_match
+            .select("COD_PLAYER_ENTRY")
+            .distinct()
+            .withColumn(
+                "DES_ENTRY_TYPE",
+                f.when(f.col("COD_PLAYER_ENTRY") == "WC", f.lit("Wild Card"))
+                .when(f.col("COD_PLAYER_ENTRY") == "Q", f.lit("Qualifier"))
+                .when(f.col("COD_PLAYER_ENTRY") == "LL", f.lit("Lucky Loser"))
+                .when(f.col("COD_PLAYER_ENTRY") == "ITF", f.lit("ITF Entry"))
+                .when(f.col("COD_PLAYER_ENTRY") == "UP", f.lit("Next Gen / Unranked Performance"))
+                .when(f.col("COD_PLAYER_ENTRY") == "W", f.lit("Wild Card"))
+                .when(f.col("COD_PLAYER_ENTRY") == "SE", f.lit("Special Exempt"))
+                .when(f.col("COD_PLAYER_ENTRY") == "PR", f.lit("Protected Ranking"))
+                .when(f.col("COD_PLAYER_ENTRY") == "S", f.lit("Exempt Special / Special"))
+                .when(f.col("COD_PLAYER_ENTRY") == "NG", f.lit("Next Gen Accelerator"))
+                .otherwise(f.lit("Direct Acceptance / Regular"))
+            )
+            .distinct()
+            .withColumn("SK_ENTRY_TYPE", f.monotonically_increasing_id() + 1)
+            .select(
+                f.col("SK_ENTRY_TYPE"),
+                f.col("COD_PLAYER_ENTRY"),
+                f.col("DES_ENTRY_TYPE"),
+                f.lit(f.current_date()).alias("DATE_LOAD")
+            )
+        )
+        return df
+    except Exception as e:
+        print(e)
+        raise
 
-try:
-    spark = (
-        SparkSession.builder.appName("dim_entry")
-        .config("spark.driver.memory", "4g")
-        .config("spark.executor.memory", "4g")
-        .config("spark.jars.packages", "org.postgresql:postgresql:42.7.3")
-        .config("spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2")
-        .getOrCreate()
-    )
-except Exception as e:
-    print(e)
+def save_table(handler, df, bucket_name, jdbc_url, jdbc_user, jdbc_password):
+    try:
+        handler.save_data(
+            df=df,
+            path=f"s3a://{bucket_name}/gold/dimension/dim_entry/",
+            format="parquet",
+            mode="overwrite"
+        )
 
+        (
+            df.write
+            .format("jdbc")
+            .option("url", jdbc_url)
+            .option("dbtable", "gold.dim_entry")
+            .option("user", jdbc_user)
+            .option("password", jdbc_password)
+            .option("driver", "org.postgresql.Driver")
+            .option("truncate", "true")
+            .mode("overwrite")
+            .save()
+        )
+    except Exception as e:
+        print(e)
+        raise
 
-spark.conf.set("spark.sql.repl.eagerEval.enabled", True)
+def run(conn_vars: dict = None):
+    handler = None
+    try:
+        handler = PySparkHandler(
+            app_name="dim_entry",
+            bucket_endpoint=conn_vars.get("bucket_endpoint"),
+            bucket_access_key=conn_vars.get("bucket_access_key"),
+            bucket_secret_key=conn_vars.get("bucket_secret_key")
+        )
+        bucket_name = conn_vars.get("bucket_name")
+        jdbc_url = conn_vars.get("jdbc_url")
+        jdbc_user = conn_vars.get("jdbc_user")
+        jdbc_password = conn_vars.get("jdbc_password")
 
-spark.conf.set("spark.sql.repl.eagerEval.maxNumRows", 200)
-spark.conf.set("spark.sql.repl.eagerEval.truncate", 50)
+        tb_player_match = load_tables(handler, bucket_name)
+        df_final = run_transformation(handler, tb_player_match)
+        save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
+    finally:
+        print("Stopping spark session...")
+        handler.spark.stop()
+        print("Spark session stopped.")
 
-
-tb_player_match = (
-    spark.read
-    .format("jdbc")
-    .option("url", os.getenv("JDBC_URL"))
-    .option("dbtable", "silver.tb_atp_player_match")
-    .option("user", os.getenv("DB_USER"))
-    .option("password", os.getenv("DB_PASSWORD"))
-    .option("driver", "org.postgresql.Driver")
-    .load()
-)
-
-# tb_player_match = spark.read.format("parquet").load(r"data/silver/tb_atp_player_match/")
-
-
-df = (
-    tb_player_match
-    .select("COD_PLAYER_ENTRY")
-    .distinct()
-    .withColumn(
-        "DES_ENTRY_TYPE",
-        f.when(f.col("COD_PLAYER_ENTRY") == "WC", f.lit("Wild Card"))
-        .when(f.col("COD_PLAYER_ENTRY") == "Q", f.lit("Qualifier"))
-        .when(f.col("COD_PLAYER_ENTRY") == "LL", f.lit("Lucky Loser"))
-        .when(f.col("COD_PLAYER_ENTRY") == "ITF", f.lit("ITF Entry"))
-        .when(f.col("COD_PLAYER_ENTRY") == "UP", f.lit("Next Gen / Unranked Performance"))
-        .when(f.col("COD_PLAYER_ENTRY") == "W", f.lit("Wild Card"))
-        .when(f.col("COD_PLAYER_ENTRY") == "SE", f.lit("Special Exempt"))
-        .when(f.col("COD_PLAYER_ENTRY") == "PR", f.lit("Protected Ranking"))
-        .when(f.col("COD_PLAYER_ENTRY") == "S", f.lit("Exempt Special / Special"))
-        .when(f.col("COD_PLAYER_ENTRY") == "NG", f.lit("Next Gen Accelerator"))
-        .otherwise(f.lit("Direct Acceptance / Regular"))
-    )
-    .distinct()
-    .withColumn("SK_ENTRY_TYPE", f.monotonically_increasing_id() + 1)
-    .select(
-        f.col("SK_ENTRY_TYPE"),
-        f.col("COD_PLAYER_ENTRY"),
-        f.col("DES_ENTRY_TYPE"),
-        f.lit(f.current_date()).alias("DATE_LOAD")
-    )
-)
-
-
-(
-    df.write
-    .mode("overwrite")
-    .option("compression", "snappy")
-    .parquet(r"data/gold/dimension/dim_entry")
-)
-
-
-(
-df.write
-    .format("jdbc")
-    .option("url", os.getenv("JDBC_URL"))
-    .option("dbtable", "gold.dim_entry")
-    .option("user", os.getenv("DB_USER"))
-    .option("password", os.getenv("DB_PASSWORD"))
-    .option("driver", "org.postgresql.Driver")
-    .mode("overwrite")
-    .save()
-)
-
+if __name__ == "__main__":
+    run()

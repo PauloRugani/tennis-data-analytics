@@ -1,0 +1,112 @@
+table 'gold vw_dim_players'
+	lineageTag: f7c0ee9f-6f51-462a-a561-8c97075b8918
+
+	column SK_PLAYER
+		dataType: int64
+		formatString: 0
+		lineageTag: 14fe8d81-ff9e-4657-adbb-faeef148560e
+		summarizeBy: none
+		sourceColumn: SK_PLAYER
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_PLAYER_NAME
+		dataType: string
+		lineageTag: 8aca4b4a-359e-4c02-8aae-637d80404a7a
+		summarizeBy: none
+		sourceColumn: DES_PLAYER_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PLAYER_ID
+		dataType: string
+		lineageTag: 6ba427ef-45d6-4707-930d-06b926b4db42
+		summarizeBy: none
+		sourceColumn: COD_PLAYER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PLAYER_ID_OLD
+		dataType: string
+		lineageTag: 4de6f9ee-b376-41c4-beaf-f5d14d66a98b
+		summarizeBy: none
+		sourceColumn: COD_PLAYER_ID_OLD
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_PLAYER_HAND
+		dataType: string
+		lineageTag: 4ca43718-7f1e-438d-be9c-c70feee91510
+		summarizeBy: none
+		sourceColumn: DES_PLAYER_HAND
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_HEIGHT
+		dataType: int64
+		formatString: 0
+		lineageTag: b4faf05d-5c6c-4f92-a007-6a747da17331
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_HEIGHT
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_PLAYER_COUNTRY
+		dataType: string
+		lineageTag: f819d227-c3c9-41c9-ac52-b90d2b5c2025
+		summarizeBy: none
+		sourceColumn: DES_PLAYER_COUNTRY
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_PLAYER_COUNTRY_ISO2
+		dataType: string
+		lineageTag: 1d66fa5e-18d9-490c-bb6e-52b90a0ca435
+		summarizeBy: none
+		sourceColumn: DES_PLAYER_COUNTRY_ISO2
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_PLAYER_BIRTH
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b960cccc-96a5-45c2-bf77-256b8c63b38c
+		summarizeBy: none
+		sourceColumn: DATE_PLAYER_BIRTH
+
+		variation Variation
+			isDefault
+			relationship: 4785bab7-0b87-47c2-a55b-01c9e8288e1a
+			defaultHierarchy: LocalDateTable_b1c84030-338c-4309-88bd-3fdc53567835.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c2381dd0-18ce-4041-be4a-0317f9b09557
+		summarizeBy: none
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: ce7fa2bb-889f-4be7-a700-82d59411491b
+			defaultHierarchy: LocalDateTable_29ba7106-d5df-4875-b9cc-ab21c56899d6.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'gold vw_dim_players' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
+				    gold_vw_dim_players = Fonte{[Schema="gold",Item="vw_dim_players"]}[Data]
+				in
+				    gold_vw_dim_players
+
+	annotation PBI_ResultType = Exception
+

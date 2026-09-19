@@ -1,95 +1,102 @@
-from pyspark.sql import SparkSession
-from pyspark.sql import functions as f
-from pyspark.sql.window import Window
-import pandas as pd
-
 import os
+import sys
+from pyspark.sql import functions as f
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from src.utils.pyspark_handler import PySparkHandler
+
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 
-from dotenv import load_dotenv
-load_dotenv()
+def load_tables(handler, bucket_name):
+    try:
+        tb_player_match = handler.load_data(
+            spark=handler.spark,
+            path=f"s3a://{bucket_name}/silver/tb_atp_player_match/",
+            format="parquet"
+        )
+        return tb_player_match
+    except Exception as e:
+        print(e)
+        raise
 
+def run_transformation(handler, tb_player_match):
+    try:
+        start_date = '1960-01-01'
+        end_date = tb_player_match.select(f.max("DATE_MATCH")).collect()[0][0]
 
-try:
-    spark = (
-        SparkSession.builder.appName("dim_date")
-        .config("spark.driver.memory", "4g")
-        .config("spark.executor.memory", "4g")
-        .config("spark.jars.packages", "org.postgresql:postgresql:42.7.3")
-        .config("spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version", "2")
-        .getOrCreate()
-    )
-except Exception as e:
-    print(e)
+        df_date = (
+            handler.spark.range(1)
+            .select(
+                f.sequence(
+                    f.to_date(f.lit(start_date)),
+                    f.to_date(f.lit(end_date)),
+                    f.expr("INTERVAL 1 DAY"),
+                ).alias("DATE")
+            )
+            .select(f.explode("DATE").alias("DATE"))
+        )
 
+        df = (
+            df_date
+            .withColumn("SK_DATE", f.date_format("DATE", "yyyyMMdd").cast("string"))
+            .withColumn("NUM_YEAR", f.year("DATE"))
+            .withColumn("NUM_MONTH", f.month("DATE"))
+            .withColumn("DES_MONTH", f.date_format("DATE", "MMMM"))
+            .withColumn("DES_MONTH_SHORT", f.date_format("DATE", "MMM"))
+            .withColumn("NUM_DAY", f.dayofmonth("DATE"))
+            .withColumn("DES_DAY", f.date_format("DATE", "EEEE"))
+            .withColumn("DATE_LOAD", f.lit(f.current_date()))
+        )
+        return df
+    except Exception as e:
+        print(e)
+        raise
 
-spark.conf.set("spark.sql.repl.eagerEval.enabled", True)
+def save_table(handler, df, bucket_name, jdbc_url, jdbc_user, jdbc_password):
+    try:
+        handler.save_data(
+            df=df,
+            path=f"s3a://{bucket_name}/gold/dimension/dim_date/",
+            format="parquet",
+            mode="overwrite"
+        )
+        
+        (
+            df.write
+            .format("jdbc")
+            .option("url", jdbc_url)
+            .option("dbtable", "gold.dim_date")
+            .option("user", jdbc_user)
+            .option("password", jdbc_password)
+            .option("driver", "org.postgresql.Driver")
+            .option("truncate", "true")
+            .mode("overwrite")
+            .save()
+        )
+    except Exception as e:
+        print(e)
+        raise
 
-spark.conf.set("spark.sql.repl.eagerEval.maxNumRows", 200)
-spark.conf.set("spark.sql.repl.eagerEval.truncate", 50)
+def run(conn_vars: dict = None):
+    handler = None
+    try:
+        handler = PySparkHandler(
+            app_name="dim_date",
+            bucket_endpoint=conn_vars.get("bucket_endpoint"),
+            bucket_access_key=conn_vars.get("bucket_access_key"),
+            bucket_secret_key=conn_vars.get("bucket_secret_key")
+        )
+        bucket_name = conn_vars.get("bucket_name")
+        jdbc_url = conn_vars.get("jdbc_url")
+        jdbc_user = conn_vars.get("jdbc_user")
+        jdbc_password = conn_vars.get("jdbc_password")
+        
+        tb_player_match = load_tables(handler, bucket_name)
+        df_final = run_transformation(handler, tb_player_match)
+        save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
+    finally:
+        print("Stopping spark session...")
+        handler.spark.stop()
+        print("Spark session stopped.")
 
-
-tb_player_match = (
-    spark.read
-    .format("jdbc")
-    .option("url", os.getenv("JDBC_URL"))
-    .option("dbtable", "silver.tb_atp_player_match")
-    .option("user", os.getenv("DB_USER"))
-    .option("password", os.getenv("DB_PASSWORD"))
-    .option("driver", "org.postgresql.Driver")
-    .load()
-)
-
-# tb_player_match = spark.read.format("parquet").load(r"data/silver/tb_atp_player_match/")
-
-
-start_date = '1960-01-01'
-end_date = tb_player_match.select(f.max("DATE_MATCH")).collect()[0][0]
-
-
-df_date = (
-    spark.range(1)
-    .select(
-        f.sequence(
-            f.to_date(f.lit(start_date)),
-            f.to_date(f.lit(end_date)),
-            f.expr("INTERVAL 1 DAY"),
-        ).alias("DATE")
-    )
-    .select(f.explode("DATE").alias("DATE"))
-)
-
-
-df = (
-    df_date
-    .withColumn("SK_DATE", f.date_format("DATE", "yyyyMMdd").cast("int"))
-    .withColumn("NUM_YEAR", f.year("DATE"))
-    .withColumn("NUM_MONTH", f.month("DATE"))
-    .withColumn("DES_MONTH", f.date_format("DATE", "MMMM"))
-    .withColumn("DES_MONTH_SHORT", f.date_format("DATE", "MMM"))
-    .withColumn("NUM_DAY", f.dayofmonth("DATE"))
-    .withColumn("DES_DAY", f.date_format("DATE", "EEEE"))
-    .withColumn("DATE_LOAD", f.lit(f.current_date()))
-)
-
-
-(
-    df.write
-    .mode("overwrite")
-    .option("compression", "snappy")
-    .parquet(r"data/gold/dimension/dim_date")
-)
-
-
-(
-df.write
-    .format("jdbc")
-    .option("url", os.getenv("JDBC_URL"))
-    .option("dbtable", "gold.dim_date")
-    .option("user", os.getenv("DB_USER"))
-    .option("password", os.getenv("DB_PASSWORD"))
-    .option("driver", "org.postgresql.Driver")
-    .mode("overwrite")
-    .save()
-)
-
+if __name__ == "__main__":
+    run()

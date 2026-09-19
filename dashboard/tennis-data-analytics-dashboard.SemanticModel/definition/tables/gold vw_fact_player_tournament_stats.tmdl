@@ -1,0 +1,217 @@
+table 'gold vw_fact_player_tournament_stats'
+	lineageTag: c7bc6b79-9f5a-4ae8-aab3-dd29e7e93de7
+
+	column SK_PLAYER
+		dataType: int64
+		formatString: 0
+		lineageTag: d1743530-256a-410f-8178-21bd2f83c0cd
+		summarizeBy: none
+		sourceColumn: SK_PLAYER
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_TOURNEY
+		dataType: int64
+		formatString: 0
+		lineageTag: 634a21cc-d9c6-4779-b874-4d1ef04b9cc6
+		summarizeBy: none
+		sourceColumn: SK_TOURNEY
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_ENTRY_TYPE
+		dataType: int64
+		formatString: 0
+		lineageTag: de2749cc-52cf-4734-9829-73beadda49fb
+		summarizeBy: none
+		sourceColumn: SK_ENTRY_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column SK_DATE
+		dataType: string
+		lineageTag: 7b5d03a3-10f7-41db-a841-93a1b5c58fb4
+		summarizeBy: none
+		sourceColumn: SK_DATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_SEED
+		dataType: int64
+		formatString: 0
+		lineageTag: 6dac8506-c7e9-460d-ae95-bb7030f63d63
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_SEED
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_RANK_PTS
+		dataType: int64
+		formatString: 0
+		lineageTag: 452c1e40-df1d-43f8-a841-057e7dc6c3c4
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_RANK_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_PLAYER_RANK
+		dataType: int64
+		formatString: 0
+		lineageTag: e0ea9cbe-ff7b-498d-b2ee-e26d7809a247
+		summarizeBy: sum
+		sourceColumn: NUM_PLAYER_RANK
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLAG_IS_CHAMPION
+		dataType: int64
+		formatString: 0
+		lineageTag: bbb5d8ec-d571-444f-82e4-cee5b3f9b6d8
+		summarizeBy: sum
+		sourceColumn: FLAG_IS_CHAMPION
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_LAST_ROUND_PLAYED
+		dataType: string
+		lineageTag: e627b55e-6692-4fa2-ac9d-c50c57ac2076
+		summarizeBy: none
+		sourceColumn: DES_LAST_ROUND_PLAYED
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_MATCHES
+		dataType: int64
+		formatString: 0
+		lineageTag: 47fd1b74-85d4-4b8c-aaeb-253295a9c0d7
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_MATCHES
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_MIN_IN_GAME
+		dataType: int64
+		formatString: 0
+		lineageTag: 558b2759-569a-415c-8789-1954258f27fc
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_MIN_IN_GAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_LONGEST_MATCH
+		dataType: int64
+		formatString: 0
+		lineageTag: 83183d15-1019-400a-b2a1-1ddd93b3e7ce
+		summarizeBy: sum
+		sourceColumn: NUM_LONGEST_MATCH
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_ACES
+		dataType: int64
+		formatString: 0
+		lineageTag: 4210463e-4b83-485b-8600-0a5bc218bb91
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_ACES
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_DB_FAULTS
+		dataType: int64
+		formatString: 0
+		lineageTag: b2fcad33-5ff2-4639-a478-da983ed86a7b
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_DB_FAULTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_SERVE_PTS
+		dataType: int64
+		formatString: 0
+		lineageTag: ff8f7920-7511-45a8-b0eb-0161a8aa1d41
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_SERVE_PTS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_1ST_SERVES_IN
+		dataType: int64
+		formatString: 0
+		lineageTag: a3a871d4-1ca2-43cf-a0a7-761528f5f660
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_1ST_SERVES_IN
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_1ST_SERVE_PTS_WON
+		dataType: int64
+		formatString: 0
+		lineageTag: ddfa3970-b625-45c4-a251-a796cbfcde23
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_1ST_SERVE_PTS_WON
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_2ND_SERVE_PTS_WON
+		dataType: int64
+		formatString: 0
+		lineageTag: f0fc3e5e-006f-4814-9f46-175047947c49
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_2ND_SERVE_PTS_WON
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_SERVE_GAMES
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e280036-ecdc-47d1-a662-77f21b0b5501
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_SERVE_GAMES
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_BP_SAVED
+		dataType: int64
+		formatString: 0
+		lineageTag: 0eccba8c-d716-4699-ac9d-867aeca14f15
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_BP_SAVED
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_TOTAL_BP_FACED
+		dataType: int64
+		formatString: 0
+		lineageTag: b93e8e78-312a-4d29-a1d6-e6cc529bd7f8
+		summarizeBy: sum
+		sourceColumn: NUM_TOTAL_BP_FACED
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_LOAD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8b525a3d-d0ae-4080-9590-66415a91b2dd
+		summarizeBy: none
+		sourceColumn: DATE_LOAD
+
+		variation Variation
+			isDefault
+			relationship: c3b4234d-118e-478b-8f5a-c9ecefc20ac0
+			defaultHierarchy: LocalDateTable_62a15950-95f0-4acd-b892-f56a256cc79d.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'gold vw_fact_player_tournament_stats' = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("129.213.23.114:5432", "postgres"),
+				    gold_vw_fact_player_tournament_stats = Fonte{[Schema="gold",Item="vw_fact_player_tournament_stats"]}[Data]
+				in
+				    gold_vw_fact_player_tournament_stats
+
+	annotation PBI_ResultType = Exception
+
