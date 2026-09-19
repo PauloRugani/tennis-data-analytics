@@ -22,8 +22,8 @@ def get_mondays_of_year(year: int):
 
 def extract_historical_rankings():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    historical_dir = os.path.join(base_dir, "data", "raw", "historical", "ranking")
-    incremental_dir = os.path.join(base_dir, "data", "raw", "incremental")
+    historical_dir = os.path.join(base_dir, "raw", "historical", "ranking")
+    incremental_dir = os.path.join(base_dir, "raw", "incremental")
 
     os.makedirs(historical_dir, exist_ok=True)
     os.makedirs(incremental_dir, exist_ok=True)
