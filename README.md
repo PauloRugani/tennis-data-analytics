@@ -62,34 +62,31 @@ This will start the following services:
 
 As soon as Airflow is up, access the UI (`http://localhost:8080`) with the default credentials set in `docker-compose.yml` in the `airflow-init` service.
 
-For your extraction and ingestion DAGs to work properly, you MUST configure the following **Variables** and **Connections**:
+For your extraction and ingestion DAGs to work properly, you MUST configure the following exact **Variables** and **Connections** as your project code expects them.
 
 ### 1. Variables (Admin -> Variables)
-Your python scripts (e.g., `match_extractor.py`) expect to receive S3 credentials as a dictionary (`conn_vars`). If your DAG invokes them and passes a Variable, make sure to create the respective **Variable** (e.g., `minio_credentials`) in JSON format containing:
-```json
-{
-  "bucket_endpoint": "http://minio_s3:9000",
-  "bucket_access_key": "your_minio_user",
-  "bucket_secret_key": "your_minio_password",
-  "bucket_name": "tennis-data"
-}
-```
+Go to Admin -> Variables and create the following individual Keys. Fill in the values with your actual credentials and endpoints:
+
+| Key | Example Value | Description |
+|---|---|---|
+| `BUCKET_ACCESS_KEY` | `your_minio_access_key` | Your Minio / S3 Access Key |
+| `BUCKET_SECRET_KEY` | `your_minio_secret_key` | Your Minio / S3 Secret Key |
+| `BUCKET_ENDPOINT` | `http://localhost:9000` | The endpoint URL for Minio |
+| `TENNIS_BUCKET_NAME` | `tennis-data-lake` | The name of your Minio bucket |
+| `JDBC_USER` | `your_postgres_username` | Database user for Postgres DW |
+| `JDBC_PASSWORD` | `your_postgres_password` | Database password for Postgres DW |
+| `JDBC_URL` | `jdbc:postgresql://localhost:5432/postgres` | JDBC connection string for your Postgres DW |
+| `TELEGRAM_BOT_TOKEN` | `your_bot_token` | Token for Telegram notifications |
+| `TELEGRAM_CHAT_ID` | `-123456789` | Chat ID for Telegram notifications |
 
 ### 2. Connections (Admin -> Connections)
-You also need to create connections to allow Airflow to write data to the systems.
-
-- **Minio / S3 Connection**
-  - **Connection ID:** `minio_s3_conn` (or the name used in your DAGs)
-  - **Connection Type:** `Amazon Web Services` or `S3`
-  - **Login:** *your minio user (MINIO_ROOT_USER)*
-  - **Password:** *your minio password (MINIO_ROOT_PASSWORD)*
-  - **Extra:** `{"endpoint_url": "http://minio_s3:9000"}`
+You also need to create the main database connection to allow Airflow to write data to your Postgres Data Warehouse.
 
 - **PostgreSQL Connection (Main Data Warehouse)**
-  - **Connection ID:** `postgres_dw` (or the exact name used in your DAG/Pyspark)
+  - **Connection ID:** `POSTGRES_CONNECTION`
   - **Connection Type:** `Postgres`
-  - **Host:** `postgres_db` (service name in docker-compose)
-  - **Schema:** *database name you chose*
+  - **Host:** `localhost` *(or your database IP/host)*
+  - **Schema:** *your database name (e.g., `postgres`)*
   - **Login:** *your postgres username*
   - **Password:** *your postgres password*
   - **Port:** `5432`
