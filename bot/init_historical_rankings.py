@@ -2,10 +2,14 @@ import os
 import io
 import re
 import csv
+import logging
 import zipfile
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from curl_cffi import requests
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s - %(message)s")
+logger = logging.getLogger(__name__)
 
 def get_mondays_of_year(year: int):
     mondays = []
@@ -30,7 +34,7 @@ def extract_historical_rankings():
 
     current_year = datetime.now().year
 
-    print("Downloading historical rankings from GitHub...")
+    logger.info("Downloading historical rankings from GitHub...")
     repo_url = "https://github.com/Tennismylife/TML-Rankings-Database/archive/refs/heads/main.zip"
     resp = requests.get(repo_url, timeout=120)
     
@@ -47,9 +51,9 @@ def extract_historical_rankings():
                             
                             with z.open(file_info) as source, open(dest_path, "wb") as target:
                                 target.write(source.read())
-        print("Historical rankings downloaded and saved.")
+        logger.info("Historical rankings downloaded and saved")
     else:
-        print(f"Failed to download repository")
+        logger.error("Failed to download repository")
 
     current_year_hist = os.path.join(historical_dir, f"tb_ranking_{current_year}.csv")
     if os.path.exists(current_year_hist):
@@ -58,10 +62,10 @@ def extract_historical_rankings():
     mondays = get_mondays_of_year(current_year)
     all_ranking_data = []
 
-    print(f"Scraping current year rankings for {len(mondays)} Mondays...")
+    logger.info(f"Scraping current year rankings for {len(mondays)} Mondays...")
     for week_str in mondays:
         target_date = week_str.replace("-", "")
-        print(f"Processing week {week_str}...")
+        logger.info(f"Processing week {week_str}...")
         
         url = f"https://www.atptour.com/en/rankings/singles?rankRange=0-5000&dateWeek={week_str}"
         resp_atp = requests.get(url, impersonate="chrome", timeout=60)
@@ -70,7 +74,7 @@ def extract_historical_rankings():
         rows = soup.select(".lower_row, .lower-row, tr.lower-row, tr.lower_row")
         
         if not rows:
-            print(f"No data found for {week_str}")
+            logger.info(f"No data found for {week_str}")
             continue
 
         for row in rows:
@@ -110,11 +114,11 @@ def extract_historical_rankings():
             writer.writeheader()
             writer.writerows(all_ranking_data)
             
-        print(f"Saved {len(all_ranking_data)} ranking records to {inc_file_path}")
+        logger.info(f"Saved {len(all_ranking_data)} ranking records to {inc_file_path}")
     else:
-        print("No incremental ranking data found.")
+        logger.info("No incremental ranking data found")
 
 if __name__ == "__main__":
-    print("Starting historical rankings extraction...")
+    logger.info("Starting historical rankings extraction...")
     extract_historical_rankings()
-    print("Finished.")
+    logger.info("Finished")

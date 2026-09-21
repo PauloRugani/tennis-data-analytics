@@ -3,11 +3,14 @@ import sys
 from pyspark.sql import functions as f
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.pyspark_handler import PySparkHandler
+from utils.logger import get_logger
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
+logger = get_logger(__name__)
 
 def load_tables(handler, bucket_name):
     try:
+        logger.info("Loading silver rankings source table...")
         tb_atp_rankings = handler.load_data(
             spark=handler.spark,
             path=f"s3a://{bucket_name}/bronze/tb_atp_rankings/",
@@ -15,7 +18,7 @@ def load_tables(handler, bucket_name):
         )
         return tb_atp_rankings
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to load silver rankings source table: {e}")
         raise
 
 def run_transformation(tb_atp_rankings):
@@ -37,9 +40,10 @@ def run_transformation(tb_atp_rankings):
             )
             .dropDuplicates(["DATE_WEEK_RANKING", "DES_PLAYER_NAME"])
         )
+        logger.info("Silver rankings transformation completed")
         return df
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to transform silver rankings: {e}")
         raise
 
 def save_table(handler, df, bucket_name):
@@ -51,12 +55,13 @@ def save_table(handler, df, bucket_name):
             mode="overwrite"
         )
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to save silver rankings: {e}")
         raise
 
 def run(conn_vars: dict = None):
     handler = None
     try:
+        logger.info("Starting silver rankings run")
         handler = PySparkHandler(
             app_name="tb_atp_ranking_silver",
             bucket_endpoint=conn_vars.get("bucket_endpoint"),
@@ -67,10 +72,11 @@ def run(conn_vars: dict = None):
         tb_atp_rankings = load_tables(handler, bucket_name)
         df_final = run_transformation(tb_atp_rankings)
         save_table(handler, df_final, bucket_name)
+        logger.info("Finished silver rankings run")
     finally:
-        print("Stopping spark session...")
+        logger.info("Stopping spark session...")
         handler.spark.stop()
-        print("Spark session stopped.")
+        logger.info("Spark session stopped")
 
 if __name__ == "__main__":
     run()

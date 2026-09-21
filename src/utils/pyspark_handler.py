@@ -1,6 +1,9 @@
 from pyspark.sql import SparkSession
 from dotenv import load_dotenv
+from src.utils.logger import get_logger
 load_dotenv()
+
+logger = get_logger(__name__)
 
 class PySparkHandler:
     def __init__(self, app_name: str, bucket_endpoint: str, bucket_access_key: str, bucket_secret_key: str):
@@ -12,7 +15,7 @@ class PySparkHandler:
 
     def init_spark_session(self):
         try:
-            print("Creating spark session...")
+            logger.info(f"Creating spark session for app '{self.app_name}'...")
             spark = (
                 SparkSession.builder
                 .appName(self.app_name)
@@ -35,15 +38,15 @@ class PySparkHandler:
             spark.conf.set("spark.sql.repl.eagerEval.enabled", True)
             spark.conf.set("spark.sql.repl.eagerEval.maxNumRows", 200)
             spark.conf.set("spark.sql.repl.eagerEval.truncate", 50)
-            print("Spark session created")
+            logger.info("Spark session created")
             return spark
         except Exception as e:
-            print(e)
+            logger.error(f"Failed to create spark session: {e}")
             raise
 
     def save_data(self, df, path: str, format: str = "parquet", mode: str = "overwrite", **options):
         try:
-            print(f"Saving data...")
+            logger.info(f"Saving data to {path} (format={format}, mode={mode})...")
             (
                 df.write
                 .mode(mode)
@@ -51,22 +54,22 @@ class PySparkHandler:
                 .options(**options)
                 .save(path)
             )
-            print(f"Data saved")
+            logger.info(f"Data saved to {path}")
         except Exception as e:
-            print(e)
+            logger.error(f"Failed to save data to {path}: {e}")
             raise
 
     def load_data(self, spark, path: str, format: str = "parquet", **options):
         try:
-            print(f"Loading data...")
+            logger.info(f"Loading data from {path} (format={format})...")
             df = (
                 spark.read
                 .format(format)
                 .options(**options)
                 .load(path)
             )
-            print(f"Data loaded")
+            logger.info(f"Data loaded from {path}")
             return df
         except Exception as e:
-            print(e)
+            logger.error(f"Failed to load data from {path}: {e}")
             raise

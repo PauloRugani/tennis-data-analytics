@@ -3,6 +3,9 @@ from airflow.decorators import dag, task, task_group
 # pyrefly: ignore [missing-import]
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from src.utils.notification import on_success_callback, on_failure_callback
+from src.utils.logger import get_logger
+
+logger = get_logger(__name__)
 
 default_args = {
     'owner': 'paulorugani',
@@ -24,6 +27,7 @@ def run_silver_gold():
     @task
     def load_variables():
         from airflow.models import Variable
+        logger.info("Loading Airflow variables")
         return {
             "bucket_endpoint": Variable.get("BUCKET_ENDPOINT"),
             "bucket_access_key": Variable.get("BUCKET_ACCESS_KEY"),
@@ -41,6 +45,7 @@ def run_silver_gold():
     def run_silver(connection_vars):
         @task
         def run_rankings(conn_vars):
+            logger.info("Starting silver rankings task")
             from src.silver import tb_atp_rankings
             tb_atp_rankings.run(conn_vars)
 
@@ -51,6 +56,7 @@ def run_silver_gold():
         
         @task
         def setup_database():
+            logger.info("Creating gold schema if not exists")
             hook = PostgresHook(
                 postgres_conn_id="POSTGRES_CONNECTION"
             )
@@ -60,6 +66,7 @@ def run_silver_gold():
         def run_fact(connection_vars):
             @task
             def run_fact_player_ranking(conn_vars):
+                logger.info("Starting fact_player_ranking task")
                 from src.gold.fact import fact_player_ranking
                 fact_player_ranking.run(conn_vars)
             
@@ -69,6 +76,7 @@ def run_silver_gold():
         def run_create_view():
             @task
             def run_create_fact_view():
+                logger.info("Creating view vw_fact_player_ranking")
                 hook = PostgresHook(
                     postgres_conn_id="POSTGRES_CONNECTION"
                 )

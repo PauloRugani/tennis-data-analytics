@@ -3,6 +3,9 @@ from airflow.decorators import dag, task, task_group
 # pyrefly: ignore [missing-import]
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from src.utils.notification import on_success_callback, on_failure_callback
+from src.utils.logger import get_logger
+
+logger = get_logger(__name__)
 
 default_args = {
     'owner': 'paulorugani',
@@ -24,6 +27,7 @@ def run_ingestion_bronze():
     @task
     def load_variables():
         from airflow.models import Variable
+        logger.info("Loading Airflow variables")
         return {
             "bucket_endpoint": Variable.get("BUCKET_ENDPOINT"),
             "bucket_access_key": Variable.get("BUCKET_ACCESS_KEY"),
@@ -37,6 +41,7 @@ def run_ingestion_bronze():
     def ingestion(connection_vars):
         @task
         def run_get_file(conn_vars):
+            logger.info("Starting match ingestion task")
             from bot.match_extractor import run_ingestion
             run_ingestion(conn_vars)
         run_get_file(connection_vars)
@@ -45,6 +50,7 @@ def run_ingestion_bronze():
     def bronze(connection_vars):
         @task
         def run_bronze_matches(conn_vars):
+            logger.info("Starting bronze matches task")
             from src.bronze import tb_atp_matches
             tb_atp_matches.run(init_run=True, conn_vars=conn_vars)
         run_bronze_matches(connection_vars)

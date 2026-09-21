@@ -1,4 +1,7 @@
 import requests
+from src.utils.logger import get_logger
+
+logger = get_logger(__name__)
 
 def send_telegram_message(message: str, bot_token: str, chat_id: str):
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
@@ -12,7 +15,7 @@ def send_telegram_message(message: str, bot_token: str, chat_id: str):
         response = requests.post(url, json=payload)
         response.raise_for_status()
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to send Telegram notification: {e}")
         raise
 
 def on_success_callback(context):
@@ -23,6 +26,8 @@ def on_success_callback(context):
     duration_seconds = (dag_run.end_date - dag_run.start_date).total_seconds()
     duration = f"{int(duration_seconds // 60)}m {int(duration_seconds % 60)}s"
     
+    logger.info(f"DAG {dag_id} finished successfully in {duration}")
+
     from airflow.models import Variable
     bot_token = Variable.get("TELEGRAM_BOT_TOKEN")
     chat_id = Variable.get("TELEGRAM_CHAT_ID")
@@ -42,6 +47,8 @@ def on_failure_callback(context):
     execution_date = context.get('execution_date')
     formatted_date = execution_date.strftime("%Y-%m-%d %H:%M:%S")
     log_url = task_instance.log_url
+
+    logger.error(f"DAG {dag_id} failed on task {task_id}, see {log_url}")
 
     from airflow.models import Variable
     bot_token = Variable.get("TELEGRAM_BOT_TOKEN")

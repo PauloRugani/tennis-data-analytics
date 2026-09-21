@@ -1,12 +1,15 @@
 import os
 from pyspark.sql import functions as f
 from src.utils.pyspark_handler import PySparkHandler
+from src.utils.logger import get_logger
 import boto3
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
+logger = get_logger(__name__)
 
 def load_tables(handler, init_run, bucket_name):
     try:
+        logger.info(f"Loading bronze match tables (init_run={init_run})...")
         if not init_run:
             tb_atp_matches = handler.load_data(
                 spark=handler.spark,
@@ -25,14 +28,14 @@ def load_tables(handler, init_run, bucket_name):
 
         historical_matches = f"s3a://{bucket_name}/raw/historical/matches/"
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to load bronze match tables: {e}")
         raise
 
     return tb_atp_matches, tb_ongoing_tourneys, historical_matches
 
 def run_transformation(handler, init_run, s3_client, bucket_name, tb_atp_matches, tb_ongoing_tourneys, historical_matches):
     try:
-        print("Running transformations...")
+        logger.info("Running match transformations...")
         if not init_run:
             df = tb_atp_matches
         else:
@@ -88,10 +91,10 @@ def run_transformation(handler, init_run, s3_client, bucket_name, tb_atp_matches
                     tourney_name not in ('Kingston', 'Dusseldorf', 'Nations Cup')
                 """
                 )
-        print("Transformations completed")
+        logger.info("Match transformations completed")
         return df_final
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to transform match data: {e}")
         raise
 
 def save_table(handler, init_run, df_final, bucket_name):
@@ -101,20 +104,25 @@ def save_table(handler, init_run, df_final, bucket_name):
         else:
             save_mode = "overwrite"
             
-        if df_final.count() > 0:
+        new_rows = df_final.count()
+        if new_rows > 0:
+            logger.info(f"Saving {new_rows} match rows (mode={save_mode})")
             handler.save_data(
                 df=df_final,
                 path=f"s3a://{bucket_name}/bronze/tb_atp_matches/",
                 format="parquet",
                 mode=save_mode
             )
+        else:
+            logger.info("No new match rows to save")
     except Exception as e:
-        print(e)    
+        logger.error(f"Failed to save bronze match data: {e}")
         raise
 
 def run(init_run: bool, conn_vars: dict = None):
     handler = None
     try:
+        logger.info("Starting bronze matches run")
         handler = PySparkHandler(
             app_name="tb_atp_matches_bronze",
             bucket_endpoint=conn_vars.get("bucket_endpoint"),
@@ -132,10 +140,11 @@ def run(init_run: bool, conn_vars: dict = None):
         tb_atp_matches, tb_ongoing_tourneys, historical_matches = load_tables(handler, init_run, bucket_name)
         df_final = run_transformation(handler, init_run, s3_client, bucket_name, tb_atp_matches, tb_ongoing_tourneys, historical_matches)
         save_table(handler, init_run, df_final, bucket_name)
+        logger.info("Finished bronze matches run")
     finally:
-        print("Stopping spark session...")
+        logger.info("Stopping spark session...")
         handler.spark.stop()
-        print("Spark session stopped.")
+        logger.info("Spark session stopped")
 
 if __name__ == "__main__":
     run(init_run=True)

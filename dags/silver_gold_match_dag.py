@@ -3,6 +3,9 @@ from datetime import datetime, timedelta
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.decorators import dag, task, task_group
 from src.utils.notification import on_success_callback, on_failure_callback
+from src.utils.logger import get_logger
+
+logger = get_logger(__name__)
 
 default_args = {
     'owner': 'paulorugani',
@@ -24,6 +27,7 @@ def run_silver_gold():
     @task
     def load_variables():
         from airflow.models import Variable
+        logger.info("Loading Airflow variables")
         return {
             "bucket_endpoint": Variable.get("BUCKET_ENDPOINT"),
             "bucket_access_key": Variable.get("BUCKET_ACCESS_KEY"),
@@ -41,21 +45,25 @@ def run_silver_gold():
     def run_silver(connection_vars):
         @task
         def run_matches(conn_vars):
+            logger.info("Starting silver matches task")
             from src.silver import tb_atp_matches
             tb_atp_matches.run(conn_vars)
 
         @task
         def run_player_match(conn_vars):
+            logger.info("Starting silver player_match task")
             from src.silver import tb_atp_player_match
             tb_atp_player_match.run(conn_vars)
 
         @task
         def run_players(conn_vars):
+            logger.info("Starting silver players task")
             from src.silver import tb_atp_players
             tb_atp_players.run(conn_vars)
 
         @task
         def run_tournaments(conn_vars):
+            logger.info("Starting silver tournaments task")
             from src.silver import tb_atp_tournaments
             tb_atp_tournaments.run(conn_vars)
 
@@ -69,6 +77,7 @@ def run_silver_gold():
         
         @task
         def setup_database():
+            logger.info("Creating gold schema if not exists")
             hook = PostgresHook(
                 postgres_conn_id="POSTGRES_CONNECTION"
             )
@@ -78,21 +87,25 @@ def run_silver_gold():
         def run_dimension(conn_vars):
             @task
             def run_dim_date(conn_vars):
+                logger.info("Starting dim_date task")
                 from src.gold.dimension import dim_date
                 dim_date.run(conn_vars)
             
             @task
             def run_dim_entry(conn_vars):
+                logger.info("Starting dim_entry task")
                 from src.gold.dimension import dim_entry
                 dim_entry.run(conn_vars)
             
             @task
             def run_dim_players(conn_vars):
+                logger.info("Starting dim_players task")
                 from src.gold.dimension import dim_players
                 dim_players.run(conn_vars)
             
             @task
             def run_dim_tournaments(conn_vars):
+                logger.info("Starting dim_tournaments task")
                 from src.gold.dimension import dim_tournaments
                 dim_tournaments.run(conn_vars)
 
@@ -105,16 +118,19 @@ def run_silver_gold():
         def run_fact(conn_vars):
             @task
             def run_fact_player_match_stats(conn_vars):
+                logger.info("Starting fact_player_match_stats task")
                 from src.gold.fact import fact_player_match_stats
                 fact_player_match_stats.run(conn_vars)
             
             @task
             def run_fact_player_season(conn_vars):
+                logger.info("Starting fact_player_season task")
                 from src.gold.fact import fact_player_season
                 fact_player_season.run(conn_vars)
             
             @task
             def run_fact_player_tournament_stats(conn_vars):
+                logger.info("Starting fact_player_tournament_stats task")
                 from src.gold.fact import fact_player_tournament_stats
                 fact_player_tournament_stats.run(conn_vars)
 
@@ -132,6 +148,7 @@ def run_silver_gold():
                     postgres_conn_id="POSTGRES_CONNECTION"
                 )
                 for table in tables:
+                    logger.info(f"Creating view vw_{table}")
                     hook.run(f"""
                             CREATE OR REPLACE VIEW gold.vw_{table} AS 
                             SELECT * FROM gold.{table};
@@ -145,6 +162,7 @@ def run_silver_gold():
                     postgres_conn_id="POSTGRES_CONNECTION"
                 )
                 for table in tables:
+                    logger.info(f"Creating view vw_{table}")
                     hook.run(f"""
                             CREATE OR REPLACE VIEW gold.vw_{table} AS 
                             SELECT * FROM gold.{table};

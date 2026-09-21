@@ -3,11 +3,14 @@ import sys
 from pyspark.sql import functions as f
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from utils.pyspark_handler import PySparkHandler
+from utils.logger import get_logger
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
+logger = get_logger(__name__)
 
 def load_tables(handler, bucket_name):
     try:
+        logger.info("Loading fact_player_ranking source tables...")
         tb_atp_rankings = handler.load_data(
             spark=handler.spark,
             path=f"s3a://{bucket_name}/silver/tb_atp_rankings/",
@@ -25,10 +28,10 @@ def load_tables(handler, bucket_name):
         )
         return tb_atp_rankings, tb_date, tb_players
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to load fact_player_ranking source tables: {e}")
         raise
 
-def run_transformation(handler, tb_atp_rankings, tb_date, tb_players):
+def run_transformation(tb_atp_rankings, tb_date, tb_players):
     try:
         df = (
             tb_atp_rankings.alias("r")
@@ -54,9 +57,10 @@ def run_transformation(handler, tb_atp_rankings, tb_date, tb_players):
             )
             .dropDuplicates(["SK_PLAYER", "SK_DATE"])
         )
+        logger.info("fact_player_ranking transformation completed")
         return df
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to transform fact_player_ranking: {e}")
         raise
 
 def save_table(handler, df, bucket_name, jdbc_url, jdbc_user, jdbc_password):
@@ -81,12 +85,13 @@ def save_table(handler, df, bucket_name, jdbc_url, jdbc_user, jdbc_password):
             .save()
         )
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to save fact_player_ranking: {e}")
         raise
 
 def run(conn_vars: dict = None):
     handler = None
     try:
+        logger.info("Starting fact_player_ranking run")
         handler = PySparkHandler(
             app_name="fact_player_ranking",
             bucket_endpoint=conn_vars.get("bucket_endpoint"),
@@ -99,12 +104,13 @@ def run(conn_vars: dict = None):
         jdbc_password = conn_vars.get("jdbc_password")
 
         tb_atp_rankings, tb_date, tb_players = load_tables(handler, bucket_name)
-        df_final = run_transformation(handler, tb_atp_rankings, tb_date, tb_players)
+        df_final = run_transformation(tb_atp_rankings, tb_date, tb_players)
         save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
+        logger.info("Finished fact_player_ranking run")
     finally:
-        print("Stopping spark session...")
+        logger.info("Stopping spark session...")
         handler.spark.stop()
-        print("Spark session stopped.")
+        logger.info("Spark session stopped")
 
 if __name__ == "__main__":
     run()

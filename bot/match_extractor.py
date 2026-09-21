@@ -1,8 +1,12 @@
 import io
+import logging
 import boto3
 from botocore.client import Config
 from datetime import datetime
 from playwright.sync_api import sync_playwright
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s - %(message)s")
+logger = logging.getLogger(__name__)
 
 def get_file(page, role_name: str, relative_path: str, s3_client, bucket: str):
     with page.expect_download(timeout=60000) as download_info:
@@ -15,7 +19,7 @@ def get_file(page, role_name: str, relative_path: str, s3_client, bucket: str):
         file_bytes = f.read()
         
     s3_client.upload_fileobj(io.BytesIO(file_bytes), bucket, relative_path)
-    print(f"{relative_path} saved successfully")
+    logger.info(f"{relative_path} saved successfully")
     
     download.delete()
     return relative_path
@@ -33,6 +37,7 @@ def extract_bot(conn_vars):
     try:
         s3_client.head_bucket(Bucket=bucket)
     except:
+        logger.info(f"Bucket '{bucket}' not found, creating it")
         s3_client.create_bucket(Bucket=bucket)
 
     with sync_playwright() as playwright:
@@ -56,8 +61,9 @@ def extract_bot(conn_vars):
             browser.close()
 
 def run_ingestion(conn_vars):
-    print(f"[Airflow] Download matches starts...")
+    logger.info("Match ingestion starting")
     extract_bot(conn_vars)
+    logger.info("Match ingestion finished")
 
 if __name__ == "__main__":
     extract_bot()

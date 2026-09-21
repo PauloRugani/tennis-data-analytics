@@ -1,12 +1,16 @@
 import csv
 import io
 import re
+import logging
 import boto3
 from botocore.client import Config
 from botocore.exceptions import ClientError
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from curl_cffi import requests
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s - %(message)s")
+logger = logging.getLogger(__name__)
 
 def is_date_already_processed(s3_client, bucket: str, object_name: str, target_date: str) -> bool:
     try:
@@ -55,7 +59,7 @@ def previous_year_process(s3_client, bucket: str, current_monday: datetime):
         
         s3_client.delete_object(Bucket=bucket, Key=old_file)
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to archive previous year ranking file: {e}")
         raise
 
 def extract_bot(conn_vars):
@@ -71,6 +75,7 @@ def extract_bot(conn_vars):
     try:
         s3_client.head_bucket(Bucket=bucket)
     except:
+        logger.info(f"Bucket '{bucket}' not found, creating it")
         s3_client.create_bucket(Bucket=bucket)
 
     today = datetime.now()
@@ -84,9 +89,10 @@ def extract_bot(conn_vars):
     object_name = f"raw/incremental/tb_incremental_ranking_{current_year}.csv"
 
     if is_date_already_processed(s3_client, bucket, object_name, target_date):
-        print(f"Date {target_date} already processed.")
+        logger.info(f"Date {target_date} already processed, skipping")
         return object_name
 
+    logger.info(f"Scraping ATP rankings for week {target_date}...")
     url = "https://www.atptour.com/en/rankings/singles?rankRange=0-5000"
     response = requests.get(url, impersonate="chrome", timeout=60)
 
@@ -121,7 +127,7 @@ def extract_bot(conn_vars):
             )
 
     if not ranking:
-        print("No data")
+        logger.info("No ranking data scraped, nothing to save")
         return None
 
     existing_content = ""
@@ -143,10 +149,12 @@ def extract_bot(conn_vars):
 
     file_bytes = out.getvalue().encode('utf-8')
     s3_client.upload_fileobj(io.BytesIO(file_bytes), bucket, object_name)
+    logger.info(f"Saved {len(ranking)} ranking rows to {object_name}")
 
 def run_ingestion(conn_vars):
-    print(f"[Airflow] Download ranking starts...")
+    logger.info("Ranking ingestion starting")
     extract_bot(conn_vars)
+    logger.info("Ranking ingestion finished")
 
 if __name__ == "__main__":
     extract_bot()

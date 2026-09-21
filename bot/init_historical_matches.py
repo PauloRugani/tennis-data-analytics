@@ -1,6 +1,10 @@
 import os
+import logging
 from datetime import datetime
 from curl_cffi import requests
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s - %(message)s")
+logger = logging.getLogger(__name__)
 
 def extract_historical_matches():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,19 +21,19 @@ def extract_historical_matches():
         dest_path = os.path.join(historical_dir, file_name)
         
         if os.path.exists(dest_path):
-            print(f"{file_name} already exists locally. Skipping.")
+            logger.info(f"{file_name} already exists locally, skipping")
             continue
         
         url = f"https://stats.tennismylife.org/data/{year}.csv"
-        print(f"Downloading {file_name} from {url}...")
+        logger.info(f"Downloading {file_name} from {url}...")
         
         resp = requests.get(url, impersonate="chrome", timeout=60)
         if resp.status_code == 200:
             with open(dest_path, "wb") as f:
                 f.write(resp.content)
-            print(f"Saved to {dest_path}")
+            logger.info(f"Saved to {dest_path}")
         else:
-            print(f"Failed to download {year}.csv: HTTP {resp.status_code}")
+            logger.error(f"Failed to download {year}.csv: HTTP {resp.status_code}")
 
     ongoing_name = "tb_ongoing_tourneys.csv"
     ongoing_dest = os.path.join(incremental_dir, ongoing_name)
@@ -38,17 +42,17 @@ def extract_historical_matches():
     if os.path.exists(ongoing_dest):
         os.remove(ongoing_dest)
         
-    print(f"Downloading {ongoing_name} from {ongoing_url}...")
+    logger.info(f"Downloading {ongoing_name} from {ongoing_url}...")
     resp_ongoing = requests.get(ongoing_url, impersonate="chrome", timeout=60)
     
     if resp_ongoing.status_code == 200:
         with open(ongoing_dest, "wb") as f:
             f.write(resp_ongoing.content)
-        print(f"Saved to {ongoing_dest}")
+        logger.info(f"Saved to {ongoing_dest}")
     else:
-        print(f"Failed to download ongoing_tourneys")
+        logger.error("Failed to download ongoing_tourneys")
 
 if __name__ == "__main__":
-    print("Starting historical matches extraction...")
+    logger.info("Starting historical matches extraction...")
     extract_historical_matches()
-    print("Finished.")
+    logger.info("Finished")

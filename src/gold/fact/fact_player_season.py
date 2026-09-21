@@ -3,11 +3,14 @@ import sys
 from pyspark.sql import functions as f
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from utils.pyspark_handler import PySparkHandler
+from utils.logger import get_logger
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
+logger = get_logger(__name__)
 
 def load_tables(handler, bucket_name):
     try:
+        logger.info("Loading fact_player_season source tables...")
         tb_player_match = handler.load_data(
             spark=handler.spark,
             path=f"s3a://{bucket_name}/silver/tb_atp_player_match/",
@@ -25,10 +28,10 @@ def load_tables(handler, bucket_name):
         )
         return tb_player_match, tb_tournaments, tb_players
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to load fact_player_season source tables: {e}")
         raise
 
-def run_transformation(handler, tb_player_match, tb_tournaments, tb_players):
+def run_transformation(tb_player_match, tb_tournaments, tb_players):
     try:
         round_order = (
             f.when(f.col("DES_MATCH_ROUND") == "F", 11) # Final
@@ -97,7 +100,7 @@ def run_transformation(handler, tb_player_match, tb_tournaments, tb_players):
         )
         return df
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to transform fact_player_season: {e}")
         raise
 
 def save_table(handler, df, bucket_name, jdbc_url, jdbc_user, jdbc_password):
@@ -122,12 +125,13 @@ def save_table(handler, df, bucket_name, jdbc_url, jdbc_user, jdbc_password):
             .save()
         )
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to save fact_player_season: {e}")
         raise
 
 def run(conn_vars: dict = None):
     handler = None
     try:
+        logger.info("Starting fact_player_season run")
         handler = PySparkHandler(
             app_name="fact_player_season",
             bucket_endpoint=conn_vars.get("bucket_endpoint"),
@@ -140,12 +144,13 @@ def run(conn_vars: dict = None):
         jdbc_password = conn_vars.get("jdbc_password")
 
         tb_player_match, tb_tournaments, tb_players = load_tables(handler, bucket_name)
-        df_final = run_transformation(handler, tb_player_match, tb_tournaments, tb_players)
+        df_final = run_transformation(tb_player_match, tb_tournaments, tb_players)
         save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
+        logger.info("Finished fact_player_season run")
     finally:
-        print("Stopping spark session...")
+        logger.info("Stopping spark session...")
         handler.spark.stop()
-        print("Spark session stopped.")
+        logger.info("Spark session stopped")
 
 if __name__ == "__main__":
     run()

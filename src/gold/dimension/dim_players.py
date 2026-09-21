@@ -4,11 +4,14 @@ from pyspark.sql import functions as f
 from itertools import chain
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from src.utils.pyspark_handler import PySparkHandler
+from src.utils.logger import get_logger
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
+logger = get_logger(__name__)
 
 def load_tables(handler, bucket_name):
     try:
+        logger.info("Loading dim_players source table...")
         tb_players = handler.load_data(
             spark=handler.spark,
             path=f"s3a://{bucket_name}/silver/tb_atp_players/",
@@ -16,10 +19,10 @@ def load_tables(handler, bucket_name):
         )
         return tb_players
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to load dim_players source table: {e}")
         raise
 
-def run_transformation(handler, tb_players):
+def run_transformation(tb_players):
     try:
         country_mapping = {
             "ALG": "dz", "ARG": "ar", "ARM": "am", "AUS": "au", "AUT": "at",
@@ -89,9 +92,10 @@ def run_transformation(handler, tb_players):
                 f.col("DATE_LOAD")
             )
         )
+        logger.info("dim_players transformation completed")
         return df
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to transform dim_players: {e}")
         raise
 
 def save_table(handler, df, bucket_name, jdbc_url, jdbc_user, jdbc_password):
@@ -116,12 +120,13 @@ def save_table(handler, df, bucket_name, jdbc_url, jdbc_user, jdbc_password):
             .save()
         )
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to save dim_players: {e}")
         raise
 
 def run(conn_vars: dict = None):
     handler = None
     try:
+        logger.info("Starting dim_players run")
         handler = PySparkHandler(
             app_name="dim_players",
             bucket_endpoint=conn_vars.get("bucket_endpoint"),
@@ -134,12 +139,13 @@ def run(conn_vars: dict = None):
         jdbc_password = conn_vars.get("jdbc_password")
         
         tb_players = load_tables(handler, bucket_name)
-        df_final = run_transformation(handler, tb_players)
+        df_final = run_transformation(tb_players)
         save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
+        logger.info("Finished dim_players run")
     finally:
-        print("Stopping spark session...")
+        logger.info("Stopping spark session...")
         handler.spark.stop()
-        print("Spark session stopped.")
+        logger.info("Spark session stopped")
 
 if __name__ == "__main__":
     run()
