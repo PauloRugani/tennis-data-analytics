@@ -4,6 +4,7 @@ from pyspark.sql import functions as f
 from datetime import datetime
 from src.utils.pyspark_handler import PySparkHandler
 from src.utils.logger import get_logger
+import boto3
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 logger = get_logger(__name__)
@@ -26,27 +27,34 @@ def load_tables(handler, init_run, bucket_name):
             format="csv",
             header="true"
         )
-
-        historical_ranking = f"s3a://{bucket_name}/raw/historical/ranking/"
     except Exception as e:
         logger.error(f"Failed to load bronze ranking tables: {e}")
         raise
     
-    return tb_atp_rankings, tb_incremental_rankings, historical_ranking
+    return tb_atp_rankings, tb_incremental_rankings
 
-def run_transformation(handler, init_run, tb_atp_rankings, tb_incremental_rankings, historical_ranking):
+def run_transformation(handler, init_run, s3_client, bucket_name, tb_atp_rankings, tb_incremental_rankings):
     try:
         logger.info("Running ranking transformations...")
         if not init_run:
             df = tb_atp_rankings
         else:
-            df = handler.load_data(
-                spark=handler.spark,
-                path=historical_ranking,
-                format="csv",
-                header="true",
-                inferSchema="false"
-            )
+            prefix = "raw/historical/ranking/"
+            response = s3_client.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+            files = [
+                obj["Key"]
+                for obj in response.get("Contents", [])
+                if obj["Key"].endswith(".csv")
+            ]
+
+            df = None
+            for index, file_key in enumerate(files):
+                final_path = f"s3a://{bucket_name}/{file_key}"
+                ranking_data = handler.load_data(spark=handler.spark, path=final_path, format="csv", header="true")
+                if index == 0:
+                    df = ranking_data
+                else:
+                    df = df.unionByName(ranking_data, allowMissingColumns=True)
 
         new_rankings = (
             df.alias("h_r")
@@ -107,9 +115,16 @@ def run(init_run: bool, conn_vars: dict = None):
             bucket_access_key=conn_vars.get("bucket_access_key"),
             bucket_secret_key=conn_vars.get("bucket_secret_key")
         )
+        s3_client = boto3.client(
+            "s3",
+            endpoint_url=conn_vars.get("bucket_endpoint"),
+            aws_access_key_id=conn_vars.get("bucket_access_key"),
+            aws_secret_access_key=conn_vars.get("bucket_secret_key")
+        )
+
         bucket_name = conn_vars.get("bucket_name")
-        tb_atp_rankings, tb_incremental_rankings, historical_ranking = load_tables(handler, init_run, bucket_name)
-        df_final = run_transformation(handler, init_run, tb_atp_rankings, tb_incremental_rankings, historical_ranking)
+        tb_atp_rankings, tb_incremental_rankings = load_tables(handler, init_run, bucket_name)
+        df_final = run_transformation(handler, init_run, s3_client, bucket_name, tb_atp_rankings, tb_incremental_rankings)
         save_table(handler, init_run, df_final, bucket_name)
         logger.info("Finished bronze ranking run")
     finally:
