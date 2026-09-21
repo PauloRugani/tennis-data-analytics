@@ -53,7 +53,7 @@ def run_ingestion_bronze():
         def run_bronze_rankings(conn_vars):
             logger.info("Starting bronze rankings task")
             from src.bronze import tb_atp_ranking
-            tb_atp_ranking.run(init_run=True, conn_vars=conn_vars)
+            tb_atp_ranking.run(init_run=False, conn_vars=conn_vars)
         run_bronze_rankings(connection_vars)
 
     run_ingestion = ingestion(connection_vars)

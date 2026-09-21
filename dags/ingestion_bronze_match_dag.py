@@ -52,7 +52,7 @@ def run_ingestion_bronze():
         def run_bronze_matches(conn_vars):
             logger.info("Starting bronze matches task")
             from src.bronze import tb_atp_matches
-            tb_atp_matches.run(init_run=True, conn_vars=conn_vars)
+            tb_atp_matches.run(init_run=False, conn_vars=conn_vars)
         run_bronze_matches(connection_vars)
 
     run_ingestion = ingestion(connection_vars)
