@@ -27,7 +27,7 @@ def run_transformation(tb_atp_rankings):
             tb_atp_rankings
             .select(
                 f.date_format(f.to_date(f.col("date"), 'yyyyMMdd'), 'yyyy-MM-dd').alias("DATE_WEEK_RANKING"),
-                f.col("rank").cast("int").alias("NUM_PLAYER_RANK"),
+                f.coalesce(f.col("rank").cast("string"), f.lit("-")).alias("NUM_PLAYER_RANK"),
                 f.col("name").alias("DES_PLAYER_NAME"),
                 f.col("age").cast("int").alias("NUM_PLAYER_AGE"),
                 f.regexp_replace(f.col("points"), ",", "").cast("int").alias("NUM_PLAYER_RANK_PTS"),

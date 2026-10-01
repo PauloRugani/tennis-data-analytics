@@ -28,14 +28,12 @@ def run_transformation(tb_atp_matches):
             tb_atp_matches
             .withColumn(
                 "TOURNEY_NAME",
-                f.when(f.col("tourney_name").contains("Davis Cup"), f.lit("Davis Cup"))
-                .when(f.col("tourney_id") == "2026-416", f.lit("Rome Masters"))
+                f.when(f.col("tourney_id") == "2026-416", f.lit("Rome Masters"))
                 .otherwise(f.col("tourney_name"))
             )
             .withColumn(
                 "TOURNEY_LEVEL",
                 f.when(f.col("tourney_id") == "2026-416", f.lit("M"))
-                .when(f.col("tourney_name").contains("Olympics"), f.lit("O"))
                 .when(f.col("tourney_name").contains("Finals"), f.lit("F"))
                 .otherwise(f.col("tourney_level"))
             )
@@ -50,9 +48,9 @@ def run_transformation(tb_atp_matches):
             .groupBy(f.col("tourney_id").alias("COD_TOURNEY_ID"))
             .agg(
                 f.first("TOURNEY_NAME", ignorenulls=True).alias("DES_TOURNEY_NAME"),
-                f.first("TOURNEY_LEVEL", ignorenulls=True).alias("DES_TOURNEY_LEVEL"),
-                f.first(f.col("draw_size").cast("int"), ignorenulls=True).cast("int").alias("NUM_TOURNEY_DRAW_SIZE"),
-                f.first("surface", ignorenulls=True).alias("DES_TOURNEY_SURFACE"),
+                f.coalesce(f.first("TOURNEY_LEVEL", ignorenulls=True), f.lit("-")).alias("DES_TOURNEY_LEVEL"),
+                f.coalesce(f.first(f.col("draw_size").cast("int"), ignorenulls=True), f.lit(-1)).cast("int").alias("NUM_TOURNEY_DRAW_SIZE"),
+                f.coalesce(f.first("surface", ignorenulls=True), f.lit("-")).alias("DES_TOURNEY_SURFACE"),
                 f.first("TOURNEY_IS_INDOOR", ignorenulls=True).alias("FLAG_TOURNEY_IS_INDOOR"),
                 f.substring(f.first("tourney_date", ignorenulls=True).cast("string"), 1, 4).alias("REF_YEAR"),
                 f.first("DATE_INGESTION").alias("DATE_INGESTION")
