@@ -44,14 +44,6 @@ def run_transformation(tb_atp_matches):
                     f.lit("2026-308")
                 ).otherwise(f.col("tourney_id"))
             )
-            .withColumn(
-                "winner_id",
-                f.last("winner_id").over(Window.partitionBy("winner_name").orderBy(f.col("tourney_date").asc()).rowsBetween(Window.unboundedPreceding, Window.unboundedFollowing))
-                )
-            .withColumn(
-                "loser_id", 
-                f.last("loser_id").over(Window.partitionBy("loser_name").orderBy(f.col("tourney_date").asc()).rowsBetween(Window.unboundedPreceding, Window.unboundedFollowing))
-                )
         )
 
         window_spec = Window.partitionBy("tourney_id").orderBy(
@@ -68,18 +60,41 @@ def run_transformation(tb_atp_matches):
                     f.row_number().over(window_spec)
                 )
             )
-            .withColumn("MATCH_ID", f.concat_ws('-', f.col("tourney_id"), f.col("match_num")))
-            .dropDuplicates(["MATCH_ID"])
-        )
+            .withColumn(
+                "winner_name",
+                f.when(
+                    f.col("winner_name").contains("Shevchenko"), "Aleksandr Shevchenko"
+                ).otherwise(f.col("winner_name"))
+            )
+            .withColumn(
+                "loser_name",
+                f.when(
+                    f.col("loser_name").contains("Shevchenko"), "Aleksandr Shevchenko"
+                ).otherwise(f.col("loser_name"))
+            )
 
+            .withColumn("COD_TOURNEY_ID", f.regexp_replace(f.split(f.col("tourney_id"), "-", 2).getItem(1), "^0+", ""))
+            .withColumn("REF_YEAR", f.substring("tourney_date", 1, 4))
+            .withColumn("COD_MATCH_ID", f.concat_ws('-', f.col("COD_TOURNEY_ID"), f.col("match_num")))
+
+            .dropDuplicates(["COD_MATCH_ID", "REF_YEAR"])
+        )
         df_winner = (
             final_atp_matches.alias('m')
             .select(
                 # match / tourney columns
-                f.col("MATCH_ID").alias("COD_MATCH_ID"),
-                f.col("m.tourney_id").alias("COD_TOURNEY_ID"),
+                f.col("COD_MATCH_ID"),
+                f.col("COD_TOURNEY_ID"),
+
                 f.col("m.winner_id").cast("string").alias("COD_PLAYER_ID"),
+                f.col("winner_name").cast("string").alias("DES_PLAYER_NAME"),
+                f.col("winner_hand").alias("DES_PLAYER_HAND"),
+                f.col("winner_ht").cast('int').alias("NUM_PLAYER_HEIGHT"),
+                f.col("winner_ioc").alias("DES_PLAYER_COUNTRY"),
+                f.col("winner_age").cast("double").alias("NUM_PLAYER_AGE"),
                 f.lit(True).cast('boolean').alias("FLAG_PLAYER_IS_WINNER"),
+
+                f.coalesce(f.col("m.draw_size").cast("int"), f.lit(-1)).alias("NUM_TOURNEY_DRAW_SIZE"),
                 f.date_format(f.to_date(f.col("m.tourney_date").cast("string"), "yyyyMMdd"), "yyyy-MM-dd").alias("DATE_MATCH"),
                 f.col("m.match_num").cast('int').alias("NUM_MATCH"),
                 f.coalesce(f.col("m.score"), f.lit("-")).alias("DES_MATCH_SCORE"),
@@ -100,6 +115,7 @@ def run_transformation(tb_atp_matches):
                 f.col("m.w_bpSaved").cast("int").alias("NUM_PLAYER_BP_SAVED"),
                 f.col("m.w_bpFaced").cast("int").alias("NUM_PLAYER_BP_FACED"),
 
+                f.col("REF_YEAR"),
                 f.col("m.DATE_INGESTION")
             )
             .orderBy(["DATE_MATCH", "NUM_MATCH"], ascending=False)
@@ -109,9 +125,14 @@ def run_transformation(tb_atp_matches):
             final_atp_matches.alias('m')
             .select(
                 # match / tourney columns
-                f.col("MATCH_ID").alias("COD_MATCH_ID"),
-                f.col("m.tourney_id").alias("COD_TOURNEY_ID"),
+                f.col("COD_MATCH_ID"),
+                f.col("COD_TOURNEY_ID"),
                 f.col("m.loser_id").cast("string").alias("COD_PLAYER_ID"),
+                f.col("loser_name").cast("string").alias("DES_PLAYER_NAME"),
+                f.col("loser_hand").alias("DES_PLAYER_HAND"),
+                f.col("loser_ht").cast('int').alias("NUM_PLAYER_HEIGHT"),
+                f.col("loser_ioc").alias("DES_PLAYER_COUNTRY"),
+                f.col("loser_age").cast("double").alias("NUM_PLAYER_AGE"),
                 f.lit(False).cast('boolean').alias("FLAG_PLAYER_IS_WINNER"),
                 f.coalesce(f.col("m.draw_size").cast("int"), f.lit(-1)).alias("NUM_TOURNEY_DRAW_SIZE"),
                 f.date_format(f.to_date(f.col("m.tourney_date").cast("string"), "yyyyMMdd"), "yyyy-MM-dd").alias("DATE_MATCH"),
@@ -134,11 +155,19 @@ def run_transformation(tb_atp_matches):
                 f.col("m.l_bpSaved").cast("int").alias("NUM_PLAYER_BP_SAVED"),
                 f.col("m.l_bpFaced").cast("int").alias("NUM_PLAYER_BP_FACED"),
 
+                f.col("REF_YEAR"),
                 f.col("m.DATE_INGESTION")
             )
         )
 
-        df = df_winner.unionByName(df_loser, allowMissingColumns=False)
+        df = (
+            df_winner.unionByName(df_loser, allowMissingColumns=False)
+            .withColumn(
+                "COD_PLAYER_ID", 
+                f.last("COD_PLAYER_ID").over(Window.partitionBy("DES_PLAYER_NAME").orderBy(f.col("DATE_MATCH").asc()).rowsBetween(Window.unboundedPreceding, Window.unboundedFollowing))
+            )
+        )
+
         logger.info("Silver player_match transformation completed")
         return df
     except Exception as e:

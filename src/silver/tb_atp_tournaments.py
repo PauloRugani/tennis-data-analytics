@@ -52,10 +52,12 @@ def run_transformation(tb_atp_matches):
                 f.coalesce(f.first(f.col("draw_size").cast("int"), ignorenulls=True), f.lit(-1)).cast("int").alias("NUM_TOURNEY_DRAW_SIZE"),
                 f.coalesce(f.first("surface", ignorenulls=True), f.lit("-")).alias("DES_TOURNEY_SURFACE"),
                 f.first("TOURNEY_IS_INDOOR", ignorenulls=True).alias("FLAG_TOURNEY_IS_INDOOR"),
+                f.date_format(f.to_date(f.min(f.col("tourney_date").cast('string')), 'yyyyMMdd'), 'yyyy-MM-dd').alias("DATE_TOURNEY_START"),
                 f.substring(f.first("tourney_date", ignorenulls=True).cast("string"), 1, 4).alias("REF_YEAR"),
                 f.first("DATE_INGESTION").alias("DATE_INGESTION")
             )
-            .dropDuplicates(["COD_TOURNEY_ID"])
+            .withColumn("COD_TOURNEY_ID", f.regexp_replace(f.split(f.col("COD_TOURNEY_ID"), "-", 2).getItem(1), "^0+", ""))
+            .dropDuplicates(["COD_TOURNEY_ID", "REF_YEAR"])
         )
         logger.info("Silver tournaments transformation completed")
         return df
