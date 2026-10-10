@@ -35,6 +35,7 @@ def run_transformation(handler):
             .withColumn("DES_MONTH_SHORT", f.date_format("DATE", "MMM"))
             .withColumn("NUM_DAY", f.dayofmonth("DATE"))
             .withColumn("DES_DAY", f.date_format("DATE", "EEEE"))
+            .withColumn("DATE_RANKING", f.to_date(f.date_trunc("week", f.col("DATE"))))
             .withColumn("DATE_LOAD", f.lit(f.current_date()))
         )
         logger.info("dim_date transformation completed")
