@@ -40,33 +40,19 @@ def run_transformation(tb_player_match, tb_tournaments, tb_date, tb_players):
     try:
         df = (
             tb_player_match.alias("p_m")
-            .join(tb_tournaments.alias("t"), f.expr("p_m.COD_TOURNEY_ID <=> t.COD_TOURNEY_ID"), 'left')
+            .join(tb_tournaments.alias("t"), ["COD_TOURNEY_ID", "REF_YEAR"], 'full')
             .join(
                 tb_players.alias("pw"),
-                (f.col("p_m.COD_PLAYER_ID").cast("string") == f.col("pw.COD_PLAYER_ID").cast("string"))
-                | (
-                    f.col("p_m.COD_PLAYER_ID").cast("string")
-                    == f.col("pw.COD_PLAYER_ID_OLD").cast("string")
-                ),
-                "left",
-            )
-            .join(
-                tb_players.alias("po"),
-                (f.col("p_m.COD_PLAYER_OPPONENT_ID").cast("string") == f.col("po.COD_PLAYER_ID").cast("string"))
-                | (
-                    f.col("p_m.COD_PLAYER_OPPONENT_ID").cast("string")
-                    == f.col("po.COD_PLAYER_ID_OLD").cast("string")
-                ),
-                "left",
+                ["COD_PLAYER_ID"],
+                "full",
             )
             .join(
                 tb_date.alias("d"),
-                f.col("p_m.DATE_MATCH") == f.col("d.DATE")
+                f.col("p_m.DATE_MATCH") == f.col("d.DATE_FORMATED")
             )
             .select(
                 f.col("p_m.COD_MATCH_ID"),
                 f.col("pw.SK_PLAYER"),
-                f.col("po.SK_PLAYER").alias("SK_PLAYER_OPPONENT"),
                 f.col("t.SK_TOURNEY"),
                 f.col("d.SK_DATE").cast("string").alias("SK_DATE"),
                 

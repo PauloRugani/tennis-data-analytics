@@ -37,25 +37,28 @@ def run_transformation(tb_atp_rankings, tb_date, tb_players):
             tb_atp_rankings.alias("r")
             .join(
                 tb_date.alias("d"),
-                f.col("r.DATE_WEEK_RANKING") == f.col("d.DATE"),
-                'inner'
+                f.col("r.DATE_WEEK_RANKING") == f.col("d.DATE_FORMATED"),
+                'left'
             )
             .join(
                 tb_players.alias("p"),
-                f.initcap(f.trim(f.regexp_replace(f.col("r.DES_PLAYER_NAME"), "-", " "))) == f.col("p.DES_PLAYER_NAME"),
-                'inner'
+                ["COD_PLAYER_ID"],
+                'left'
             )
             .select(
                 f.col("d.SK_DATE").cast('string').alias("SK_DATE"),
-                "p.SK_PLAYER",
+                f.col("p.SK_PLAYER"),
+                f.col("r.DES_PLAYER_NAME"),
+                f.col("r.COD_PLAYER_ID"),
                 f.col("r.NUM_PLAYER_RANK").cast("int").alias("NUM_PLAYER_RANK"),
                 f.col("r.NUM_PLAYER_RANK_PTS").cast('int').alias("NUM_PLAYER_RANK_PTS"),
-                "r.NUM_PLAYER_LE_PTS",
-                "r.NUM_PLAYER_DROP_PTS",
-                "r.NUM_PLAYER_NEXT_BEST",
+                f.col("r.NUM_PLAYER_LE_PTS").alias("NUM_PLAYER_LE_PTS"),
+                f.col("r.NUM_PLAYER_DROP_PTS").alias("NUM_PLAYER_DROP_PTS"),
+                f.col("r.NUM_PLAYER_NEXT_BEST").alias("NUM_PLAYER_NEXT_BEST"),
                 f.lit(f.current_date()).alias("DATE_LOAD")
             )
-            .dropDuplicates(["SK_PLAYER", "SK_DATE"])
+            # .dropDuplicates(["SK_PLAYER", "SK_DATE"])
+            # .where("SK_PLAYER IS NOT NULL")
         )
         logger.info("fact_player_ranking transformation completed")
         return df

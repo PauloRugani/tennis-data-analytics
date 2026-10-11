@@ -52,14 +52,10 @@ def run_transformation(tb_player_match, tb_tournaments, tb_players):
             .join(tb_tournaments.alias("t"), "COD_TOURNEY_ID", 'left')
             .join(
                 tb_players.alias("p"),
-                (f.col("p_m.COD_PLAYER_ID").cast("string") == f.col("p.COD_PLAYER_ID").cast("string"))
-                | (
-                    f.col("p_m.COD_PLAYER_ID").cast("string")
-                    == f.col("p.COD_PLAYER_ID_OLD").cast("string")
-                ),
+                ["COD_PLAYER_ID"],
                 "left",
             )
-            .groupBy(f.col("SK_PLAYER"), f.concat(f.substring(f.col("DATE_MATCH"), 1, 4), f.lit('0101')).alias("SK_DATE"))
+            .groupBy(f.col("SK_PLAYER"), f.concat(f.col("p_m.REF_YEAR"), f.lit('0101')).alias("SK_DATE"))
             .agg(
                 f.count("COD_MATCH_ID").alias("NUM_TOTAL_MATCHES"),
                 f.countDistinct("COD_TOURNEY_ID").alias("NUM_TOTAL_TOURNAMENTS"),
@@ -86,14 +82,6 @@ def run_transformation(tb_player_match, tb_tournaments, tb_players):
                     f.when(f.col("DES_TOURNEY_NAME") == "US Open", f.col("DES_MATCH_ROUND")), 
                     f.when(f.col("DES_TOURNEY_NAME") == "US Open", round_order)
                 ), f.lit('-')).alias("DES_US_OPEN_RESULT"),
-                f.min_by(f.col("NUM_PLAYER_RANK"), f.col("DATE_MATCH")).cast('int').alias("NUM_PLAYER_START_RANK"),
-                f.max_by(f.col("NUM_PLAYER_RANK"), f.col("DATE_MATCH")).cast('int').alias("NUM_PLAYER_FINAL_RANK"),
-                f.min(f.col("NUM_PLAYER_RANK").cast('int')).alias("NUM_PLAYER_BEST_RANK"),
-                f.max(f.col("NUM_PLAYER_RANK").cast('int')).alias("NUM_PLAYER_WORST_RANK"),
-                f.min_by(f.col("NUM_PLAYER_RANK_PTS"), f.col("DATE_MATCH")).cast('int').alias("NUM_PLAYER_START_RANK_PTS"),
-                f.max_by(f.col("NUM_PLAYER_RANK_PTS"), f.col("DATE_MATCH")).cast('int').alias("NUM_PLAYER_FINAL_RANK_PTS"),
-                f.max(f.col("NUM_PLAYER_RANK_PTS").cast('int')).alias("NUM_PLAYER_BEST_RANK_PTS"),
-                f.min(f.col("NUM_PLAYER_RANK_PTS").cast('int')).alias("NUM_PLAYER_WORST_RANK_PTS"),
                 f.lit(f.current_date()).alias("DATE_LOAD")
             )
             .orderBy("SK_DATE")

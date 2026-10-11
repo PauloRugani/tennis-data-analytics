@@ -27,8 +27,9 @@ def run_transformation(tb_atp_rankings):
             tb_atp_rankings
             .select(
                 f.date_format(f.to_date(f.col("date"), 'yyyyMMdd'), 'yyyy-MM-dd').alias("DATE_WEEK_RANKING"),
-                f.coalesce(f.col("rank").cast("string"), f.lit("-")).alias("NUM_PLAYER_RANK"),
+                f.col("id").cast("string").alias("COD_PLAYER_ID"),
                 f.col("name").alias("DES_PLAYER_NAME"),
+                f.coalesce(f.col("rank").cast("string"), f.lit("-")).alias("NUM_PLAYER_RANK"),
                 f.col("age").cast("int").alias("NUM_PLAYER_AGE"),
                 f.regexp_replace(f.col("points"), ",", "").cast("int").alias("NUM_PLAYER_RANK_PTS"),
                 f.col("lost_earned_points").cast("string").alias("NUM_PLAYER_LE_PTS"),
@@ -39,6 +40,7 @@ def run_transformation(tb_atp_rankings):
                 f.col("DATE_INGESTION").alias("DATE_INGESTION")
             )
             .dropDuplicates(["DATE_WEEK_RANKING", "DES_PLAYER_NAME"])
+            .where("NUM_PLAYER_RANK <> 'rank'")
         )
         logger.info("Silver rankings transformation completed")
         return df

@@ -23,19 +23,19 @@ def run_transformation(handler):
                     f.expr("INTERVAL 1 DAY"),
                 ).alias("DATE")
             )
-            .select(f.explode("DATE").alias("DATE"))
+            .select(f.explode("DATE").alias("DATE_FORMATED"))
         )
 
         df = (
             df_date
-            .withColumn("SK_DATE", f.date_format("DATE", "yyyyMMdd").cast("string"))
-            .withColumn("NUM_YEAR", f.year("DATE"))
-            .withColumn("NUM_MONTH", f.month("DATE"))
-            .withColumn("DES_MONTH", f.date_format("DATE", "MMMM"))
-            .withColumn("DES_MONTH_SHORT", f.date_format("DATE", "MMM"))
-            .withColumn("NUM_DAY", f.dayofmonth("DATE"))
-            .withColumn("DES_DAY", f.date_format("DATE", "EEEE"))
-            .withColumn("DATE_RANKING", f.to_date(f.date_trunc("week", f.col("DATE"))))
+            .withColumn("SK_DATE", f.date_format("DATE_FORMATED", "yyyyMMdd").cast("string"))
+            .withColumn("NUM_YEAR", f.year("DATE_FORMATED"))
+            .withColumn("NUM_MONTH", f.month("DATE_FORMATED"))
+            .withColumn("DES_MONTH", f.date_format("DATE_FORMATED", "MMMM"))
+            .withColumn("DES_MONTH_SHORT", f.date_format("DATE_FORMATED", "MMM"))
+            .withColumn("NUM_DAY", f.dayofmonth("DATE_FORMATED"))
+            .withColumn("DES_DAY", f.date_format("DATE_FORMATED", "EEEE"))
+            .withColumn("DATE_RANKING", f.to_date(f.date_trunc("week", f.col("DATE_FORMATED"))))
             .withColumn("DATE_LOAD", f.lit(f.current_date()))
         )
         logger.info("dim_date transformation completed")

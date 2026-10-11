@@ -166,6 +166,7 @@ def run_transformation(tb_atp_matches):
                 "COD_PLAYER_ID", 
                 f.last("COD_PLAYER_ID").over(Window.partitionBy("DES_PLAYER_NAME").orderBy(f.col("DATE_MATCH").asc()).rowsBetween(Window.unboundedPreceding, Window.unboundedFollowing))
             )
+            .where("COD_PLAYER_ID <> '199999'")
         )
 
         logger.info("Silver player_match transformation completed")
