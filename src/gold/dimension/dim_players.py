@@ -22,12 +22,18 @@ def load_tables(handler, bucket_name):
             path=f"s3a://{bucket_name}/silver/tb_atp_player_match/",
             format="parquet"
         )
-        return tb_players, tb_atp_player_match
+        tb_atp_rankings = handler.load_data(
+            spark=handler.spark,
+            path=f"s3a://{bucket_name}/silver/tb_atp_rankings/",
+            format="parquet"
+        )
+        
+        return tb_players, tb_atp_player_match, tb_atp_rankings
     except Exception as e:
         logger.error(f"Failed to load dim_players source table: {e}")
         raise
 
-def run_transformation(tb_players, tb_atp_player_match):
+def run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings):
     try:
         country_mapping = {
             "AHO": "an", "ALG": "dz", "AND": "ad", "ANT": "ag", "ARG": "ar",
@@ -66,38 +72,43 @@ def run_transformation(tb_players, tb_atp_player_match):
 
         mapping_expr = f.create_map([f.lit(x) for x in chain(*country_mapping.items())])
 
-        players_from_matches = (
+        #! ESSE JA ESTA PRONTO
+        players_from_matches = ( # not only new IDs 
             tb_atp_player_match.orderBy(f.col("DATE_MATCH"))
-            .groupBy("DES_PLAYER_NAME")
+            .groupBy("COD_PLAYER_ID") # PRIMRAY KEY
             .agg(
-                f.first("COD_PLAYER_ID", ignorenulls=True).cast("string").alias("COD_PLAYER_ID"),
-                f.coalesce(f.last("DES_PLAYER_HAND"), f.lit("-")).alias("DES_PLAYER_HAND"),
-                f.coalesce(f.last("NUM_PLAYER_HEIGHT"), f.lit(-1)).cast('int').alias("NUM_PLAYER_HEIGHT"),
-                f.coalesce(f.last("DES_PLAYER_COUNTRY"), f.lit("N/A")).alias("DES_PLAYER_COUNTRY"),
+                f.first("DES_PLAYER_NAME").cast("string").alias("DES_PLAYER_NAME"),
+                f.coalesce(f.last("DES_PLAYER_HAND", ignorenulls=True), f.lit("-")).alias("DES_PLAYER_HAND"),
+                f.coalesce(f.last("NUM_PLAYER_HEIGHT", ignorenulls=True), f.lit(-1)).cast('int').alias("NUM_PLAYER_HEIGHT"),
+                f.coalesce(f.last("DES_PLAYER_COUNTRY", ignorenulls=True), f.lit("N/A")).alias("DES_PLAYER_COUNTRY"),
             )
         )
         
+        #! FAZENDO ESSE, MAS TEM DOIS IDs PARA O MESMO NOME
         df = (
-            tb_players.alias("p")
-            .join(
-                players_from_matches.alias("pm"),
-                "DES_PLAYER_NAME",
-                'full'
+            tb_atp_rankings
+            .groupBy("COD_PLAYER_ID") # only new IDs
+            .agg(
+                f.first("DES_PLAYER_NAME").alias("DES_PLAYER_NAME"),
             )
+        )
+
+        df2 = (
+            tb_players.alias("p") # only new IDs
             .select(
-                f.coalesce(f.col("pm.COD_PLAYER_ID"), f.col("p.COD_PLAYER_ID")).alias("COD_PLAYER_ID"),
-                f.coalesce(f.col("p.COD_PLAYER_ID"), f.col("pm.COD_PLAYER_ID")).alias("COD_PLAYER_ID_NEW"),
-                f.coalesce(f.col("p.DES_PLAYER_NAME"), f.col("pm.DES_PLAYER_NAME")).alias("DES_PLAYER_NAME"),
-                f.coalesce(f.col("p.DES_PLAYER_ATP_NAME"), f.col("pm.DES_PLAYER_NAME")).alias("DES_PLAYER_ATP_NAME"),
-                f.coalesce(f.col("p.DATE_PLAYER_BIRTHDATE"), f.lit(None)).alias("DATE_PLAYER_BIRTHDATE"),
-                f.coalesce(f.col("p.NUM_PLAYER_HEIGHT"), f.col("pm.NUM_PLAYER_HEIGHT")).alias("NUM_PLAYER_HEIGHT"),
-                f.coalesce(f.col("p.DATE_PLAYER_TURNED_PRO_YEAR"), f.lit(None)).alias("DATE_PLAYER_TURNED_PRO_YEAR"),
-                f.coalesce(f.col("p.DES_PLAYER_BIRTH_PLACE"), f.lit("-")).alias("DES_PLAYER_BIRTH_PLACE"),
-                f.coalesce(f.col("p.DES_PLAYER_COACHES"), f.lit("-")).alias("DES_PLAYER_COACHES"),
-                f.coalesce(f.col("p.DES_PLAYER_HAND"), f.col("pm.DES_PLAYER_HAND")).alias("DES_PLAYER_HAND"),
-                f.coalesce(f.col("p.DES_PLAYER_BACKHAND_TYPE"), f.lit("-")).alias("DES_PLAYER_BACKHAND_TYPE"),
-                f.coalesce(f.col("p.DES_PLAYER_COUNTRY"), f.col("pm.DES_PLAYER_COUNTRY")).alias("DES_PLAYER_COUNTRY")
+                f.col("p.COD_PLAYER_ID").alias("COD_PLAYER_ID"),
+                f.col("p.DES_PLAYER_NAME").alias("DES_PLAYER_NAME"),
+                f.col("p.DES_PLAYER_ATP_NAME").alias("DES_PLAYER_ATP_NAME"),
+                f.col("p.DATE_PLAYER_BIRTHDATE").alias("DATE_PLAYER_BIRTHDATE"),
+                f.col("p.NUM_PLAYER_HEIGHT").alias("NUM_PLAYER_HEIGHT"),
+                f.col("p.DATE_PLAYER_TURNED_PRO_YEAR").alias("DATE_PLAYER_TURNED_PRO_YEAR"),
+                f.col("p.DES_PLAYER_BIRTH_PLACE").alias("DES_PLAYER_BIRTH_PLACE"),
+                f.col("p.DES_PLAYER_COACHES").alias("DES_PLAYER_COACHES"),
+                f.col("p.DES_PLAYER_HAND").alias("DES_PLAYER_HAND"),
+                f.col("p.DES_PLAYER_BACKHAND_TYPE").alias("DES_PLAYER_BACKHAND_TYPE"),
+                f.col("p.DES_PLAYER_COUNTRY").alias("DES_PLAYER_COUNTRY")
             )
+            # .unionByName(players_from_rankings, allowMissingColumns=True)
             .withColumn(
                 "DES_PLAYER_HAND",
                 f.when(f.col("DES_PLAYER_HAND") == "L", f.lit("Left-Handed"))
@@ -117,22 +128,22 @@ def run_transformation(tb_players, tb_atp_player_match):
             )
             .withColumn("SK_PLAYER", f.md5(f.col("COD_PLAYER_ID")))
 
-            .groupBy("SK_PLAYER")
-            .agg(
-                f.first("COD_PLAYER_ID").alias("COD_PLAYER_ID"),
-                f.max_by("COD_PLAYER_ID_NEW", f.when(f.col("COD_PLAYER_ID_NEW").rlike("[A-Za-z]"), 1).otherwise(0)).alias("COD_PLAYER_ID_NEW"),
-                f.first("DES_PLAYER_NAME").alias("DES_PLAYER_NAME"),
-                f.first("DES_PLAYER_ATP_NAME").alias("DES_PLAYER_ATP_NAME"),
-                f.first("DATE_PLAYER_BIRTHDATE").alias("DATE_PLAYER_BIRTHDATE"),
-                f.first("NUM_PLAYER_HEIGHT").alias("NUM_PLAYER_HEIGHT"),
-                f.first("DATE_PLAYER_TURNED_PRO_YEAR").alias("DATE_PLAYER_TURNED_PRO_YEAR"),
-                f.first("DES_PLAYER_BIRTH_PLACE").alias("DES_PLAYER_BIRTH_PLACE"),
-                f.first("DES_PLAYER_COACHES").alias("DES_PLAYER_COACHES"),
-                f.first("DES_PLAYER_HAND").alias("DES_PLAYER_HAND"),
-                f.first("DES_PLAYER_BACKHAND_TYPE").alias("DES_PLAYER_BACKHAND_TYPE"),
-                f.first("DES_PLAYER_COUNTRY").alias("DES_PLAYER_COUNTRY"),
-                f.first("DES_PLAYER_COUNTRY_ISO2").alias("DES_PLAYER_COUNTRY_ISO2"),
-            )
+            # .groupBy("SK_PLAYER")
+            # .agg(
+            #     f.first("COD_PLAYER_ID", ignorenulls=True).alias("COD_PLAYER_ID"),
+            #     f.max_by("COD_PLAYER_ID_NEW", f.when(f.col("COD_PLAYER_ID_NEW").rlike("[A-Za-z]"), 1).otherwise(0)).alias("COD_PLAYER_ID_NEW"),
+            #     f.first("DES_PLAYER_NAME", ignorenulls=True).alias("DES_PLAYER_NAME"),
+            #     f.first("DES_PLAYER_ATP_NAME", ignorenulls=True).alias("DES_PLAYER_ATP_NAME"),
+            #     f.first("DATE_PLAYER_BIRTHDATE", ignorenulls=True).alias("DATE_PLAYER_BIRTHDATE"),
+            #     f.first("NUM_PLAYER_HEIGHT", ignorenulls=True).alias("NUM_PLAYER_HEIGHT"),
+            #     f.first("DATE_PLAYER_TURNED_PRO_YEAR", ignorenulls=True).alias("DATE_PLAYER_TURNED_PRO_YEAR"),
+            #     f.first("DES_PLAYER_BIRTH_PLACE", ignorenulls=True).alias("DES_PLAYER_BIRTH_PLACE"),
+            #     f.first("DES_PLAYER_COACHES", ignorenulls=True).alias("DES_PLAYER_COACHES"),
+            #     f.first("DES_PLAYER_HAND", ignorenulls=True).alias("DES_PLAYER_HAND"),
+            #     f.first("DES_PLAYER_BACKHAND_TYPE", ignorenulls=True).alias("DES_PLAYER_BACKHAND_TYPE"),
+            #     f.first("DES_PLAYER_COUNTRY", ignorenulls=True).alias("DES_PLAYER_COUNTRY"),
+            #     f.first("DES_PLAYER_COUNTRY_ISO2", ignorenulls=True).alias("DES_PLAYER_COUNTRY_ISO2"),
+            # )
         )
 
         logger.info("dim_players transformation completed")
@@ -181,8 +192,8 @@ def run(conn_vars: dict = None):
         jdbc_user = conn_vars.get("jdbc_user")
         jdbc_password = conn_vars.get("jdbc_password")
         
-        tb_players, tb_atp_player_match = load_tables(handler, bucket_name)
-        df_final = run_transformation(tb_players, tb_atp_player_match)
+        tb_players, tb_atp_player_match, tb_atp_rankings = load_tables(handler, bucket_name)
+        df_final = run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings)
         save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
         logger.info("Finished dim_players run")
     finally:
