@@ -25,7 +25,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.VM_HOST }}
           REMOTE_USER: ${{ secrets.VM_USER }}
           SOURCE: "dags/"
-          TARGET: "/home/opc/airflow/dags/"
+          TARGET: "/root/lakehouse-stack/dags/"
           EXCLUDE: "/__pycache__/"
 
       - name: Sync bot/
@@ -35,7 +35,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.VM_HOST }}
           REMOTE_USER: ${{ secrets.VM_USER }}
           SOURCE: "bot/"
-          TARGET: "/home/opc/airflow/bot/"
+          TARGET: "/root/lakehouse-stack/bot/"
           EXCLUDE: "/__pycache__/"
 
       - name: Sync src/
@@ -45,7 +45,5 @@ jobs:
           REMOTE_HOST: ${{ secrets.VM_HOST }}
           REMOTE_USER: ${{ secrets.VM_USER }}
           SOURCE: "src/"
-          TARGET: "/home/opc/airflow/src/"
+          TARGET: "/root/lakehouse-stack/src/"
           EXCLUDE: "/__pycache__/"
-
-# run sudo dnf install -y rsync || sudo yum install -y rsync at VM terminal
