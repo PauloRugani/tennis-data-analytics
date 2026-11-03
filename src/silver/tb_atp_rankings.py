@@ -1,9 +1,11 @@
 import os
 import sys
 from pyspark.sql import functions as f
+from pyspark.sql.window import Window
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.pyspark_handler import PySparkHandler
 from utils.logger import get_logger
+from utils.player_names import player_name_key
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 logger = get_logger(__name__)
@@ -23,11 +25,26 @@ def load_tables(handler, bucket_name):
 
 def run_transformation(tb_atp_rankings):
     try:
+        ids_do_nome = f.collect_set("id").over(Window.partitionBy("NAME_KEY"))
+
         df = (
             tb_atp_rankings
+            .withColumn("id", f.when(f.col("id") == 'NA', f.lit(None)).otherwise(f.col("id")))
+            .withColumn("NAME_KEY", player_name_key(f.col("name")))
+            .withColumn(
+                "COD_PLAYER_ID",
+                # Sem ID: herda o ID do nome apenas se ele for único (nome com mais de um ID
+                # pode ser homônimo). Caso contrário recebe um ID sintético determinístico,
+                # para o jogador continuar existindo na dimensão e nas fatos.
+                f.coalesce(
+                    f.col("id"),
+                    f.when(f.size(ids_do_nome) == 1, ids_do_nome.getItem(0)),
+                    f.concat(f.lit("NOID_"), f.substring(f.md5(f.col("NAME_KEY")), 1, 12))
+                )
+            )
             .select(
                 f.date_format(f.to_date(f.col("date"), 'yyyyMMdd'), 'yyyy-MM-dd').alias("DATE_WEEK_RANKING"),
-                f.col("id").cast("string").alias("COD_PLAYER_ID"),
+                f.col("COD_PLAYER_ID"),
                 f.col("name").alias("DES_PLAYER_NAME"),
                 f.coalesce(f.col("rank").cast("string"), f.lit("-")).alias("NUM_PLAYER_RANK"),
                 f.col("age").cast("int").alias("NUM_PLAYER_AGE"),
@@ -39,8 +56,8 @@ def run_transformation(tb_atp_rankings):
 
                 f.col("DATE_INGESTION").alias("DATE_INGESTION")
             )
-            .dropDuplicates(["DATE_WEEK_RANKING", "DES_PLAYER_NAME"])
             .where("NUM_PLAYER_RANK <> 'rank'")
+            .dropDuplicates(["DATE_WEEK_RANKING", "COD_PLAYER_ID"])
         )
         logger.info("Silver rankings transformation completed")
         return df

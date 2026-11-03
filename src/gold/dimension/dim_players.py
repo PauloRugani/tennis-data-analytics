@@ -1,13 +1,19 @@
 import os
 import sys
 from pyspark.sql import functions as f
+from pyspark.sql.window import Window
 from itertools import chain
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from src.utils.pyspark_handler import PySparkHandler
 from src.utils.logger import get_logger
+from src.utils.player_names import normalize_player_name, player_name_key
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 logger = get_logger(__name__)
+
+SYNTHETIC_ID_PREFIX = "NOID_"
+PLACEHOLDER_NAME_KEYS = ["unknownunknown", "qualifierqualifier"]
+MAX_ACTIVE_AGE_YEARS = 50
 
 def load_tables(handler, bucket_name):
     try:
@@ -32,6 +38,86 @@ def load_tables(handler, bucket_name):
     except Exception as e:
         logger.error(f"Failed to load dim_players source table: {e}")
         raise
+
+def group_ids(id_pairs):
+    """Agrupa pares de IDs equivalentes (A=B, B=C -> A,B,C) e devolve {id: id_do_grupo}."""
+    parent = {}
+
+    def find(player_id):
+        parent.setdefault(player_id, player_id)
+        while parent[player_id] != player_id:
+            parent[player_id] = parent[parent[player_id]]
+            player_id = parent[player_id]
+        return player_id
+
+    for id_a, id_b in id_pairs:
+        root_a, root_b = sorted([find(id_a), find(id_b)])
+        parent[root_b] = root_a
+
+    return {player_id: find(player_id) for player_id in list(parent)}
+
+def find_same_player_pairs(id_names, id_profile):
+    """
+    Decide quais IDs com o mesmo nome são o mesmo jogador. A única troca de ID real é do formato
+    numérico (antigo) para o alfanumérico (novo), então um jogador tem no máximo 1 ID de cada
+    formato: dois IDs do mesmo formato são sempre jogadores diferentes, mesmo com nome igual e
+    nascimento próximo. A dupla é descartada se algo a contradiz.
+    """
+    is_legacy_id = f.col("COD_PLAYER_ID").rlike(r"^\d+$")
+    is_synthetic_id = f.col("COD_PLAYER_ID").startswith(SYNTHETIC_ID_PREFIX)
+    real_names = id_names.where(~is_synthetic_id)
+    profile_a = id_profile.select([f.col(c).alias(f"A_{c}") for c in id_profile.columns])
+    profile_b = id_profile.select([f.col(c).alias(f"B_{c}") for c in id_profile.columns])
+
+    candidates = (
+        real_names.where(is_legacy_id).withColumnRenamed("COD_PLAYER_ID", "ID_A")
+        .join(real_names.where(~is_legacy_id).withColumnRenamed("COD_PLAYER_ID", "ID_B"), "NAME_KEY")
+        .select("ID_A", "ID_B")
+        .distinct()
+        .join(profile_a, f.col("ID_A") == f.col("A_COD_PLAYER_ID"))
+        .join(profile_b, f.col("ID_B") == f.col("B_COD_PLAYER_ID"))
+    )
+
+    gap_days = f.greatest(
+        f.datediff(f.col("B_FIRST_ACTIVITY"), f.col("A_LAST_ACTIVITY")),
+        f.datediff(f.col("A_FIRST_ACTIVITY"), f.col("B_LAST_ACTIVITY")),
+    )
+    age_at_last_activity = f.datediff(
+        f.greatest(f.col("A_LAST_ACTIVITY"), f.col("B_LAST_ACTIVITY")),
+        f.coalesce(f.col("A_BIRTHDATE"), f.col("B_BIRTHDATE")),
+    ) / 365.25
+
+    # Períodos de atividade sobrepostos => duas pessoas ativas ao mesmo tempo (gap <= 0)
+    contradiction = (
+        f.coalesce(f.col("A_BIRTHDATE") != f.col("B_BIRTHDATE"), f.lit(False))
+        | f.coalesce(f.col("A_COUNTRY_KEY") != f.col("B_COUNTRY_KEY"), f.lit(False))
+        | f.coalesce(gap_days <= 0, f.lit(False))
+        | f.coalesce(age_at_last_activity > MAX_ACTIVE_AGE_YEARS, f.lit(False))
+    )
+
+    # A ligação é 1 para 1. Descartadas as contradições, se sobrar um único par possível ele é unido.
+    # Se ainda houver empate não há como saber de quem é o ID, e todos ficam separados.
+    real_pairs = (
+        candidates.where(~contradiction)
+        .withColumn("QTY_NEW_IDS", f.count("*").over(Window.partitionBy("ID_A")))
+        .withColumn("QTY_OLD_IDS", f.count("*").over(Window.partitionBy("ID_B")))
+        .where((f.col("QTY_NEW_IDS") == 1) & (f.col("QTY_OLD_IDS") == 1))
+        .select("ID_A", "ID_B")
+    )
+
+    # ID sintético não tem atributos para comparar: só é unido quando o nome aponta para um único ID real
+    real_id_by_name = (
+        real_names.groupBy("NAME_KEY")
+        .agg(f.count_distinct("COD_PLAYER_ID").alias("QTY"), f.first("COD_PLAYER_ID").alias("ID_B"))
+        .where(f.col("QTY") == 1)
+    )
+    synthetic_pairs = (
+        id_names.where(is_synthetic_id)
+        .join(real_id_by_name, "NAME_KEY")
+        .select(f.col("COD_PLAYER_ID").alias("ID_A"), "ID_B")
+    )
+
+    return [(row["ID_A"], row["ID_B"]) for row in real_pairs.unionByName(synthetic_pairs).distinct().collect()]
 
 def run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings):
     try:
@@ -72,43 +158,142 @@ def run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings):
 
         mapping_expr = f.create_map([f.lit(x) for x in chain(*country_mapping.items())])
 
-        #! ESSE JA ESTA PRONTO
-        players_from_matches = ( # not only new IDs 
-            tb_atp_player_match.orderBy(f.col("DATE_MATCH"))
-            .groupBy("COD_PLAYER_ID") # PRIMRAY KEY
-            .agg(
-                f.first("DES_PLAYER_NAME").cast("string").alias("DES_PLAYER_NAME"),
-                f.coalesce(f.last("DES_PLAYER_HAND", ignorenulls=True), f.lit("-")).alias("DES_PLAYER_HAND"),
-                f.coalesce(f.last("NUM_PLAYER_HEIGHT", ignorenulls=True), f.lit(-1)).cast('int').alias("NUM_PLAYER_HEIGHT"),
-                f.coalesce(f.last("DES_PLAYER_COUNTRY", ignorenulls=True), f.lit("N/A")).alias("DES_PLAYER_COUNTRY"),
-            )
-        )
-        
-        #! FAZENDO ESSE, MAS TEM DOIS IDs PARA O MESMO NOME
-        df = (
-            tb_atp_rankings
-            .groupBy("COD_PLAYER_ID") # only new IDs
-            .agg(
-                f.first("DES_PLAYER_NAME").alias("DES_PLAYER_NAME"),
+        def without_placeholder(coluna, placeholder):
+            coluna = f.col(coluna) if isinstance(coluna, str) else coluna
+            return f.when(coluna != placeholder, coluna)
+
+        country_code = f.upper(f.trim(f.col("DES_PLAYER_COUNTRY")))
+        country_key = without_placeholder(f.coalesce(mapping_expr[country_code], country_code), "Unk")
+
+        # Silver usa -1, "-" e "N/A" para ausência de valor: aqui viram null para o coalesce achar o valor real
+        registry = (
+            tb_players
+            .select(
+                "COD_PLAYER_ID",
+                "DES_PLAYER_ATP_NAME",
+                f.to_date("DATE_PLAYER_BIRTHDATE").alias("DATE_PLAYER_BIRTHDATE"),
+                f.col("DATE_PLAYER_TURNED_PRO_YEAR"),
+                without_placeholder(f.col("NUM_PLAYER_HEIGHT").cast("int"), -1).alias("REG_HEIGHT"),
+                without_placeholder("DES_PLAYER_BIRTH_PLACE", "-").alias("DES_PLAYER_BIRTH_PLACE"),
+                without_placeholder("DES_PLAYER_COACHES", "-").alias("DES_PLAYER_COACHES"),
+                without_placeholder("DES_PLAYER_HAND", "-").alias("REG_HAND"),
+                without_placeholder("DES_PLAYER_BACKHAND_TYPE", "-").alias("DES_PLAYER_BACKHAND_TYPE"),
+                without_placeholder("DES_PLAYER_COUNTRY", "N/A").alias("REG_COUNTRY"),
+                f.lit(True).alias("IN_REGISTRY"),
             )
         )
 
-        df2 = (
-            tb_players.alias("p") # only new IDs
-            .select(
-                f.col("p.COD_PLAYER_ID").alias("COD_PLAYER_ID"),
-                f.col("p.DES_PLAYER_NAME").alias("DES_PLAYER_NAME"),
-                f.col("p.DES_PLAYER_ATP_NAME").alias("DES_PLAYER_ATP_NAME"),
-                f.col("p.DATE_PLAYER_BIRTHDATE").alias("DATE_PLAYER_BIRTHDATE"),
-                f.col("p.NUM_PLAYER_HEIGHT").alias("NUM_PLAYER_HEIGHT"),
-                f.col("p.DATE_PLAYER_TURNED_PRO_YEAR").alias("DATE_PLAYER_TURNED_PRO_YEAR"),
-                f.col("p.DES_PLAYER_BIRTH_PLACE").alias("DES_PLAYER_BIRTH_PLACE"),
-                f.col("p.DES_PLAYER_COACHES").alias("DES_PLAYER_COACHES"),
-                f.col("p.DES_PLAYER_HAND").alias("DES_PLAYER_HAND"),
-                f.col("p.DES_PLAYER_BACKHAND_TYPE").alias("DES_PLAYER_BACKHAND_TYPE"),
-                f.col("p.DES_PLAYER_COUNTRY").alias("DES_PLAYER_COUNTRY")
+        latest_known = lambda coluna: f.max_by(coluna, f.when(f.col(coluna).isNotNull(), f.col("DATE_MATCH")))
+        from_matches = (
+            tb_atp_player_match
+            .withColumn("DES_PLAYER_HAND", f.when(f.col("DES_PLAYER_HAND").isin("L", "R", "A"), f.col("DES_PLAYER_HAND")))
+            .withColumn("NUM_PLAYER_HEIGHT", f.when(f.col("NUM_PLAYER_HEIGHT") > 0, f.col("NUM_PLAYER_HEIGHT")))
+            .groupBy("COD_PLAYER_ID")
+            .agg(
+                latest_known("DES_PLAYER_HAND").alias("MATCH_HAND"),
+                latest_known("NUM_PLAYER_HEIGHT").alias("MATCH_HEIGHT"),
+                latest_known("DES_PLAYER_COUNTRY").alias("MATCH_COUNTRY"),
             )
-            # .unionByName(players_from_rankings, allowMissingColumns=True)
+        )
+
+        activity = (
+            tb_atp_player_match.select("COD_PLAYER_ID", f.to_date("DATE_MATCH").alias("ACTIVITY_DATE"))
+            .unionByName(tb_atp_rankings.select("COD_PLAYER_ID", f.to_date("DATE_WEEK_RANKING").alias("ACTIVITY_DATE")))
+            .groupBy("COD_PLAYER_ID")
+            .agg(f.min("ACTIVITY_DATE").alias("FIRST_ACTIVITY"), f.max("ACTIVITY_DATE").alias("LAST_ACTIVITY"))
+        )
+
+        # Todos os nomes de cada ID. PRIORITY: cadastro > partidas > ranking
+        name_observations = (
+            tb_players.select("COD_PLAYER_ID", f.col("DES_PLAYER_NAME"), f.lit(1).alias("PRIORITY"), f.lit(1).alias("QTY"))
+            .unionByName(tb_players.select("COD_PLAYER_ID", f.col("DES_PLAYER_ATP_NAME").alias("DES_PLAYER_NAME"), f.lit(2).alias("PRIORITY"), f.lit(1).alias("QTY")))
+            .unionByName(tb_atp_player_match.groupBy("COD_PLAYER_ID", "DES_PLAYER_NAME").agg(f.count("*").cast("int").alias("QTY")).withColumn("PRIORITY", f.lit(3)))
+            .unionByName(tb_atp_rankings.groupBy("COD_PLAYER_ID", "DES_PLAYER_NAME").agg(f.count("*").cast("int").alias("QTY")).withColumn("PRIORITY", f.lit(4)))
+            .where(f.col("COD_PLAYER_ID").isNotNull() & f.col("DES_PLAYER_NAME").isNotNull())
+            .withColumn("NAME_KEY", player_name_key(f.col("DES_PLAYER_NAME")))
+            .where(f.col("NAME_KEY") != "")
+        )
+
+        # Placeholders não são nome: o ID que só tem placeholder recebe "Unknown-<ID>" no final
+        best_name = (
+            name_observations
+            .where(~f.col("NAME_KEY").isin(PLACEHOLDER_NAME_KEYS))
+            .withColumn("RN", f.row_number().over(Window.partitionBy("COD_PLAYER_ID").orderBy("PRIORITY", f.desc("QTY"), "DES_PLAYER_NAME")))
+            .where(f.col("RN") == 1)
+            .select("COD_PLAYER_ID", normalize_player_name(f.col("DES_PLAYER_NAME")).alias("DES_PLAYER_NAME"))
+        )
+
+        # Uma linha por ID encontrado em qualquer uma das 3 tabelas
+        id_profile = (
+            name_observations.select("COD_PLAYER_ID").distinct()
+            .join(best_name, "COD_PLAYER_ID", "left")
+            .join(registry, "COD_PLAYER_ID", "left")
+            .join(from_matches, "COD_PLAYER_ID", "left")
+            .join(activity, "COD_PLAYER_ID", "left")
+            .withColumn("DES_PLAYER_COUNTRY", f.coalesce(f.col("REG_COUNTRY"), f.col("MATCH_COUNTRY")))
+            .withColumn("NUM_PLAYER_HEIGHT", f.coalesce(f.col("REG_HEIGHT"), f.col("MATCH_HEIGHT")))
+            .withColumn("DES_PLAYER_HAND", f.coalesce(f.col("REG_HAND"), f.col("MATCH_HAND")))
+            .withColumn("COUNTRY_KEY", country_key)
+            .cache()
+        )
+
+        comparison_profile = id_profile.select(
+            "COD_PLAYER_ID", "FIRST_ACTIVITY", "LAST_ACTIVITY",
+            f.col("DATE_PLAYER_BIRTHDATE").alias("BIRTHDATE"), "COUNTRY_KEY",
+        )
+        id_names = (
+            name_observations
+            .where(~f.col("NAME_KEY").isin(PLACEHOLDER_NAME_KEYS))
+            .select("COD_PLAYER_ID", "NAME_KEY")
+            .distinct()
+        )
+
+        same_player_groups = group_ids(find_same_player_pairs(id_names, comparison_profile))
+        group_schema = "COD_PLAYER_ID string, PLAYER_GROUP string"
+        id_to_group = tb_players.sparkSession.createDataFrame(list(same_player_groups.items()), group_schema)
+
+        # Ordem de preferência do ID atual: formato novo > numérico > sintético; depois o mais recente
+        is_synthetic = f.col("COD_PLAYER_ID").startswith(SYNTHETIC_ID_PREFIX)
+        is_numeric = f.col("COD_PLAYER_ID").rlike(r"^\d+$")
+        group_order = Window.partitionBy("PLAYER_GROUP").orderBy(
+            is_synthetic.asc(),
+            is_numeric.asc(),
+            f.col("LAST_ACTIVITY").desc_nulls_last(),
+            f.col("IN_REGISTRY").asc_nulls_last(),
+            f.col("COD_PLAYER_ID").asc(),
+        )
+        whole_group = group_order.rowsBetween(Window.unboundedPreceding, Window.unboundedFollowing)
+        first_known = lambda coluna: f.first(coluna, ignorenulls=True).over(whole_group)
+        real_ids = f.collect_list(f.when(~is_synthetic, f.col("COD_PLAYER_ID"))).over(whole_group)
+        unknown_player_name = f.concat(f.lit("Unknown-"), f.col("COD_PLAYER_ID"))
+
+        df = (
+            id_profile
+            .join(id_to_group, "COD_PLAYER_ID", "left")
+            .withColumn("PLAYER_GROUP", f.coalesce(f.col("PLAYER_GROUP"), f.col("COD_PLAYER_ID")))
+            .withColumn("RN", f.row_number().over(group_order))
+            .withColumn("COD_PLAYER_ID_OLD", real_ids.getItem(1))
+            .withColumn("COD_PLAYER_ID_ALL", f.concat_ws(",", f.collect_list("COD_PLAYER_ID").over(whole_group)))
+            .withColumn("DES_PLAYER_NAME", first_known("DES_PLAYER_NAME"))
+            .withColumn("DES_PLAYER_ATP_NAME", first_known("DES_PLAYER_ATP_NAME"))
+            .withColumn("DATE_PLAYER_BIRTHDATE", first_known("DATE_PLAYER_BIRTHDATE"))
+            .withColumn("DATE_PLAYER_TURNED_PRO_YEAR", first_known("DATE_PLAYER_TURNED_PRO_YEAR"))
+            .withColumn("NUM_PLAYER_HEIGHT", f.coalesce(first_known("NUM_PLAYER_HEIGHT"), f.lit(-1)))
+            .withColumn("DES_PLAYER_BIRTH_PLACE", f.coalesce(first_known("DES_PLAYER_BIRTH_PLACE"), f.lit("-")))
+            .withColumn("DES_PLAYER_COACHES", f.coalesce(first_known("DES_PLAYER_COACHES"), f.lit("-")))
+            .withColumn("DES_PLAYER_HAND", first_known("DES_PLAYER_HAND"))
+            .withColumn("DES_PLAYER_BACKHAND_TYPE", first_known("DES_PLAYER_BACKHAND_TYPE"))
+            .withColumn("DES_PLAYER_COUNTRY", f.coalesce(first_known("DES_PLAYER_COUNTRY"), f.lit("N/A")))
+            .where(f.col("RN") == 1)
+            # A fonte preenche o nascimento dos placeholders com uma data padrão (1970-01-01), que não é real
+            .withColumn("DATE_PLAYER_BIRTHDATE", f.when(f.col("DES_PLAYER_NAME").isNotNull(), f.col("DATE_PLAYER_BIRTHDATE")))
+            .withColumn("DES_PLAYER_NAME", f.coalesce(f.col("DES_PLAYER_NAME"), unknown_player_name))
+            .withColumn(
+                "DES_PLAYER_ATP_NAME",
+                f.when(
+                    player_name_key(f.col("DES_PLAYER_ATP_NAME")).isin(PLACEHOLDER_NAME_KEYS), unknown_player_name
+                ).otherwise(f.col("DES_PLAYER_ATP_NAME"))
+            )
             .withColumn(
                 "DES_PLAYER_HAND",
                 f.when(f.col("DES_PLAYER_HAND") == "L", f.lit("Left-Handed"))
@@ -127,23 +312,23 @@ def run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings):
                 mapping_expr[f.upper(f.trim(f.col("DES_PLAYER_COUNTRY")))]
             )
             .withColumn("SK_PLAYER", f.md5(f.col("COD_PLAYER_ID")))
-
-            # .groupBy("SK_PLAYER")
-            # .agg(
-            #     f.first("COD_PLAYER_ID", ignorenulls=True).alias("COD_PLAYER_ID"),
-            #     f.max_by("COD_PLAYER_ID_NEW", f.when(f.col("COD_PLAYER_ID_NEW").rlike("[A-Za-z]"), 1).otherwise(0)).alias("COD_PLAYER_ID_NEW"),
-            #     f.first("DES_PLAYER_NAME", ignorenulls=True).alias("DES_PLAYER_NAME"),
-            #     f.first("DES_PLAYER_ATP_NAME", ignorenulls=True).alias("DES_PLAYER_ATP_NAME"),
-            #     f.first("DATE_PLAYER_BIRTHDATE", ignorenulls=True).alias("DATE_PLAYER_BIRTHDATE"),
-            #     f.first("NUM_PLAYER_HEIGHT", ignorenulls=True).alias("NUM_PLAYER_HEIGHT"),
-            #     f.first("DATE_PLAYER_TURNED_PRO_YEAR", ignorenulls=True).alias("DATE_PLAYER_TURNED_PRO_YEAR"),
-            #     f.first("DES_PLAYER_BIRTH_PLACE", ignorenulls=True).alias("DES_PLAYER_BIRTH_PLACE"),
-            #     f.first("DES_PLAYER_COACHES", ignorenulls=True).alias("DES_PLAYER_COACHES"),
-            #     f.first("DES_PLAYER_HAND", ignorenulls=True).alias("DES_PLAYER_HAND"),
-            #     f.first("DES_PLAYER_BACKHAND_TYPE", ignorenulls=True).alias("DES_PLAYER_BACKHAND_TYPE"),
-            #     f.first("DES_PLAYER_COUNTRY", ignorenulls=True).alias("DES_PLAYER_COUNTRY"),
-            #     f.first("DES_PLAYER_COUNTRY_ISO2", ignorenulls=True).alias("DES_PLAYER_COUNTRY_ISO2"),
-            # )
+            .select(
+                "SK_PLAYER",
+                "COD_PLAYER_ID",
+                "COD_PLAYER_ID_OLD",
+                "COD_PLAYER_ID_ALL",
+                "DES_PLAYER_NAME",
+                "DES_PLAYER_ATP_NAME",
+                f.date_format("DATE_PLAYER_BIRTHDATE", "yyyy-MM-dd").alias("DATE_PLAYER_BIRTHDATE"),
+                "NUM_PLAYER_HEIGHT",
+                "DATE_PLAYER_TURNED_PRO_YEAR",
+                "DES_PLAYER_BIRTH_PLACE",
+                "DES_PLAYER_COACHES",
+                "DES_PLAYER_HAND",
+                "DES_PLAYER_BACKHAND_TYPE",
+                "DES_PLAYER_COUNTRY",
+                "DES_PLAYER_COUNTRY_ISO2",
+            )
         )
 
         logger.info("dim_players transformation completed")

@@ -5,6 +5,7 @@ from pyspark.sql.window import Window
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.pyspark_handler import PySparkHandler
 from utils.logger import get_logger
+from utils.player_names import normalize_player_name
 
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 logger = get_logger(__name__)
@@ -87,7 +88,7 @@ def run_transformation(tb_atp_matches):
                 f.col("COD_TOURNEY_ID"),
 
                 f.col("m.winner_id").cast("string").alias("COD_PLAYER_ID"),
-                f.col("winner_name").cast("string").alias("DES_PLAYER_NAME"),
+                normalize_player_name(f.col("winner_name").cast("string")).alias("DES_PLAYER_NAME"),
                 f.col("winner_hand").alias("DES_PLAYER_HAND"),
                 f.col("winner_ht").cast('int').alias("NUM_PLAYER_HEIGHT"),
                 f.col("winner_ioc").alias("DES_PLAYER_COUNTRY"),
@@ -128,7 +129,7 @@ def run_transformation(tb_atp_matches):
                 f.col("COD_MATCH_ID"),
                 f.col("COD_TOURNEY_ID"),
                 f.col("m.loser_id").cast("string").alias("COD_PLAYER_ID"),
-                f.col("loser_name").cast("string").alias("DES_PLAYER_NAME"),
+                normalize_player_name(f.col("loser_name").cast("string")).alias("DES_PLAYER_NAME"),
                 f.col("loser_hand").alias("DES_PLAYER_HAND"),
                 f.col("loser_ht").cast('int').alias("NUM_PLAYER_HEIGHT"),
                 f.col("loser_ioc").alias("DES_PLAYER_COUNTRY"),
@@ -162,10 +163,6 @@ def run_transformation(tb_atp_matches):
 
         df = (
             df_winner.unionByName(df_loser, allowMissingColumns=False)
-            .withColumn(
-                "COD_PLAYER_ID", 
-                f.last("COD_PLAYER_ID").over(Window.partitionBy("DES_PLAYER_NAME").orderBy(f.col("DATE_MATCH").asc()).rowsBetween(Window.unboundedPreceding, Window.unboundedFollowing))
-            )
             .where("COD_PLAYER_ID <> '199999'")
         )
 
