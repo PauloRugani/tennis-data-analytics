@@ -119,7 +119,7 @@ def save_table(handler, init_run, df_final, bucket_name):
         logger.error(f"Failed to save bronze match data: {e}")
         raise
 
-def run(init_run: bool, conn_vars: dict = None):
+def run(conn_vars: dict = None):
     handler = None
     try:
         logger.info("Starting bronze matches run")
@@ -137,6 +137,7 @@ def run(init_run: bool, conn_vars: dict = None):
         )
 
         bucket_name = conn_vars.get("bucket_name")
+        init_run = conn_vars.get("init_run")
         tb_atp_matches, tb_ongoing_tourneys, historical_matches = load_tables(handler, init_run, bucket_name)
         df_final = run_transformation(handler, init_run, s3_client, bucket_name, tb_atp_matches, tb_ongoing_tourneys, historical_matches)
         save_table(handler, init_run, df_final, bucket_name)
@@ -147,4 +148,4 @@ def run(init_run: bool, conn_vars: dict = None):
         logger.info("Spark session stopped")
 
 if __name__ == "__main__":
-    run(init_run=True)
+    run()
