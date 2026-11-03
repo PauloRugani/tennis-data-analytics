@@ -34,7 +34,7 @@ def run_ingestion_bronze():
             "bucket_access_key": Variable.get("BUCKET_ACCESS_KEY"),
             "bucket_secret_key": Variable.get("BUCKET_SECRET_KEY"),
             "bucket_name": Variable.get("TENNIS_BUCKET_NAME"),
-            "init_run": Variable.get("INIT_RUN")
+            "init_run": bool(Variable.get("INIT_RUN"))
         }
     
     connection_vars = load_variables()
