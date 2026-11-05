@@ -38,14 +38,15 @@ def load_tables(handler, bucket_name):
 
 def run_transformation(tb_player_match, tb_tournaments, tb_date, tb_players):
     try:
+        player_ids = tb_players.select(
+            "SK_PLAYER",
+            f.explode(f.split("COD_PLAYER_ID_ALL", ",")).alias("COD_PLAYER_ID"),
+        )
+
         df = (
             tb_player_match.alias("p_m")
-            .join(tb_tournaments.alias("t"), ["COD_TOURNEY_ID", "REF_YEAR"], 'full')
-            .join(
-                tb_players.alias("pw"),
-                ["COD_PLAYER_ID"],
-                "full",
-            )
+            .join(tb_tournaments.alias("t"), ["COD_TOURNEY_ID", "REF_YEAR"], 'left')
+            .join(player_ids.alias("pw"), ["COD_PLAYER_ID"], "left")
             .join(
                 tb_date.alias("d"),
                 f.col("p_m.DATE_MATCH") == f.col("d.DATE_FORMATED")

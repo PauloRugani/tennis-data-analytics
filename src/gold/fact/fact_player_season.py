@@ -47,14 +47,15 @@ def run_transformation(tb_player_match, tb_tournaments, tb_players):
              .otherwise(1)
         )
 
+        player_ids = tb_players.select(
+            "SK_PLAYER",
+            f.explode(f.split("COD_PLAYER_ID_ALL", ",")).alias("COD_PLAYER_ID"),
+        )
+
         df = (
             tb_player_match.alias("p_m")
-            .join(tb_tournaments.alias("t"), "COD_TOURNEY_ID", 'left')
-            .join(
-                tb_players.alias("p"),
-                ["COD_PLAYER_ID"],
-                "left",
-            )
+            .join(tb_tournaments.alias("t"), ["COD_TOURNEY_ID", "REF_YEAR"], 'left')
+            .join(player_ids.alias("p"), ["COD_PLAYER_ID"], "left")
             .groupBy(f.col("SK_PLAYER"), f.concat(f.col("p_m.REF_YEAR"), f.lit('0101')).alias("SK_DATE"))
             .agg(
                 f.count("COD_MATCH_ID").alias("NUM_TOTAL_MATCHES"),

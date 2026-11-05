@@ -33,6 +33,11 @@ def load_tables(handler, bucket_name):
 
 def run_transformation(tb_atp_rankings, tb_date, tb_players):
     try:
+        player_ids = tb_players.select(
+            "SK_PLAYER",
+            f.explode(f.split("COD_PLAYER_ID_ALL", ",")).alias("COD_PLAYER_ID"),
+        )
+
         df = (
             tb_atp_rankings.alias("r")
             .join(
@@ -40,16 +45,10 @@ def run_transformation(tb_atp_rankings, tb_date, tb_players):
                 f.col("r.DATE_WEEK_RANKING") == f.col("d.DATE_FORMATED"),
                 'left'
             )
-            .join(
-                tb_players.alias("p"),
-                ["COD_PLAYER_ID"],
-                'left'
-            )
+            .join(player_ids.alias("p"), ["COD_PLAYER_ID"], "left")
             .select(
                 f.col("d.SK_DATE").cast('string').alias("SK_DATE"),
                 f.col("p.SK_PLAYER"),
-                f.col("r.DES_PLAYER_NAME"),
-                f.col("r.COD_PLAYER_ID"),
                 f.col("r.NUM_PLAYER_RANK").cast("int").alias("NUM_PLAYER_RANK"),
                 f.col("r.NUM_PLAYER_RANK_PTS").cast('int').alias("NUM_PLAYER_RANK_PTS"),
                 f.col("r.NUM_PLAYER_LE_PTS").alias("NUM_PLAYER_LE_PTS"),
@@ -57,8 +56,7 @@ def run_transformation(tb_atp_rankings, tb_date, tb_players):
                 f.col("r.NUM_PLAYER_NEXT_BEST").alias("NUM_PLAYER_NEXT_BEST"),
                 f.lit(f.current_date()).alias("DATE_LOAD")
             )
-            # .dropDuplicates(["SK_PLAYER", "SK_DATE"])
-            # .where("SK_PLAYER IS NOT NULL")
+            .where("SK_PLAYER IS NOT NULL")
         )
         logger.info("fact_player_ranking transformation completed")
         return df
