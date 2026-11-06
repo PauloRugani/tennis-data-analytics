@@ -16,22 +16,17 @@ def load_tables(handler, bucket_name):
             path=f"s3a://{bucket_name}/silver/tb_atp_rankings/",
             format="parquet"
         )
-        tb_date = handler.load_data(
-            spark=handler.spark,
-            path=f"s3a://{bucket_name}/gold/dimension/dim_date/",
-            format="parquet"
-        )
         tb_players = handler.load_data(
             spark=handler.spark,
             path=f"s3a://{bucket_name}/gold/dimension/dim_players/",
             format="parquet"
         )
-        return tb_atp_rankings, tb_date, tb_players
+        return tb_atp_rankings, tb_players
     except Exception as e:
         logger.error(f"Failed to load fact_player_ranking source tables: {e}")
         raise
 
-def run_transformation(tb_atp_rankings, tb_date, tb_players):
+def run_transformation(tb_atp_rankings, tb_players):
     try:
         player_ids = tb_players.select(
             "SK_PLAYER",
@@ -40,14 +35,9 @@ def run_transformation(tb_atp_rankings, tb_date, tb_players):
 
         df = (
             tb_atp_rankings.alias("r")
-            .join(
-                tb_date.alias("d"),
-                f.col("r.DATE_WEEK_RANKING") == f.col("d.DATE_FORMATED"),
-                'left'
-            )
             .join(player_ids.alias("p"), ["COD_PLAYER_ID"], "left")
             .select(
-                f.col("d.SK_DATE").cast('string').alias("SK_DATE"),
+                f.date_format(f.to_date(f.col("r.DATE_WEEK_RANKING")), "yyyyMMdd").alias("SK_DATE"),
                 f.col("p.SK_PLAYER"),
                 f.col("r.NUM_PLAYER_RANK").cast("int").alias("NUM_PLAYER_RANK"),
                 f.col("r.NUM_PLAYER_RANK_PTS").cast('int').alias("NUM_PLAYER_RANK_PTS"),
@@ -104,8 +94,8 @@ def run(conn_vars: dict = None):
         jdbc_user = conn_vars.get("jdbc_user")
         jdbc_password = conn_vars.get("jdbc_password")
 
-        tb_atp_rankings, tb_date, tb_players = load_tables(handler, bucket_name)
-        df_final = run_transformation(tb_atp_rankings, tb_date, tb_players)
+        tb_atp_rankings, tb_players = load_tables(handler, bucket_name)
+        df_final = run_transformation(tb_atp_rankings, tb_players)
         save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
         logger.info("Finished fact_player_ranking run")
     finally:
