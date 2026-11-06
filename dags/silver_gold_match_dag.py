@@ -44,12 +44,6 @@ def run_silver_gold():
     @task_group(group_id='silver')
     def run_silver(connection_vars):
         @task
-        def run_matches(conn_vars):
-            logger.info("Starting silver matches task")
-            from src.silver import tb_atp_matches
-            tb_atp_matches.run(conn_vars)
-
-        @task
         def run_player_match(conn_vars):
             logger.info("Starting silver player_match task")
             from src.silver import tb_atp_player_match
@@ -67,7 +61,6 @@ def run_silver_gold():
             from src.silver import tb_atp_tournaments
             tb_atp_tournaments.run(conn_vars)
 
-        task_run_matches = run_matches(connection_vars)
         task_run_player_match = run_player_match(connection_vars)
         task_run_players = run_players(connection_vars)
         task_run_tournaments = run_tournaments(connection_vars)
