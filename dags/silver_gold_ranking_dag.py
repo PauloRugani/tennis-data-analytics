@@ -62,6 +62,16 @@ def run_silver_gold():
             )
             hook.run("CREATE SCHEMA IF NOT EXISTS gold;")
 
+        @task_group(group_id='dimension')
+        def run_dimension(connection_vars):
+            @task
+            def run_dim_players(conn_vars):
+                logger.info("Starting dim_players task")
+                from src.gold.dimension import dim_players
+                dim_players.run(conn_vars)
+
+            run_dim_players(connection_vars)
+
         @task_group(group_id='fact')
         def run_fact(connection_vars):
             @task
@@ -81,7 +91,7 @@ def run_silver_gold():
                     postgres_conn_id="POSTGRES_CONNECTION"
                 )
                 hook.run("""
-                            CREATE OR REPLACE VIEW gold.vw_fact_player_ranking AS 
+                            CREATE OR REPLACE VIEW gold.vw_fact_player_ranking AS fact_player_ranking 
                             SELECT * FROM gold.fact_player_ranking;
                         """
                         )
@@ -89,10 +99,11 @@ def run_silver_gold():
             run_create_fact_view()
 
         task_setup_database = setup_database()
+        task_run_dimension = run_dimension(connection_vars)
         task_run_fact = run_fact(connection_vars)
         task_run_create_view = run_create_view()
-        
-        task_setup_database  >> task_run_fact >> task_run_create_view
+
+        task_setup_database >> task_run_dimension >> task_run_fact >> task_run_create_view
 
     task_run_silver = run_silver(connection_vars) 
     task_run_gold = run_gold(connection_vars)
