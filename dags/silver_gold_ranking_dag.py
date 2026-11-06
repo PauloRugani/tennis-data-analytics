@@ -91,7 +91,7 @@ def run_silver_gold():
                     postgres_conn_id="POSTGRES_CONNECTION"
                 )
                 hook.run("""
-                            CREATE OR REPLACE VIEW gold.vw_fact_player_ranking AS fact_player_ranking 
+                            CREATE OR REPLACE VIEW gold.vw_fact_player_ranking
                             SELECT * FROM gold.fact_player_ranking;
                         """
                         )
