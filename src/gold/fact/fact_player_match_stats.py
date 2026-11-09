@@ -21,54 +21,32 @@ def load_tables(handler, bucket_name):
             path=f"s3a://{bucket_name}/gold/dimension/dim_tournaments/",
             format="parquet"
         )
-        tb_date = handler.load_data(
-            spark=handler.spark,
-            path=f"s3a://{bucket_name}/gold/dimension/dim_date/",
-            format="parquet"
-        )
         tb_players = handler.load_data(
             spark=handler.spark,
             path=f"s3a://{bucket_name}/gold/dimension/dim_players/",
             format="parquet"
         )
-        return tb_player_match, tb_tournaments, tb_date, tb_players
+        return tb_player_match, tb_tournaments, tb_players
     except Exception as e:
         logger.error(f"Failed to load fact_player_match_stats source tables: {e}")
         raise
 
-def run_transformation(tb_player_match, tb_tournaments, tb_date, tb_players):
+def run_transformation(tb_player_match, tb_tournaments, tb_players):
     try:
+        player_ids = tb_players.select(
+            "SK_PLAYER",
+            f.explode(f.split("COD_PLAYER_ID_ALL", ",")).alias("COD_PLAYER_ID"),
+        )
+
         df = (
             tb_player_match.alias("p_m")
-            .join(tb_tournaments.alias("t"), f.expr("p_m.COD_TOURNEY_ID <=> t.COD_TOURNEY_ID"), 'left')
-            .join(
-                tb_players.alias("pw"),
-                (f.col("p_m.COD_PLAYER_ID").cast("string") == f.col("pw.COD_PLAYER_ID").cast("string"))
-                | (
-                    f.col("p_m.COD_PLAYER_ID").cast("string")
-                    == f.col("pw.COD_PLAYER_ID_OLD").cast("string")
-                ),
-                "left",
-            )
-            .join(
-                tb_players.alias("po"),
-                (f.col("p_m.COD_PLAYER_OPPONENT_ID").cast("string") == f.col("po.COD_PLAYER_ID").cast("string"))
-                | (
-                    f.col("p_m.COD_PLAYER_OPPONENT_ID").cast("string")
-                    == f.col("po.COD_PLAYER_ID_OLD").cast("string")
-                ),
-                "left",
-            )
-            .join(
-                tb_date.alias("d"),
-                f.col("p_m.DATE_MATCH") == f.col("d.DATE")
-            )
+            .join(tb_tournaments.alias("t"), ["COD_TOURNEY_ID", "REF_YEAR"], 'left')
+            .join(player_ids.alias("pw"), ["COD_PLAYER_ID"], "left")
             .select(
                 f.col("p_m.COD_MATCH_ID"),
                 f.col("pw.SK_PLAYER"),
-                f.col("po.SK_PLAYER").alias("SK_PLAYER_OPPONENT"),
                 f.col("t.SK_TOURNEY"),
-                f.col("d.SK_DATE").cast("string").alias("SK_DATE"),
+                f.date_format(f.to_date(f.col("p_m.DATE_MATCH")), "yyyyMMdd").alias("SK_DATE"),
                 
                 f.col("p_m.FLAG_PLAYER_IS_WINNER").alias("FLAG_PLAYER_IS_WINNER"),
                 f.coalesce(f.col("p_m.NUM_MATCH"), f.lit(0)).alias("NUM_MATCH"),
@@ -136,8 +114,8 @@ def run(conn_vars: dict = None):
         jdbc_user = conn_vars.get("jdbc_user")
         jdbc_password = conn_vars.get("jdbc_password")
         
-        tb_player_match, tb_tournaments, tb_date, tb_players = load_tables(handler, bucket_name)
-        df_final = run_transformation(tb_player_match, tb_tournaments, tb_date, tb_players)
+        tb_player_match, tb_tournaments, tb_players = load_tables(handler, bucket_name)
+        df_final = run_transformation(tb_player_match, tb_tournaments, tb_players)
         save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
         logger.info("Finished fact_player_match_stats run")
     finally:

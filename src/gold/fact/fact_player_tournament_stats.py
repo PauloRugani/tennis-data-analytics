@@ -54,12 +54,10 @@ def run_transformation(tb_player_match, tb_tournaments, tb_entry, tb_players):
 
         tourney_stats = (
             tb_player_match
-            .groupBy("COD_TOURNEY_ID", "COD_PLAYER_ID")
+            .groupBy("COD_TOURNEY_ID", "REF_YEAR", "COD_PLAYER_ID")
             .agg(
                 f.first("COD_PLAYER_ENTRY").alias("COD_PLAYER_ENTRY"),
                 f.coalesce(f.first("NUM_PLAYER_SEED").cast('int'), f.lit(-1)).alias("NUM_PLAYER_SEED"),
-                f.coalesce(f.first("NUM_PLAYER_RANK_PTS").cast('int'), f.lit(0)).alias("NUM_PLAYER_RANK_PTS"),
-                f.coalesce(f.first("NUM_PLAYER_RANK").cast('int'), f.lit(0)).alias("NUM_PLAYER_RANK"),
                 f.max(
                     f.when((f.col("DES_MATCH_ROUND") == "F") & (f.col("FLAG_PLAYER_IS_WINNER") == True), 1).otherwise(0)
                 ).alias("FLAG_IS_CHAMPION"),
@@ -80,28 +78,25 @@ def run_transformation(tb_player_match, tb_tournaments, tb_entry, tb_players):
             )
         )
 
+        player_ids = tb_players.select(
+            "SK_PLAYER",
+            f.explode(f.split("COD_PLAYER_ID_ALL", ",")).alias("COD_PLAYER_ID"),
+        )
+
         df = (
             tourney_stats.alias("s")
-            .join(tb_tournaments.alias("t"), f.expr("s.COD_TOURNEY_ID <=> t.COD_TOURNEY_ID"), 'left')
-            .join(
-                tb_players.alias("p"),
-                (f.col("s.COD_PLAYER_ID").cast("string") == f.col("p.COD_PLAYER_ID").cast("string"))
-                | (
-                    f.col("s.COD_PLAYER_ID").cast("string")
-                    == f.col("p.COD_PLAYER_ID_OLD").cast("string")
-                ),
-                "left",
-            )
-            .join(tb_entry.alias("e"), f.expr("s.COD_PLAYER_ENTRY <=> e.COD_PLAYER_ENTRY"), 'left')
-            .withColumn("SK_DATE", f.concat(f.substring(f.col("s.COD_TOURNEY_ID"), 1, 4), f.lit('0101')))
+            
+            .join(tb_tournaments.alias("t"), ["COD_TOURNEY_ID", "REF_YEAR"], 'left')
+            .join(player_ids.alias("p"), ["COD_PLAYER_ID"], "left")
+            .join(tb_entry.alias("e"), ["COD_PLAYER_ENTRY"], 'left')
+
+            .withColumn("SK_DATE", f.concat(f.col("s.REF_YEAR"), f.lit('0101')))
             .select(
                 f.col("p.SK_PLAYER"),
                 f.col("t.SK_TOURNEY"),
                 f.col("e.SK_ENTRY_TYPE"),
                 f.col("SK_DATE"),
                 f.col("s.NUM_PLAYER_SEED"),
-                f.col("s.NUM_PLAYER_RANK_PTS"),
-                f.col("s.NUM_PLAYER_RANK"),
                 f.col("s.FLAG_IS_CHAMPION"),
                 f.col("s.DES_LAST_ROUND_PLAYED"),
                 f.col("s.NUM_TOTAL_MATCHES"),

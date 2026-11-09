@@ -16,46 +16,37 @@ def load_tables(handler, bucket_name):
             path=f"s3a://{bucket_name}/silver/tb_atp_rankings/",
             format="parquet"
         )
-        tb_date = handler.load_data(
-            spark=handler.spark,
-            path=f"s3a://{bucket_name}/gold/dimension/dim_date/",
-            format="parquet"
-        )
         tb_players = handler.load_data(
             spark=handler.spark,
             path=f"s3a://{bucket_name}/gold/dimension/dim_players/",
             format="parquet"
         )
-        return tb_atp_rankings, tb_date, tb_players
+        return tb_atp_rankings, tb_players
     except Exception as e:
         logger.error(f"Failed to load fact_player_ranking source tables: {e}")
         raise
 
-def run_transformation(tb_atp_rankings, tb_date, tb_players):
+def run_transformation(tb_atp_rankings, tb_players):
     try:
+        player_ids = tb_players.select(
+            "SK_PLAYER",
+            f.explode(f.split("COD_PLAYER_ID_ALL", ",")).alias("COD_PLAYER_ID"),
+        )
+
         df = (
             tb_atp_rankings.alias("r")
-            .join(
-                tb_date.alias("d"),
-                f.col("r.DATE_WEEK_RANKING") == f.col("d.DATE"),
-                'inner'
-            )
-            .join(
-                tb_players.alias("p"),
-                f.initcap(f.trim(f.regexp_replace(f.col("r.DES_PLAYER_NAME"), "-", " "))) == f.col("p.DES_PLAYER_NAME"),
-                'inner'
-            )
+            .join(player_ids.alias("p"), ["COD_PLAYER_ID"], "left")
             .select(
-                f.col("d.SK_DATE").cast('string').alias("SK_DATE"),
-                "p.SK_PLAYER",
+                f.date_format(f.to_date(f.col("r.DATE_WEEK_RANKING")), "yyyyMMdd").alias("SK_DATE"),
+                f.col("p.SK_PLAYER"),
                 f.col("r.NUM_PLAYER_RANK").cast("int").alias("NUM_PLAYER_RANK"),
                 f.col("r.NUM_PLAYER_RANK_PTS").cast('int').alias("NUM_PLAYER_RANK_PTS"),
-                "r.NUM_PLAYER_LE_PTS",
-                "r.NUM_PLAYER_DROP_PTS",
-                "r.NUM_PLAYER_NEXT_BEST",
+                f.col("r.NUM_PLAYER_LE_PTS").alias("NUM_PLAYER_LE_PTS"),
+                f.col("r.NUM_PLAYER_DROP_PTS").alias("NUM_PLAYER_DROP_PTS"),
+                f.col("r.NUM_PLAYER_NEXT_BEST").alias("NUM_PLAYER_NEXT_BEST"),
                 f.lit(f.current_date()).alias("DATE_LOAD")
             )
-            .dropDuplicates(["SK_PLAYER", "SK_DATE"])
+            .where("SK_PLAYER IS NOT NULL")
         )
         logger.info("fact_player_ranking transformation completed")
         return df
@@ -103,8 +94,8 @@ def run(conn_vars: dict = None):
         jdbc_user = conn_vars.get("jdbc_user")
         jdbc_password = conn_vars.get("jdbc_password")
 
-        tb_atp_rankings, tb_date, tb_players = load_tables(handler, bucket_name)
-        df_final = run_transformation(tb_atp_rankings, tb_date, tb_players)
+        tb_atp_rankings, tb_players = load_tables(handler, bucket_name)
+        df_final = run_transformation(tb_atp_rankings, tb_players)
         save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
         logger.info("Finished fact_player_ranking run")
     finally:

@@ -41,12 +41,12 @@ def run_transformation(tb_player_match):
                 .when(f.col("COD_PLAYER_ENTRY") == "PR", f.lit("Protected Ranking"))
                 .when(f.col("COD_PLAYER_ENTRY") == "S", f.lit("Exempt Special / Special"))
                 .when(f.col("COD_PLAYER_ENTRY") == "NG", f.lit("Next Gen Accelerator"))
-                .otherwise(f.lit("Direct Acceptance / Regular"))
+                .when(f.col("COD_PLAYER_ENTRY") == "ALT", f.lit("Alternate"))
+                .when(f.col("COD_PLAYER_ENTRY") == "DA", f.lit("Direct Acceptance / Regular"))
+                .otherwise(f.lit("Unknown"))
             )
-            .distinct()
-            .withColumn("SK_ENTRY_TYPE", f.monotonically_increasing_id() + 1)
             .select(
-                f.col("SK_ENTRY_TYPE"),
+                f.md5(f.col("COD_PLAYER_ENTRY")).alias("SK_ENTRY_TYPE"),
                 f.col("COD_PLAYER_ENTRY"),
                 f.col("DES_ENTRY_TYPE"),
                 f.lit(f.current_date()).alias("DATE_LOAD")

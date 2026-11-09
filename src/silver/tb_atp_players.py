@@ -13,97 +13,36 @@ logger = get_logger(__name__)
 def load_tables(handler, bucket_name):
     try:
         logger.info("Loading silver players source table...")
-        tb_atp_matches = handler.load_data(
+        tb_atp_players = handler.load_data(
             spark=handler.spark,
-            path=f"s3a://{bucket_name}/bronze/tb_atp_matches/",
+            path=f"s3a://{bucket_name}/bronze/tb_atp_players/",
             format="parquet"
         )
-        return tb_atp_matches
+        return tb_atp_players
     except Exception as e:
         logger.error(f"Failed to load silver players source table: {e}")
         raise
 
-def run_transformation(tb_atp_matches):
+def run_transformation(tb_atp_players):
     try:
-        final_tb_atp_matches = (
-            tb_atp_matches 
-            .withColumn(
-                "PLAYER",
-                f.when(
-                    f.col("winner_name").contains("Shevchenko"), "Aleksandr Shevchenko"
-                ).otherwise(f.col("winner_name"))
-            )
-            .withColumn(
-                "loser_name",
-                f.when(
-                    f.col("loser_name").contains("Shevchenko"), "Aleksandr Shevchenko"
-                ).otherwise(f.col("loser_name"))
-            )
-        )
-
-        window_winner_name = Window.partitionBy("winner_name")  
-
-        winners = (
-            final_tb_atp_matches 
-            .select(
-                f.coalesce(
-                    f.col("winner_id"),
-                    f.first("winner_id", ignorenulls=True).over(window_winner_name)
-                ).cast("string").alias("COD_PLAYER_ID"),
-                f.col("winner_name").alias("DES_PLAYER_NAME"),
-                f.col("winner_hand").alias("DES_PLAYER_HAND"),
-                f.col("winner_ht").cast('int').alias("NUM_PLAYER_HEIGHT"),
-                f.col("winner_ioc").alias("DES_PLAYER_COUNTRY"),
-                f.date_format(f.to_date(f.col("tourney_date").cast("string"), "yyyyMMdd"), "yyyy-MM-dd").alias("DATE_MATCH"),
-                f.col("winner_age").cast("double").alias("NUM_PLAYER_AGE"),
-
-                f.col("DATE_INGESTION")
-            )
-            .distinct()
-        )
-
-        window_loser_name = Window.partitionBy("loser_name")  
-
-        losers = (
-            final_tb_atp_matches 
-            .select(
-                f.coalesce(
-                    f.col("loser_id"),
-                    f.first("loser_id", ignorenulls=True).over(window_loser_name)
-                ).cast("string").alias("COD_PLAYER_ID"),
-                f.col("loser_name").alias("DES_PLAYER_NAME"),
-                f.col("loser_hand").alias("DES_PLAYER_HAND"),
-                f.col("loser_ht").cast("int").alias("NUM_PLAYER_HEIGHT"),
-                f.col("loser_ioc").alias("DES_PLAYER_COUNTRY"),
-                f.date_format(f.to_date(f.col("tourney_date").cast("string"), "yyyyMMdd"), "yyyy-MM-dd").alias("DATE_MATCH"),
-                f.col("loser_age").cast("double").alias("NUM_PLAYER_AGE"),
-
-                f.col("DATE_INGESTION")
-            )
-        )
-
-        window_spec = Window.partitionBy("COD_PLAYER_ID").orderBy(f.col("DATE_MATCH").desc())
 
         df = (
-            winners.unionByName(losers)
-            .withColumn(
-                "DATE_PLAYER_BIRTH",
-                f.expr("date_sub(DATE_MATCH, cast(NUM_PLAYER_AGE * 365.25 as int))")
-            )
-            .withColumn("row_num", f.row_number().over(window_spec))
-            .filter(f.col("row_num") == 1)
-
-            .groupBy("COD_PLAYER_ID")
-            .agg(
-                f.first("DES_PLAYER_NAME").alias("DES_PLAYER_NAME"),
-                f.first("DES_PLAYER_HAND").alias("DES_PLAYER_HAND"),
-                f.first("NUM_PLAYER_HEIGHT").alias("NUM_PLAYER_HEIGHT"),
-                f.first("DES_PLAYER_COUNTRY").alias("DES_PLAYER_COUNTRY"),
-                f.first("DATE_PLAYER_BIRTH").alias("DATE_PLAYER_BIRTH"),
-
-                f.first("DATE_INGESTION").alias("DATE_INGESTION")
+            tb_atp_players
+            .select(
+                f.col("id").alias("COD_PLAYER_ID"),
+                f.col("player").alias("DES_PLAYER_NAME"),
+                f.col("atpname").alias("DES_PLAYER_ATP_NAME"),
+                f.date_format(f.to_date(f.col("birthdate"), 'yyyyMMdd'), 'yyyy-MM-dd').alias("DATE_PLAYER_BIRTHDATE"),
+                f.coalesce(f.col("height"), f.lit(-1)).alias("NUM_PLAYER_HEIGHT"),
+                f.col("turnedpro").alias("DATE_PLAYER_TURNED_PRO_YEAR"),
+                f.coalesce(f.col("birthplace"), f.lit("-")).alias("DES_PLAYER_BIRTH_PLACE"),
+                f.coalesce(f.col("coaches"), f.lit("-")).alias("DES_PLAYER_COACHES"),
+                f.coalesce(f.col("hand"), f.lit("-")).alias("DES_PLAYER_HAND"),
+                f.coalesce(f.col("backhand"), f.lit("-")).alias("DES_PLAYER_BACKHAND_TYPE"),
+                f.coalesce(f.col("ioc"), f.lit("N/A")).alias("DES_PLAYER_COUNTRY"),
             )
         )
+
         logger.info("Silver players transformation completed")
         return df
     except Exception as e:
@@ -133,8 +72,8 @@ def run(conn_vars: dict = None):
             bucket_secret_key=conn_vars.get("bucket_secret_key")
         )
         bucket_name = conn_vars.get("bucket_name")
-        tb_atp_matches = load_tables(handler, bucket_name)
-        df_final = run_transformation(tb_atp_matches)
+        tb_atp_players = load_tables(handler, bucket_name)
+        df_final = run_transformation(tb_atp_players)
         save_table(handler, df_final, bucket_name)
         logger.info("Finished silver players run")
     finally:

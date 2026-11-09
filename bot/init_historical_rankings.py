@@ -11,7 +11,7 @@ from curl_cffi import requests
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-def get_mondays_of_year(year: int):
+def get_mondays_of_year(year: int): 
     mondays = []
     d = datetime(year, 1, 1)
     while d.weekday() != 0:
@@ -83,8 +83,14 @@ def extract_historical_rankings():
 
             if len(cells) >= 8:
                 player_anchor = tds[1].select_one(".player-cell a, a")
+                player_id = ""
+
                 if player_anchor:
                     clean_player = player_anchor.get_text(strip=True)
+                    href = player_anchor.get("href", "")
+                    match = re.search(r"/players/[^/]+/([a-zA-Z0-9]+)/", href)
+                    if match:
+                        player_id = match.group(1)
                 else:
                     raw_player = cells[1].split("\n")[-1].strip()
                     clean_player = re.sub(r"^[+-]?\d+", "", raw_player).strip()
@@ -94,8 +100,9 @@ def extract_historical_rankings():
                         "date": target_date,
                         "rank": cells[0],
                         "name": clean_player,
-                        "age": cells[2],
+                        "id": player_id.upper(),
                         "points": cells[3],
+                        "age": cells[2],
                         "lost_earned_points": cells[4],
                         "tourn_played": cells[5],
                         "dropping": cells[6],
