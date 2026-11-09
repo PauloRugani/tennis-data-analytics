@@ -25,7 +25,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.VM_HOST }}
           REMOTE_USER: ${{ secrets.VM_USER }}
           SOURCE: "dags/"
-          TARGET: "/root/lakehouse-stack/dags/"
+          TARGET: "/root/lakehouse-stack/airflow/dags/"
           EXCLUDE: "/__pycache__/"
 
       - name: Sync bot/
@@ -35,7 +35,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.VM_HOST }}
           REMOTE_USER: ${{ secrets.VM_USER }}
           SOURCE: "bot/"
-          TARGET: "/root/lakehouse-stack/bot/"
+          TARGET: "/root/lakehouse-stack/airflow/bot/"
           EXCLUDE: "/__pycache__/"
 
       - name: Sync src/
@@ -45,5 +45,5 @@ jobs:
           REMOTE_HOST: ${{ secrets.VM_HOST }}
           REMOTE_USER: ${{ secrets.VM_USER }}
           SOURCE: "src/"
-          TARGET: "/root/lakehouse-stack/src/"
+          TARGET: "/root/lakehouse-stack/airflow/src/"
           EXCLUDE: "/__pycache__/"
