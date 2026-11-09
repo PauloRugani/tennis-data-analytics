@@ -40,7 +40,6 @@ def load_tables(handler, bucket_name):
         raise
 
 def group_ids(id_pairs):
-    """Agrupa pares de IDs equivalentes (A=B, B=C -> A,B,C) e devolve {id: id_do_grupo}."""
     parent = {}
 
     def find(player_id):
@@ -57,12 +56,6 @@ def group_ids(id_pairs):
     return {player_id: find(player_id) for player_id in list(parent)}
 
 def find_same_player_pairs(id_names, id_profile):
-    """
-    Decide quais IDs com o mesmo nome são o mesmo jogador. A única troca de ID real é do formato
-    numérico (antigo) para o alfanumérico (novo), então um jogador tem no máximo 1 ID de cada
-    formato: dois IDs do mesmo formato são sempre jogadores diferentes, mesmo com nome igual e
-    nascimento próximo. A dupla é descartada se algo a contradiz.
-    """
     is_legacy_id = f.col("COD_PLAYER_ID").rlike(r"^\d+$")
     is_synthetic_id = f.col("COD_PLAYER_ID").startswith(SYNTHETIC_ID_PREFIX)
     real_names = id_names.where(~is_synthetic_id)
@@ -87,7 +80,6 @@ def find_same_player_pairs(id_names, id_profile):
         f.coalesce(f.col("A_BIRTHDATE"), f.col("B_BIRTHDATE")),
     ) / 365.25
 
-    # Períodos de atividade sobrepostos => duas pessoas ativas ao mesmo tempo (gap <= 0)
     contradiction = (
         f.coalesce(f.col("A_BIRTHDATE") != f.col("B_BIRTHDATE"), f.lit(False))
         | f.coalesce(f.col("A_COUNTRY_KEY") != f.col("B_COUNTRY_KEY"), f.lit(False))
@@ -95,8 +87,6 @@ def find_same_player_pairs(id_names, id_profile):
         | f.coalesce(age_at_last_activity > MAX_ACTIVE_AGE_YEARS, f.lit(False))
     )
 
-    # A ligação é 1 para 1. Descartadas as contradições, se sobrar um único par possível ele é unido.
-    # Se ainda houver empate não há como saber de quem é o ID, e todos ficam separados.
     real_pairs = (
         candidates.where(~contradiction)
         .withColumn("QTY_NEW_IDS", f.count("*").over(Window.partitionBy("ID_A")))
@@ -105,7 +95,6 @@ def find_same_player_pairs(id_names, id_profile):
         .select("ID_A", "ID_B")
     )
 
-    # ID sintético não tem atributos para comparar: só é unido quando o nome aponta para um único ID real
     real_id_by_name = (
         real_names.groupBy("NAME_KEY")
         .agg(f.count_distinct("COD_PLAYER_ID").alias("QTY"), f.first("COD_PLAYER_ID").alias("ID_B"))
@@ -165,7 +154,6 @@ def run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings):
         country_code = f.upper(f.trim(f.col("DES_PLAYER_COUNTRY")))
         country_key = without_placeholder(f.coalesce(mapping_expr[country_code], country_code), "Unk")
 
-        # Silver usa -1, "-" e "N/A" para ausência de valor: aqui viram null para o coalesce achar o valor real
         registry = (
             tb_players
             .select(
@@ -203,7 +191,6 @@ def run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings):
             .agg(f.min("ACTIVITY_DATE").alias("FIRST_ACTIVITY"), f.max("ACTIVITY_DATE").alias("LAST_ACTIVITY"))
         )
 
-        # Todos os nomes de cada ID. PRIORITY: cadastro > partidas > ranking
         name_observations = (
             tb_players.select("COD_PLAYER_ID", f.col("DES_PLAYER_NAME"), f.lit(1).alias("PRIORITY"), f.lit(1).alias("QTY"))
             .unionByName(tb_players.select("COD_PLAYER_ID", f.col("DES_PLAYER_ATP_NAME").alias("DES_PLAYER_NAME"), f.lit(2).alias("PRIORITY"), f.lit(1).alias("QTY")))
@@ -214,7 +201,6 @@ def run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings):
             .where(f.col("NAME_KEY") != "")
         )
 
-        # Placeholders não são nome: o ID que só tem placeholder recebe "Unknown-<ID>" no final
         best_name = (
             name_observations
             .where(~f.col("NAME_KEY").isin(PLACEHOLDER_NAME_KEYS))
@@ -223,7 +209,6 @@ def run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings):
             .select("COD_PLAYER_ID", normalize_player_name(f.col("DES_PLAYER_NAME")).alias("DES_PLAYER_NAME"))
         )
 
-        # Uma linha por ID encontrado em qualquer uma das 3 tabelas
         id_profile = (
             name_observations.select("COD_PLAYER_ID").distinct()
             .join(best_name, "COD_PLAYER_ID", "left")
@@ -252,7 +237,6 @@ def run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings):
         group_schema = "COD_PLAYER_ID string, PLAYER_GROUP string"
         id_to_group = tb_players.sparkSession.createDataFrame(list(same_player_groups.items()), group_schema)
 
-        # Ordem de preferência do ID atual: formato novo > numérico > sintético; depois o mais recente
         is_synthetic = f.col("COD_PLAYER_ID").startswith(SYNTHETIC_ID_PREFIX)
         is_numeric = f.col("COD_PLAYER_ID").rlike(r"^\d+$")
         group_order = Window.partitionBy("PLAYER_GROUP").orderBy(
@@ -285,7 +269,6 @@ def run_transformation(tb_players, tb_atp_player_match, tb_atp_rankings):
             .withColumn("DES_PLAYER_BACKHAND_TYPE", first_known("DES_PLAYER_BACKHAND_TYPE"))
             .withColumn("DES_PLAYER_COUNTRY", f.coalesce(first_known("DES_PLAYER_COUNTRY"), f.lit("N/A")))
             .where(f.col("RN") == 1)
-            # A fonte preenche o nascimento dos placeholders com uma data padrão (1970-01-01), que não é real
             .withColumn("DATE_PLAYER_BIRTHDATE", f.when(f.col("DES_PLAYER_NAME").isNotNull(), f.col("DATE_PLAYER_BIRTHDATE")))
             .withColumn("DES_PLAYER_NAME", f.coalesce(f.col("DES_PLAYER_NAME"), unknown_player_name))
             .withColumn(

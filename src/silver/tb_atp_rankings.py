@@ -33,9 +33,6 @@ def run_transformation(tb_atp_rankings):
             .withColumn("NAME_KEY", player_name_key(f.col("name")))
             .withColumn(
                 "COD_PLAYER_ID",
-                # Sem ID: herda o ID do nome apenas se ele for único (nome com mais de um ID
-                # pode ser homônimo). Caso contrário recebe um ID sintético determinístico,
-                # para o jogador continuar existindo na dimensão e nas fatos.
                 f.coalesce(
                     f.col("id"),
                     f.when(f.size(ids_do_nome) == 1, ids_do_nome.getItem(0)),
