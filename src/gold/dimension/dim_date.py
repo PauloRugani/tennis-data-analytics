@@ -2,6 +2,7 @@ import os
 import sys
 from datetime import datetime
 from pyspark.sql import functions as f
+from pyspark.sql.window import Window
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from src.utils.pyspark_handler import PySparkHandler
 from src.utils.logger import get_logger
@@ -9,7 +10,20 @@ from src.utils.logger import get_logger
 os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
 logger = get_logger(__name__)
 
-def run_transformation(handler):
+def load_tables(handler, bucket_name):
+    try:
+        logger.info("Loading dim_date source tables...")
+        tb_rankings = handler.load_data(
+            spark=handler.spark,
+            path=f"s3a://{bucket_name}/silver/tb_atp_rankings/",
+            format="parquet"
+        )
+        return tb_rankings
+    except Exception as e:
+        logger.error(f"Failed to load dim_date source tables: {e}")
+        raise
+
+def run_transformation(handler, tb_rankings):
     try:
         start_date = '1960-01-01'
         end_date = datetime.now().strftime('%Y-%m-%d')
@@ -26,8 +40,23 @@ def run_transformation(handler):
             .select(f.explode("DATE").alias("DATE_FORMATED"))
         )
 
+        # Datas em que a ATP publicou ranking (nem toda semana tem: dados antigos e 2020)
+        ranking_dates = (
+            tb_rankings
+            .select(f.to_date(f.col("DATE_WEEK_RANKING")).alias("DATE_FORMATED"))
+            .distinct()
+            .withColumn("DATE_PUBLISHED", f.col("DATE_FORMATED"))
+        )
+
+        # Para cada dia, o ultimo ranking publicado ate aquele dia
+        window_ranking = (
+            Window.orderBy("DATE_FORMATED")
+            .rowsBetween(Window.unboundedPreceding, Window.currentRow)
+        )
+
         df = (
             df_date
+            .join(ranking_dates, ["DATE_FORMATED"], "left")
             .withColumn("SK_DATE", f.date_format("DATE_FORMATED", "yyyyMMdd").cast("string"))
             .withColumn("NUM_YEAR", f.year("DATE_FORMATED"))
             .withColumn("NUM_MONTH", f.month("DATE_FORMATED"))
@@ -35,8 +64,11 @@ def run_transformation(handler):
             .withColumn("DES_MONTH_SHORT", f.date_format("DATE_FORMATED", "MMM"))
             .withColumn("NUM_DAY", f.dayofmonth("DATE_FORMATED"))
             .withColumn("DES_DAY", f.date_format("DATE_FORMATED", "EEEE"))
-            .withColumn("DATE_RANKING", f.to_date(f.date_trunc("week", f.col("DATE_FORMATED"))))
+            .withColumn("DATE_RANKING", f.last("DATE_PUBLISHED", ignorenulls=True).over(window_ranking))
+            .withColumn("SK_DATE_RANKING", f.date_format("DATE_RANKING", "yyyyMMdd").cast("string"))
             .withColumn("DATE_LOAD", f.lit(f.current_date()))
+            .drop("DATE_PUBLISHED")
+            .orderBy("DATE_FORMATED")
         )
         logger.info("dim_date transformation completed")
         return df
@@ -84,7 +116,8 @@ def run(conn_vars: dict = None):
         jdbc_user = conn_vars.get("jdbc_user")
         jdbc_password = conn_vars.get("jdbc_password")
         
-        df_final = run_transformation(handler)
+        tb_rankings = load_tables(handler, bucket_name)
+        df_final = run_transformation(handler, tb_rankings)
         save_table(handler, df_final, bucket_name, jdbc_url, jdbc_user, jdbc_password)
         logger.info("Finished dim_date run")
     finally:

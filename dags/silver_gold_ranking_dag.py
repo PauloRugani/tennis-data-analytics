@@ -70,7 +70,14 @@ def run_silver_gold():
                 from src.gold.dimension import dim_players
                 dim_players.run(conn_vars)
 
+            @task
+            def run_dim_date(conn_vars):
+                logger.info("Starting dim_date task")
+                from src.gold.dimension import dim_date
+                dim_date.run(conn_vars)
+
             run_dim_players(connection_vars)
+            run_dim_date(connection_vars)
 
         @task_group(group_id='fact')
         def run_fact(connection_vars):
@@ -93,6 +100,12 @@ def run_silver_gold():
                 hook.run("""
                             CREATE OR REPLACE VIEW gold.vw_fact_player_ranking AS
                             SELECT * FROM gold.fact_player_ranking;
+                        """
+                        )
+                logger.info("Creating view vw_dim_date")
+                hook.run("""
+                            CREATE OR REPLACE VIEW gold.vw_dim_date AS
+                            SELECT * FROM gold.dim_date;
                         """
                         )
 

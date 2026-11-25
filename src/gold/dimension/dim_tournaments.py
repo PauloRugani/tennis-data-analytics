@@ -75,9 +75,7 @@ def run_transformation(atp_tournaments, atp_player_match):
                 .otherwise(f.lit("-"))
                 .alias("FLAG_TOURNEY_IS_INDOOR"),
                 f.col("DES_TOURNEY_STATUS"),
-                f.coalesce(f.col("DATE_TOURNEY_START"), f.lit("-")).alias(
-                    "DATE_TOURNEY_START"
-                ),
+                f.to_date(f.col("DATE_TOURNEY_START")).alias("DATE_TOURNEY_START"),
                 f.coalesce(f.col("t.REF_YEAR"), f.lit("-")).alias("REF_YEAR"),
                 f.lit(f.current_date()).alias("DATE_LOAD")
             )

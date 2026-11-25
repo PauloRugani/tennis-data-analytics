@@ -90,7 +90,13 @@ def run_transformation(tb_player_match, tb_tournaments, tb_entry, tb_players):
             .join(player_ids.alias("p"), ["COD_PLAYER_ID"], "left")
             .join(tb_entry.alias("e"), ["COD_PLAYER_ENTRY"], 'left')
 
-            .withColumn("SK_DATE", f.concat(f.col("s.REF_YEAR"), f.lit('0101')))
+            .withColumn(
+                "SK_DATE",
+                f.coalesce(
+                    f.date_format(f.to_date(f.col("t.DATE_TOURNEY_START")), "yyyyMMdd"),
+                    f.concat(f.col("s.REF_YEAR"), f.lit('0101'))
+                )
+            )
             .select(
                 f.col("p.SK_PLAYER"),
                 f.col("t.SK_TOURNEY"),
