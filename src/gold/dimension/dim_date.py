@@ -25,7 +25,7 @@ def load_tables(handler, bucket_name):
 
 def run_transformation(handler, tb_rankings):
     try:
-        start_date = '1960-01-01'
+        start_date = '196-01-01'
         end_date = datetime.now().strftime('%Y-%m-%d')
 
         df_date = (
